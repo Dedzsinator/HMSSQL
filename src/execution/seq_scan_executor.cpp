@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "execution/executors/seq_scan_executor.h"
+#include "../include/execution/executors/seq_scan_executor.h"
 
 namespace bustub {
 

@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "common/config.h"
+#include "../include/common/config.h"
 
 namespace bustub {
 

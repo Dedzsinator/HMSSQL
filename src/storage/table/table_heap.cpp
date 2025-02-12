@@ -12,9 +12,9 @@
 
 #include <cassert>
 
-#include "common/logger.h"
+#include "../include/common/logger.h"
 #include "fmt/format.h"
-#include "storage/table/table_heap.h"
+#include "../include/storage/table/table_heap.h"
 
 namespace bustub {
 

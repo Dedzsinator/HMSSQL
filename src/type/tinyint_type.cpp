@@ -15,8 +15,8 @@
 #include <iostream>
 #include <string>
 
-#include "common/exception.h"
-#include "type/tinyint_type.h"
+#include "../include/common/exception.h"
+#include "../include/type/tinyint_type.h"
 
 namespace bustub {
 #define TINYINT_COMPARE_FUNC(OP)                                          \

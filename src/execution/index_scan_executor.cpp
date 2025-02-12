@@ -9,8 +9,8 @@
 // Copyright (c) 2015-19, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
-#include "execution/executors/index_scan_executor.h"
-#include "execution/expressions/constant_value_expression.h"
+#include "../include/execution/executors/index_scan_executor.h"
+#include "../include/execution/expressions/constant_value_expression.h"
 
 
 namespace bustub {

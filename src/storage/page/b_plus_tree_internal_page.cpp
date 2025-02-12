@@ -12,8 +12,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "common/exception.h"
-#include "storage/page/b_plus_tree_internal_page.h"
+#include "../include/common/exception.h"
+#include "../include/storage/page/b_plus_tree_internal_page.h"
 
 namespace bustub {
 /*****************************************************************************

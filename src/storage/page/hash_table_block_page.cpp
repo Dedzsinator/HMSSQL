@@ -10,8 +10,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "storage/page/hash_table_block_page.h"
-#include "storage/index/generic_key.h"
+#include "../include/storage/page/hash_table_block_page.h"
+#include "../include/storage/index/generic_key.h"
 
 namespace bustub {
 

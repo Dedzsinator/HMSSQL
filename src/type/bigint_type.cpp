@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 
-#include "type/bigint_type.h"
+#include "../include/type/bigint_type.h"
 namespace bustub {
 #define BIGINT_COMPARE_FUNC(OP)                                           \
   switch (right.GetTypeId()) {                                            \

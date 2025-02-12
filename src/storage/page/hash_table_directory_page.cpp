@@ -10,10 +10,10 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "storage/page/hash_table_directory_page.h"
+#include "../include/storage/page/hash_table_directory_page.h"
 #include <algorithm>
 #include <unordered_map>
-#include "common/logger.h"
+#include "../include/common/logger.h"
 
 namespace bustub {
 auto HashTableDirectoryPage::GetPageId() const -> page_id_t { return page_id_; }

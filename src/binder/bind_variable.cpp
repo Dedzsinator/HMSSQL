@@ -1,10 +1,10 @@
 
 #include <memory>
-#include "binder/binder.h"
-#include "binder/bound_expression.h"
-#include "binder/expressions/bound_constant.h"
-#include "binder/statement/set_show_statement.h"
-#include "common/exception.h"
+#include "../include/binder/binder.h"
+#include "../include/binder/bound_expression.h"
+#include "../include/binder/expressions/bound_constant.h"
+#include "../include/binder/statement/set_show_statement.h"
+#include "../include/common/exception.h"
 namespace bustub {
 
 auto Binder::BindVariableSet(duckdb_libpgquery::PGVariableSetStmt *stmt) -> std::unique_ptr<VariableSetStatement> {

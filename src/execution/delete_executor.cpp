@@ -12,7 +12,7 @@
 
 #include <memory>
 
-#include "execution/executors/delete_executor.h"
+#include "../include/execution/executors/delete_executor.h"
 
 namespace bustub {
 

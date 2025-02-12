@@ -10,12 +10,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "type/timestamp_type.h"
+#include "../include/type/timestamp_type.h"
 #include <string>
 
-#include "type/boolean_type.h"
-#include "type/value_factory.h"
-#include "type/varlen_type.h"
+#include "../include/type/boolean_type.h"
+#include "../include/type/value_factory.h"
+#include "../include/type/varlen_type.h"
 
 namespace bustub {
 

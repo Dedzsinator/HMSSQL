@@ -15,8 +15,8 @@
 #include <iostream>
 #include <string>
 
-#include "common/exception.h"
-#include "type/decimal_type.h"
+#include "../include/common/exception.h"
+#include "../include/type/decimal_type.h"
 
 namespace bustub {
 #define DECIMAL_COMPARE_FUNC(OP)                                          \

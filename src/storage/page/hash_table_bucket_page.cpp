@@ -10,12 +10,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "storage/page/hash_table_bucket_page.h"
-#include "common/logger.h"
-#include "common/util/hash_util.h"
-#include "storage/index/generic_key.h"
-#include "storage/index/hash_comparator.h"
-#include "storage/table/tmp_tuple.h"
+#include "../include/storage/page/hash_table_bucket_page.h"
+#include "../include/common/logger.h"
+#include "../include/common/util/hash_util.h"
+#include "../include/storage/index/generic_key.h"
+#include "../include/storage/index/hash_comparator.h"
+#include "../include/storage/table/tmp_tuple.h"
 
 namespace bustub {
 

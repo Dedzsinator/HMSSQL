@@ -10,8 +10,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "execution/executors/hash_join_executor.h"
-#include "type/value_factory.h"
+#include "../include/execution/executors/hash_join_executor.h"
+#include "../include/type/value_factory.h"
 
 // Note for 2022 Fall: You don't need to implement HashJoinExecutor to pass all tests. You ONLY need to implement it
 // if you want to get faster in leaderboard tests.

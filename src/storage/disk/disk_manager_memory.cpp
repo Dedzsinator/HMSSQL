@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "storage/disk/disk_manager_memory.h"
+#include "../include/storage/disk/disk_manager_memory.h"
 
 #include <cassert>
 #include <cstddef>
@@ -19,8 +19,8 @@
 #include <string>
 #include <thread>  // NOLINT
 
-#include "common/exception.h"
-#include "common/logger.h"
+#include "../include/common/exception.h"
+#include "../include/common/logger.h"
 
 namespace bustub {
 

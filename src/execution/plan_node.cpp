@@ -1,15 +1,15 @@
 #include <algorithm>
 #include <memory>
 #include <vector>
-#include "binder/table_ref/bound_base_table_ref.h"
-#include "catalog/catalog.h"
-#include "catalog/column.h"
-#include "catalog/schema.h"
-#include "common/exception.h"
-#include "execution/plans/aggregation_plan.h"
-#include "execution/plans/nested_loop_join_plan.h"
-#include "execution/plans/projection_plan.h"
-#include "execution/plans/seq_scan_plan.h"
+#include "../include/binder/table_ref/bound_base_table_ref.h"
+#include "../include/catalog/catalog.h"
+#include "../include/catalog/column.h"
+#include "../include/catalog/schema.h"
+#include "../include/common/exception.h"
+#include "../include/execution/plans/aggregation_plan.h"
+#include "../include/execution/plans/nested_loop_join_plan.h"
+#include "../include/execution/plans/projection_plan.h"
+#include "../include/execution/plans/seq_scan_plan.h"
 
 namespace bustub {
 

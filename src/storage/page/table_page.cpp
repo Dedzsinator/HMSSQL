@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "storage/page/table_page.h"
+#include "../include/storage/page/table_page.h"
 
 #include <cassert>
 

@@ -9,7 +9,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "storage/index/b_plus_tree_index.h"
+#include "../include/storage/index/b_plus_tree_index.h"
 
 namespace bustub {
 /*

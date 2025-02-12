@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "recovery/checkpoint_manager.h"
+#include "../include/recovery/checkpoint_manager.h"
 
 namespace bustub {
 

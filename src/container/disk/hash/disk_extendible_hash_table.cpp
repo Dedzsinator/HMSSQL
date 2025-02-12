@@ -15,10 +15,10 @@
 #include <utility>
 #include <vector>
 
-#include "common/exception.h"
-#include "common/logger.h"
-#include "common/rid.h"
-#include "container/disk/hash/disk_extendible_hash_table.h"
+#include "../include/common/exception.h"
+#include "../include/common/logger.h"
+#include "../include/common/rid.h"
+#include "../include/container/disk/hash/disk_extendible_hash_table.h"
 
 namespace bustub {
 

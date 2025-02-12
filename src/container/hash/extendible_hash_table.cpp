@@ -16,8 +16,8 @@
 #include <list>
 #include <utility>
 
-#include "container/hash/extendible_hash_table.h"
-#include "storage/page/page.h"
+#include "../include/container/hash/extendible_hash_table.h"
+#include "../include/storage/page/page.h"
 
 namespace bustub {
 

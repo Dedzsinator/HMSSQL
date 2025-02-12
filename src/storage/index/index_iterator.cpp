@@ -3,7 +3,7 @@
  */
 #include <cassert>
 
-#include "storage/index/index_iterator.h"
+#include "../include/storage/index/index_iterator.h"
 
 namespace bustub {
 

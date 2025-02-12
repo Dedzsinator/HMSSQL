@@ -10,10 +10,10 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "execution/executors/nested_loop_join_executor.h"
-#include "binder/table_ref/bound_join_ref.h"
-#include "common/exception.h"
-#include "type/value_factory.h"
+#include "../include/execution/executors/nested_loop_join_executor.h"
+#include "../include/binder/table_ref/bound_join_ref.h"
+#include "../include/common/exception.h"
+#include "../include/type/value_factory.h"
 
 namespace bustub {
 

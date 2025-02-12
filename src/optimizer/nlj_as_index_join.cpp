@@ -2,22 +2,22 @@
 #include <memory>
 #include <optional>
 #include <tuple>
-#include "catalog/column.h"
-#include "catalog/schema.h"
-#include "common/exception.h"
-#include "common/macros.h"
-#include "execution/expressions/column_value_expression.h"
-#include "execution/expressions/comparison_expression.h"
-#include "execution/expressions/constant_value_expression.h"
-#include "execution/plans/abstract_plan.h"
-#include "execution/plans/filter_plan.h"
-#include "execution/plans/hash_join_plan.h"
-#include "execution/plans/nested_index_join_plan.h"
-#include "execution/plans/nested_loop_join_plan.h"
-#include "execution/plans/projection_plan.h"
-#include "execution/plans/seq_scan_plan.h"
-#include "optimizer/optimizer.h"
-#include "type/type_id.h"
+#include "../include/catalog/column.h"
+#include "../include/catalog/schema.h"
+#include "../include/common/exception.h"
+#include "../include/common/macros.h"
+#include "../include/execution/expressions/column_value_expression.h"
+#include "../include/execution/expressions/comparison_expression.h"
+#include "../include/execution/expressions/constant_value_expression.h"
+#include "../include/execution/plans/abstract_plan.h"
+#include "../include/execution/plans/filter_plan.h"
+#include "../include/execution/plans/hash_join_plan.h"
+#include "../include/execution/plans/nested_index_join_plan.h"
+#include "../include/execution/plans/nested_loop_join_plan.h"
+#include "../include/execution/plans/projection_plan.h"
+#include "../include/execution/plans/seq_scan_plan.h"
+#include "../include/optimizer/optimizer.h"
+#include "../include/type/type_id.h"
 
 namespace bustub {
 

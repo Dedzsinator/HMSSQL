@@ -10,10 +10,10 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "buffer/buffer_pool_manager_instance.h"
+#include "../include/buffer/buffer_pool_manager_instance.h"
 
-#include "common/exception.h"
-#include "common/macros.h"
+#include "../include/common/exception.h"
+#include "../include/common/macros.h"
 
 namespace bustub {
 

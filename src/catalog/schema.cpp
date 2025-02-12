@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "catalog/schema.h"
+#include "../include/catalog/schema.h"
 
 #include <sstream>
 #include <string>

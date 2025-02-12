@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-#include "storage/table/tuple.h"
+#include "../include/storage/table/tuple.h"
 
 namespace bustub {
 

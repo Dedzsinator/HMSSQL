@@ -1,5 +1,5 @@
-#include "execution/executors/projection_executor.h"
-#include "storage/table/tuple.h"
+#include "../include/execution/executors/projection_executor.h"
+#include "../include/storage/table/tuple.h"
 
 namespace bustub {
 

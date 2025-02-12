@@ -18,9 +18,9 @@
 #include <string>
 #include <thread>  // NOLINT
 
-#include "common/exception.h"
-#include "common/logger.h"
-#include "storage/disk/disk_manager.h"
+#include "../include/common/exception.h"
+#include "../include/common/logger.h"
+#include "../include/storage/disk/disk_manager.h"
 
 namespace bustub {
 

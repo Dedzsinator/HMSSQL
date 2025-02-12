@@ -1,4 +1,4 @@
-#include "catalog/table_generator.h"
+#include "../include/catalog/table_generator.h"
 
 #include <algorithm>
 #include <random>

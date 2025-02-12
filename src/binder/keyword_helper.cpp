@@ -20,9 +20,9 @@
 // THE SOFTWARE.
 //===----------------------------------------------------------------------===//
 
-#include "binder/keyword_helper.h"
-#include "binder/binder.h"
-#include "common/util/string_util.h"
+#include "../include/binder/keyword_helper.h"
+#include "../include/binder/binder.h"
+#include "../include/common/util/string_util.h"
 
 namespace bustub {
 

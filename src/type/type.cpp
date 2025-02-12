@@ -11,15 +11,15 @@
 //===----------------------------------------------------------------------===//
 
 #include <string>
-#include "common/exception.h"
-#include "type/bigint_type.h"
-#include "type/boolean_type.h"
-#include "type/decimal_type.h"
-#include "type/integer_type.h"
-#include "type/smallint_type.h"
-#include "type/tinyint_type.h"
-#include "type/value.h"
-#include "type/varlen_type.h"
+#include "../include/common/exception.h"
+#include "../include/type/bigint_type.h"
+#include "../include/type/boolean_type.h"
+#include "../include/type/decimal_type.h"
+#include "../include/type/integer_type.h"
+#include "../include/type/smallint_type.h"
+#include "../include/type/tinyint_type.h"
+#include "../include/type/value.h"
+#include "../include/type/varlen_type.h"
 
 namespace bustub {
 

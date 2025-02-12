@@ -10,15 +10,15 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "execution/executors/mock_scan_executor.h"
+#include "../include/execution/executors/mock_scan_executor.h"
 #include <algorithm>
 #include <random>
 
-#include "common/exception.h"
-#include "common/util/string_util.h"
-#include "execution/expressions/column_value_expression.h"
-#include "type/type_id.h"
-#include "type/value_factory.h"
+#include "../include/common/exception.h"
+#include "../include/common/util/string_util.h"
+#include "../include/execution/expressions/column_value_expression.h"
+#include "../include/type/type_id.h"
+#include "../include/type/value_factory.h"
 
 namespace bustub {
 

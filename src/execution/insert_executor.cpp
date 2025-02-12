@@ -12,7 +12,7 @@
 
 #include <memory>
 
-#include "execution/executors/insert_executor.h"
+#include "../include/execution/executors/insert_executor.h"
 
 namespace bustub {
 

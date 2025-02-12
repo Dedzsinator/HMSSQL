@@ -10,15 +10,15 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "concurrency/transaction_manager.h"
+#include "../include/concurrency/transaction_manager.h"
 
 #include <mutex>  // NOLINT
 #include <shared_mutex>
 #include <unordered_map>
 #include <unordered_set>
 
-#include "catalog/catalog.h"
-#include "storage/table/table_heap.h"
+#include "../include/catalog/catalog.h"
+#include "../include/storage/table/table_heap.h"
 namespace bustub {
 
 std::unordered_map<txn_id_t, Transaction *> TransactionManager::txn_map = {};

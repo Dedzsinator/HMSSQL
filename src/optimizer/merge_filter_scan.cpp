@@ -1,12 +1,12 @@
 #include <memory>
 #include <vector>
-#include "execution/plans/filter_plan.h"
-#include "execution/plans/limit_plan.h"
-#include "execution/plans/seq_scan_plan.h"
-#include "execution/plans/sort_plan.h"
-#include "execution/plans/topn_plan.h"
+#include "../include/execution/plans/filter_plan.h"
+#include "../include/execution/plans/limit_plan.h"
+#include "../include/execution/plans/seq_scan_plan.h"
+#include "../include/execution/plans/sort_plan.h"
+#include "../include/execution/plans/topn_plan.h"
 
-#include "optimizer/optimizer.h"
+#include "../include/optimizer/optimizer.h"
 
 namespace bustub {
 

@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 //===----------------------------------------------------------------------===//
 
-#include "binder/binder.h"
+#include "../include/binder/binder.h"
 
 namespace bustub {
 

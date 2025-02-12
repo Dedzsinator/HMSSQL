@@ -1,4 +1,4 @@
-#include "primer/p0_trie.h"
+#include "../include/primer/p0_trie.h"
 
 // This is a placeholder file for clang-tidy check.
 //

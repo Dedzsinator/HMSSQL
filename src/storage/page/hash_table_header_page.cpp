@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "storage/page/hash_table_header_page.h"
+#include "../include/storage/page/hash_table_header_page.h"
 
 namespace bustub {
 auto HashTableHeaderPage::GetBlockPageId(size_t index) -> page_id_t { return 0; }

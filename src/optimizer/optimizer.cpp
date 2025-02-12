@@ -1,7 +1,7 @@
-#include "optimizer/optimizer.h"
+#include "../include/optimizer/optimizer.h"
 #include <optional>
-#include "common/util/string_util.h"
-#include "execution/plans/abstract_plan.h"
+#include "../include/common/util/string_util.h"
+#include "../include/execution/plans/abstract_plan.h"
 
 namespace bustub {
 

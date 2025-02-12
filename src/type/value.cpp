@@ -15,8 +15,8 @@
 #include <utility>
 #include <regex>
 
-#include "common/exception.h"
-#include "type/value.h"
+#include "../include/common/exception.h"
+#include "../include/type/value.h"
 
 namespace bustub {
 Value::Value(const Value &other) {

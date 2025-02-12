@@ -1,11 +1,11 @@
 #include <algorithm>
 #include <memory>
-#include "catalog/column.h"
-#include "catalog/schema.h"
-#include "execution/expressions/column_value_expression.h"
-#include "execution/plans/abstract_plan.h"
-#include "execution/plans/projection_plan.h"
-#include "optimizer/optimizer.h"
+#include "../include/catalog/column.h"
+#include "../include/catalog/schema.h"
+#include "../include/execution/expressions/column_value_expression.h"
+#include "../include/execution/plans/abstract_plan.h"
+#include "../include/execution/plans/projection_plan.h"
+#include "../include/optimizer/optimizer.h"
 
 namespace bustub {
 

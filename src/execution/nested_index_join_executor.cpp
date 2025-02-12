@@ -10,8 +10,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "execution/executors/nested_index_join_executor.h"
-#include "type/value_factory.h"
+#include "../include/execution/executors/nested_index_join_executor.h"
+#include "../include/type/value_factory.h"
 
 namespace bustub {
 

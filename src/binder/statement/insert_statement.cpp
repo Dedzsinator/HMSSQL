@@ -1,11 +1,11 @@
 #include "fmt/ranges.h"
 
-#include "binder/bound_expression.h"
-#include "binder/bound_order_by.h"
-#include "binder/bound_table_ref.h"
-#include "binder/statement/insert_statement.h"
-#include "binder/statement/select_statement.h"
-#include "common/util/string_util.h"
+#include "../include/binder/bound_expression.h"
+#include "../include/binder/bound_order_by.h"
+#include "../include/binder/bound_table_ref.h"
+#include "../include/binder/statement/insert_statement.h"
+#include "../include/binder/statement/select_statement.h"
+#include "../include/common/util/string_util.h"
 
 namespace bustub {
 

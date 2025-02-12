@@ -12,7 +12,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "storage/page/header_page.h"
+#include "../include/storage/page/header_page.h"
 
 namespace bustub {
 

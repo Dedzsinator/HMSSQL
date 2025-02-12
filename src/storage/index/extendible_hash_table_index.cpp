@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "storage/index/extendible_hash_table_index.h"
+#include "../include/storage/index/extendible_hash_table_index.h"
 
 namespace bustub {
 /*

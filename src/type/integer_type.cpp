@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 
-#include "type/integer_type.h"
+#include "../include/type/integer_type.h"
 
 namespace bustub {
 #define INT_COMPARE_FUNC(OP)                                               \

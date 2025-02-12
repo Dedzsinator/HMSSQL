@@ -12,7 +12,7 @@
 #include <memory>
 #include <vector>
 
-#include "execution/executors/aggregation_executor.h"
+#include "../include/execution/executors/aggregation_executor.h"
 
 namespace bustub {
 

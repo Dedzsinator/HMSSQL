@@ -3,21 +3,21 @@
 #include <optional>
 #include <string>
 
-#include "binder/binder.h"
-#include "binder/bound_expression.h"
-#include "binder/bound_order_by.h"
-#include "binder/bound_table_ref.h"
-#include "binder/expressions/bound_column_ref.h"
-#include "binder/expressions/bound_constant.h"
-#include "binder/statement/delete_statement.h"
-#include "binder/statement/insert_statement.h"
-#include "binder/statement/select_statement.h"
-#include "binder/statement/update_statement.h"
-#include "binder/tokens.h"
-#include "common/exception.h"
-#include "common/util/string_util.h"
+#include "../include/binder/binder.h"
+#include "../include/binder/bound_expression.h"
+#include "../include/binder/bound_order_by.h"
+#include "../include/binder/bound_table_ref.h"
+#include "../include/binder/expressions/bound_column_ref.h"
+#include "../include/binder/expressions/bound_constant.h"
+#include "../include/binder/statement/delete_statement.h"
+#include "../include/binder/statement/insert_statement.h"
+#include "../include/binder/statement/select_statement.h"
+#include "../include/binder/statement/update_statement.h"
+#include "../include/binder/tokens.h"
+#include "../include/common/exception.h"
+#include "../include/common/util/string_util.h"
 #include "nodes/parsenodes.hpp"
-#include "type/value_factory.h"
+#include "../include/type/value_factory.h"
 
 namespace bustub {
 

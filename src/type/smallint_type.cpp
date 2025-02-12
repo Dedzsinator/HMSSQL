@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 
-#include "type/smallint_type.h"
+#include "../include/type/smallint_type.h"
 
 namespace bustub {
 #define SMALLINT_COMPARE_FUNC(OP)                                           \

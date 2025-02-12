@@ -10,9 +10,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "recovery/log_recovery.h"
+#include "../include/recovery/log_recovery.h"
 
-#include "storage/page/table_page.h"
+#include "../include/storage/page/table_page.h"
 
 namespace bustub {
 /*

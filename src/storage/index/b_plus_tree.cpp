@@ -1,10 +1,10 @@
 #include <string>
 
-#include "common/exception.h"
-#include "common/logger.h"
-#include "common/rid.h"
-#include "storage/index/b_plus_tree.h"
-#include "storage/page/header_page.h"
+#include "../include/common/exception.h"
+#include "../include/common/logger.h"
+#include "../include/common/rid.h"
+#include "../include/storage/index/b_plus_tree.h"
+#include "../include/storage/page/header_page.h"
 
 namespace bustub {
 INDEX_TEMPLATE_ARGUMENTS

@@ -1,13 +1,13 @@
-#include "binder/bound_expression.h"
-#include "binder/statement/select_statement.h"
-#include "execution/expressions/abstract_expression.h"
-#include "execution/expressions/arithmetic_expression.h"
-#include "execution/expressions/column_value_expression.h"
-#include "execution/expressions/comparison_expression.h"
-#include "execution/expressions/constant_value_expression.h"
-#include "execution/expressions/logic_expression.h"
-#include "execution/expressions/like_expression.h"
-#include "planner/planner.h"
+#include "../include/binder/bound_expression.h"
+#include "../include/binder/statement/select_statement.h"
+#include "../include/execution/expressions/abstract_expression.h"
+#include "../include/execution/expressions/arithmetic_expression.h"
+#include "../include/execution/expressions/column_value_expression.h"
+#include "../include/execution/expressions/comparison_expression.h"
+#include "../include/execution/expressions/constant_value_expression.h"
+#include "../include/execution/expressions/logic_expression.h"
+#include "../include/execution/expressions/like_expression.h"
+#include "../include/planner/planner.h"
 
 namespace bustub {
 // NOLINTNEXTLINE - weird error on clang-tidy.

@@ -50,5 +50,5 @@ target_link_libraries(
         ${BUSTUB_THIRDPARTY_LIBS})
 
 target_include_directories(
-        bustub PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        bustub PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)

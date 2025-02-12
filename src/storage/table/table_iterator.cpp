@@ -12,9 +12,9 @@
 
 #include <cassert>
 
-#include "common/exception.h"
-#include "concurrency/transaction.h"
-#include "storage/table/table_heap.h"
+#include "../include/common/exception.h"
+#include "../include/concurrency/transaction.h"
+#include "../include/storage/table/table_heap.h"
 
 namespace bustub {
 

@@ -1,4 +1,4 @@
-#include "binder/statement/delete_statement.h"
+#include "../include/binder/statement/delete_statement.h"
 #include "fmt/core.h"
 
 namespace bustub {

@@ -11,9 +11,9 @@
 
 #include <sstream>
 
-#include "common/exception.h"
-#include "common/rid.h"
-#include "storage/page/b_plus_tree_leaf_page.h"
+#include "../include/common/exception.h"
+#include "../include/common/rid.h"
+#include "../include/storage/page/b_plus_tree_leaf_page.h"
 
 namespace bustub {
 

@@ -10,11 +10,11 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "concurrency/lock_manager.h"
+#include "../include/concurrency/lock_manager.h"
 
-#include "common/config.h"
-#include "concurrency/transaction.h"
-#include "concurrency/transaction_manager.h"
+#include "../include/common/config.h"
+#include "../include/concurrency/transaction.h"
+#include "../include/concurrency/transaction_manager.h"
 
 namespace bustub {
 

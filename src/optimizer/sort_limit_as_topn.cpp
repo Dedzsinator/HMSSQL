@@ -1,7 +1,7 @@
-#include "execution/plans/limit_plan.h"
-#include "execution/plans/sort_plan.h"
-#include "execution/plans/topn_plan.h"
-#include "optimizer/optimizer.h"
+#include "../include/execution/plans/limit_plan.h"
+#include "../include/execution/plans/sort_plan.h"
+#include "../include/execution/plans/topn_plan.h"
+#include "../include/optimizer/optimizer.h"
 
 namespace bustub {
 

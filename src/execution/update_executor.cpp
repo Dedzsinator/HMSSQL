@@ -11,7 +11,7 @@
 //===----------------------------------------------------------------------===//
 #include <memory>
 
-#include "execution/executors/update_executor.h"
+#include "../include/execution/executors/update_executor.h"
 
 namespace bustub {
 

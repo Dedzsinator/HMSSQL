@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "buffer/clock_replacer.h"
+#include "../include/buffer/clock_replacer.h"
 
 namespace bustub {
 

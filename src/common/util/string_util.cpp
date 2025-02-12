@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 
-#include "common/util/string_util.h"
+#include "../include/common/util/string_util.h"
 #include "fmt/format.h"
 #include "fmt/ranges.h"
 

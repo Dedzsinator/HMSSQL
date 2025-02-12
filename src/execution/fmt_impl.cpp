@@ -1,16 +1,16 @@
 #include <type_traits>
-#include "execution/plans/update_plan.h"
+#include "../include/execution/plans/update_plan.h"
 #include "fmt/format.h"
 #include "fmt/ranges.h"
 
-#include "common/util/string_util.h"
-#include "execution/expressions/abstract_expression.h"
-#include "execution/plans/abstract_plan.h"
-#include "execution/plans/aggregation_plan.h"
-#include "execution/plans/limit_plan.h"
-#include "execution/plans/projection_plan.h"
-#include "execution/plans/sort_plan.h"
-#include "execution/plans/topn_plan.h"
+#include "../include/common/util/string_util.h"
+#include "../include/execution/expressions/abstract_expression.h"
+#include "../include/execution/plans/abstract_plan.h"
+#include "../include/execution/plans/aggregation_plan.h"
+#include "../include/execution/plans/limit_plan.h"
+#include "../include/execution/plans/projection_plan.h"
+#include "../include/execution/plans/sort_plan.h"
+#include "../include/execution/plans/topn_plan.h"
 
 namespace bustub {
 

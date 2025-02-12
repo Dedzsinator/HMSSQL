@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "catalog/column.h"
+#include "../include/catalog/column.h"
 
 #include <sstream>
 #include <string>

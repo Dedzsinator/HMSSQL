@@ -23,20 +23,20 @@
 #include <iostream>
 #include <unordered_set>
 
-#include "binder/binder.h"
-#include "binder/bound_statement.h"
-#include "binder/statement/create_statement.h"
-#include "binder/statement/delete_statement.h"
-#include "binder/statement/insert_statement.h"
-#include "binder/statement/select_statement.h"
-#include "binder/tokens.h"
-#include "common/exception.h"
-#include "common/logger.h"
-#include "common/util/string_util.h"
+#include "../include/binder/binder.h"
+#include "../include/binder/bound_statement.h"
+#include "../include/binder/statement/create_statement.h"
+#include "../include/binder/statement/delete_statement.h"
+#include "../include/binder/statement/insert_statement.h"
+#include "../include/binder/statement/select_statement.h"
+#include "../include/binder/tokens.h"
+#include "../include/common/exception.h"
+#include "../include/common/logger.h"
+#include "../include/common/util/string_util.h"
 #include "fmt/format.h"
 #include "pg_definitions.hpp"
 #include "postgres_parser.hpp"
-#include "type/decimal_type.h"
+#include "../include/type/decimal_type.h"
 
 namespace bustub {
 
