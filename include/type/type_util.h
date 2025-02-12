@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // type_util.h
 //
@@ -18,7 +18,7 @@
 
 #include "../include/type/type.h"
 
-namespace bustub {
+namespace hmssql {
 /**
  * Type Utility Functions
  */
@@ -253,4 +253,4 @@ class TypeUtil {
   //    return (result);
   //  }
 };
-}  // namespace bustub
+}  // namespace hmssql

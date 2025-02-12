@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // disk_manager.h
 //
@@ -20,7 +20,7 @@
 
 #include "../include/common/config.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * DiskManager takes care of the allocation and deallocation of pages within a database. It performs the reading and
@@ -108,4 +108,4 @@ class DiskManager {
   std::mutex db_io_latch_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

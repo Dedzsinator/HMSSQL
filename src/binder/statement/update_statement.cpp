@@ -2,7 +2,7 @@
 
 #include "../include/binder/statement/update_statement.h"
 
-namespace bustub {
+namespace hmssql {
 
 UpdateStatement::UpdateStatement(
     std::unique_ptr<BoundBaseTableRef> table, std::unique_ptr<BoundExpression> filter_expr,
@@ -17,4 +17,4 @@ auto UpdateStatement::ToString() const -> std::string {
                      target_expr_);
 }
 
-}  // namespace bustub
+}  // namespace hmssql

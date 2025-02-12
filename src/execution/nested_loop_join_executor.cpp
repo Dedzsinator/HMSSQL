@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // nested_loop_join_executor.cpp
 //
@@ -15,7 +15,7 @@
 #include "../include/common/exception.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 NestedLoopJoinExecutor::NestedLoopJoinExecutor(ExecutorContext *exec_ctx, const NestedLoopJoinPlanNode *plan,
                                                std::unique_ptr<AbstractExecutor> &&left_executor,
@@ -26,7 +26,7 @@ NestedLoopJoinExecutor::NestedLoopJoinExecutor(ExecutorContext *exec_ctx, const 
       right_executor_(std::move(right_executor)) {
   if (!(plan->GetJoinType() == JoinType::LEFT || plan->GetJoinType() == JoinType::INNER)) {
     // Note for 2022 Fall: You ONLY need to implement left join and inner join.
-    throw bustub::NotImplementedException(fmt::format("join type {} not supported", plan->GetJoinType()));
+    throw hmssql::NotImplementedException(fmt::format("join type {} not supported", plan->GetJoinType()));
   }
 }
 
@@ -80,4 +80,4 @@ auto NestedLoopJoinExecutor::Matched(Tuple *left_tuple, Tuple *right_tuple) cons
   return !value.IsNull() && value.GetAs<bool>();
 }
 
-}  // namespace bustub
+}  // namespace hmssql

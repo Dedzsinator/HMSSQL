@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // disk_manager_memory.cpp
 //
@@ -22,7 +22,7 @@
 #include "../include/common/exception.h"
 #include "../include/common/logger.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Constructor: used for memory based manager
@@ -47,4 +47,4 @@ void DiskManagerMemory::ReadPage(page_id_t page_id, char *page_data) {
   memcpy(page_data, memory_ + offset, BUSTUB_PAGE_SIZE);
 }
 
-}  // namespace bustub
+}  // namespace hmssql

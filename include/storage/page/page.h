@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // page.h
 //
@@ -18,7 +18,7 @@
 #include "../include/common/config.h"
 #include "../include/common/rwlatch.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Page is the basic unit of storage within the database system. Page provides a wrapper for actual data pages being
@@ -90,4 +90,4 @@ class Page {
   ReaderWriterLatch rwlatch_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

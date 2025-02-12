@@ -6,7 +6,7 @@
 #include "../include/binder/bound_expression.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 class BoundExpression;
 
@@ -24,4 +24,4 @@ class BoundConstant : public BoundExpression {
   /** The constant being bound. */
   Value val_;
 };
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,10 +1,10 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
-// bustub_instance.h
+// hmssql_instance.h
 //
-// Identification: src/include/common/bustub_instance.h
+// Identification: src/include/common/hmssql_instance.h
 //
 // Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
@@ -28,7 +28,7 @@
 #include "libfort/lib/fort.hpp"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 class Transaction;
 class ExecutorContext;
@@ -206,7 +206,7 @@ class FortTableWriter : public ResultWriter {
 class BustubInstance {
  private:
   /**
-   * Get the executor context from the BusTub instance.
+   * Get the executor context from the HMSSQL instance.
    */
   auto MakeExecutorContext(Transaction *txn) -> std::unique_ptr<ExecutorContext>;
 
@@ -218,24 +218,24 @@ class BustubInstance {
   ~BustubInstance();
 
   /**
-   * Execute a SQL query in the BusTub instance.
+   * Execute a SQL query in the HMSSQL instance.
    */
   auto ExecuteSql(const std::string &sql, ResultWriter &writer) -> bool;
 
   /**
-   * Execute a SQL query in the BusTub instance with provided txn.
+   * Execute a SQL query in the HMSSQL instance with provided txn.
    */
   auto ExecuteSqlTxn(const std::string &sql, ResultWriter &writer, Transaction *txn) -> bool;
 
   /**
-   * FOR TEST ONLY. Generate test tables in this BusTub instance.
+   * FOR TEST ONLY. Generate test tables in this HMSSQL instance.
    * It's used in the shell to predefine some tables, as we don't support
    * create / drop table and insert for now. Should remove it in the future.
    */
   void GenerateTestTable();
 
   /**
-   * FOR TEST ONLY. Generate mock tables in this BusTub instance.
+   * FOR TEST ONLY. Generate mock tables in this HMSSQL instance.
    * It's used in the shell to predefine some tables, as we don't support
    * create / drop table and insert for now. Should remove it in the future.
    */
@@ -274,4 +274,4 @@ class BustubInstance {
   std::unordered_map<std::string, std::string> session_variables_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

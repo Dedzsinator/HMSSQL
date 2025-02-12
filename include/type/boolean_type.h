@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // boolean_type.h
 //
@@ -16,7 +16,7 @@
 #include "../include/type/type.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 // A boolean value isn't a real SQL type, but we treat it as one to keep
 // consistent in the expression subsystem.
 class BooleanType : public Type {
@@ -49,4 +49,4 @@ class BooleanType : public Type {
 
   auto CastAs(const Value &val, TypeId type_id) const -> Value override;
 };
-}  // namespace bustub
+}  // namespace hmssql

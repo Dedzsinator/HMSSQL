@@ -9,7 +9,7 @@
 #include "../include/execution/expressions/like_expression.h"
 #include "../include/planner/planner.h"
 
-namespace bustub {
+namespace hmssql {
 // NOLINTNEXTLINE - weird error on clang-tidy.
 auto Planner::GetAggCallFromFactory(const std::string &func_name, std::vector<AbstractExpressionRef> args)
     -> std::tuple<AggregationType, std::vector<AbstractExpressionRef>> {
@@ -76,4 +76,4 @@ auto Planner::GetBinaryExpressionFromFactory(const std::string &op_name, Abstrac
   throw Exception(fmt::format("binary op {} not supported in planner yet", op_name));
 }
 
-}  // namespace bustub
+}  // namespace hmssql

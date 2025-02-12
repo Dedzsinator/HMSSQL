@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // lru_k_replacer.cpp
 //
@@ -12,7 +12,7 @@
 
 #include "../include/buffer/lru_k_replacer.h"
 
-namespace bustub {
+namespace hmssql {
 
 LRUKReplacer::LRUKReplacer(size_t num_frames, size_t k) : replacer_size_(num_frames), k_(k) {}
 
@@ -134,4 +134,4 @@ auto LRUKReplacer::Size() -> size_t {
   return curr_size_;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

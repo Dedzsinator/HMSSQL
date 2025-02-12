@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // table_iterator.h
 //
@@ -18,7 +18,7 @@
 #include "../include/concurrency/transaction.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 class TableHeap;
 
@@ -63,4 +63,4 @@ class TableIterator {
   Transaction *txn_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

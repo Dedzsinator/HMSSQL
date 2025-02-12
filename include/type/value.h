@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // value.h
 //
@@ -22,7 +22,7 @@
 #include "../include/type/limits.h"
 #include "../include/type/type.h"
 
-namespace bustub {
+namespace hmssql {
 
 inline auto GetCmpBool(bool boolean) -> CmpBool { return boolean ? CmpBool::CmpTrue : CmpBool::CmpFalse; }
 
@@ -171,22 +171,22 @@ class Value {
   bool manage_data_;
   TypeId type_id_;
 };
-}  // namespace bustub
+}  // namespace hmssql
 
 template <typename T>
-struct fmt::formatter<T, std::enable_if_t<std::is_base_of<bustub::Value, T>::value, char>>
+struct fmt::formatter<T, std::enable_if_t<std::is_base_of<hmssql::Value, T>::value, char>>
     : fmt::formatter<std::string> {
   template <typename FormatCtx>
-  auto format(const bustub::Value &x, FormatCtx &ctx) const {
+  auto format(const hmssql::Value &x, FormatCtx &ctx) const {
     return fmt::formatter<std::string>::format(x.ToString(), ctx);
   }
 };
 
 template <typename T>
-struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<bustub::Value, T>::value, char>>
+struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<hmssql::Value, T>::value, char>>
     : fmt::formatter<std::string> {
   template <typename FormatCtx>
-  auto format(const std::unique_ptr<bustub::Value> &x, FormatCtx &ctx) const {
+  auto format(const std::unique_ptr<hmssql::Value> &x, FormatCtx &ctx) const {
     return fmt::formatter<std::string>::format(x->ToString(), ctx);
   }
 };

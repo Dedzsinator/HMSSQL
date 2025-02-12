@@ -6,7 +6,7 @@
 
 #include "../include/optimizer/optimizer.h"
 
-namespace bustub {
+namespace hmssql {
 
 #ifdef BUSTUB_OPTIMIZER_HACK_REMOVE_AFTER_2022_FALL
 
@@ -31,4 +31,4 @@ auto Optimizer::OptimizeEliminateTrueFilter(const AbstractPlanNodeRef &plan) -> 
 
 #endif
 
-}  // namespace bustub
+}  // namespace hmssql

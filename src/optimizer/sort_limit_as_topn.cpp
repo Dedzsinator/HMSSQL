@@ -3,7 +3,7 @@
 #include "../include/execution/plans/topn_plan.h"
 #include "../include/optimizer/optimizer.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Optimizer::OptimizeSortLimitAsTopN(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef {
   // TODO(student): implement sort + limit -> top N optimizer rule
@@ -30,4 +30,4 @@ auto Optimizer::OptimizeSortLimitAsTopN(const AbstractPlanNodeRef &plan) -> Abst
   return optimized_plan;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

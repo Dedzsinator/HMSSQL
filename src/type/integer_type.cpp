@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // integer_type.cpp
 //
@@ -17,7 +17,7 @@
 
 #include "../include/type/integer_type.h"
 
-namespace bustub {
+namespace hmssql {
 #define INT_COMPARE_FUNC(OP)                                               \
   switch (right.GetTypeId()) {                                             \
     case TypeId::TINYINT:                                                  \
@@ -326,4 +326,4 @@ auto IntegerType::CastAs(const Value &val, const TypeId type_id) const -> Value 
   }
   throw Exception("Integer is not coercable to " + Type::TypeIdToString(type_id));
 }
-}  // namespace bustub
+}  // namespace hmssql

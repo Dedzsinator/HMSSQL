@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // delete_executor.h
 //
@@ -21,7 +21,7 @@
 #include "../include/execution/plans/delete_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * DeletedExecutor executes a delete on a table.
@@ -66,4 +66,4 @@ class DeleteExecutor : public AbstractExecutor {
   std::vector<IndexInfo *> table_indexes_;
   bool is_end_{false};
 };
-}  // namespace bustub
+}  // namespace hmssql

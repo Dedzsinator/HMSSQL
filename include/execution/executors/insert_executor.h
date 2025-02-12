@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // insert_executor.h
 //
@@ -21,7 +21,7 @@
 #include "../include/execution/plans/insert_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * InsertExecutor executes an insert on a table.
@@ -66,4 +66,4 @@ class InsertExecutor : public AbstractExecutor {
   bool is_end_{false};
 };
 
-}  // namespace bustub
+}  // namespace hmssql

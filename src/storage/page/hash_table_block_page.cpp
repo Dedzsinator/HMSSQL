@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // hash_table_block_page.cpp
 //
@@ -13,7 +13,7 @@
 #include "../include/storage/page/hash_table_block_page.h"
 #include "../include/storage/index/generic_key.h"
 
-namespace bustub {
+namespace hmssql {
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
 auto HASH_TABLE_BLOCK_TYPE::KeyAt(slot_offset_t bucket_ind) const -> KeyType {
@@ -51,4 +51,4 @@ template class HashTableBlockPage<GenericKey<16>, RID, GenericComparator<16>>;
 template class HashTableBlockPage<GenericKey<32>, RID, GenericComparator<32>>;
 template class HashTableBlockPage<GenericKey<64>, RID, GenericComparator<64>>;
 
-}  // namespace bustub
+}  // namespace hmssql

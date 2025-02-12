@@ -1,5 +1,5 @@
 //===----------------------------------------------------------------------===//
-//                         BusTub
+//                         HMSSQL
 //
 // binder/set_get_statement.h
 //
@@ -15,7 +15,7 @@
 #include "../include/common/enums/statement_type.h"
 #include "fmt/format.h"
 
-namespace bustub {
+namespace hmssql {
 
 class VariableSetStatement : public BoundStatement {
  public:
@@ -44,4 +44,4 @@ class VariableShowStatement : public BoundStatement {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

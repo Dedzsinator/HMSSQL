@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // arithmetic_expression.h
 //
@@ -26,7 +26,7 @@
 #include "../include/type/type_id.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 /** ArithmeticType represents the type of computation that we want to perform. */
 enum class ArithmeticType { Plus, Minus };
@@ -40,7 +40,7 @@ class ArithmeticExpression : public AbstractExpression {
   ArithmeticExpression(AbstractExpressionRef left, AbstractExpressionRef right, ArithmeticType compute_type)
       : AbstractExpression({std::move(left), std::move(right)}, TypeId::INTEGER), compute_type_{compute_type} {
     if (GetChildAt(0)->GetReturnType() != TypeId::INTEGER || GetChildAt(1)->GetReturnType() != TypeId::INTEGER) {
-      throw bustub::NotImplementedException("only support integer for now");
+      throw hmssql::NotImplementedException("only support integer for now");
     }
   }
 
@@ -89,18 +89,18 @@ class ArithmeticExpression : public AbstractExpression {
     }
   }
 };
-}  // namespace bustub
+}  // namespace hmssql
 
 template <>
-struct fmt::formatter<bustub::ArithmeticType> : formatter<string_view> {
+struct fmt::formatter<hmssql::ArithmeticType> : formatter<string_view> {
   template <typename FormatContext>
-  auto format(bustub::ArithmeticType c, FormatContext &ctx) const {
+  auto format(hmssql::ArithmeticType c, FormatContext &ctx) const {
     string_view name;
     switch (c) {
-      case bustub::ArithmeticType::Plus:
+      case hmssql::ArithmeticType::Plus:
         name = "+";
         break;
-      case bustub::ArithmeticType::Minus:
+      case hmssql::ArithmeticType::Minus:
         name = "-";
         break;
       default:

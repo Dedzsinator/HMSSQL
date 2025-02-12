@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // lock_manager.cpp
 //
@@ -16,7 +16,7 @@
 #include "../include/concurrency/transaction.h"
 #include "../include/concurrency/transaction_manager.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto LockManager::LockTable(Transaction *txn, LockMode lock_mode, const table_oid_t &oid) -> bool {
   if (txn->GetIsolationLevel() == IsolationLevel::READ_UNCOMMITTED) {
@@ -144,7 +144,7 @@ auto LockManager::UnlockTable(Transaction *txn, const table_oid_t &oid) -> bool 
   if (table_lock_map_.find(oid) == table_lock_map_.end()) {
     table_lock_map_latch_.unlock();
     txn->SetState(TransactionState::ABORTED);
-    throw bustub::TransactionAbortException(txn->GetTransactionId(), AbortReason::ATTEMPTED_UNLOCK_BUT_NO_LOCK_HELD);
+    throw hmssql::TransactionAbortException(txn->GetTransactionId(), AbortReason::ATTEMPTED_UNLOCK_BUT_NO_LOCK_HELD);
   }
 
   auto s_row_lock_set = txn->GetSharedRowLockSet();
@@ -154,7 +154,7 @@ auto LockManager::UnlockTable(Transaction *txn, const table_oid_t &oid) -> bool 
       !(x_row_lock_set->find(oid) == x_row_lock_set->end() || x_row_lock_set->at(oid).empty())) {
     table_lock_map_latch_.unlock();
     txn->SetState(TransactionState::ABORTED);
-    throw bustub::TransactionAbortException(txn->GetTransactionId(), AbortReason::TABLE_UNLOCKED_BEFORE_UNLOCKING_ROWS);
+    throw hmssql::TransactionAbortException(txn->GetTransactionId(), AbortReason::TABLE_UNLOCKED_BEFORE_UNLOCKING_ROWS);
   }
 
   auto lock_request_queue = table_lock_map_[oid];
@@ -187,7 +187,7 @@ auto LockManager::UnlockTable(Transaction *txn, const table_oid_t &oid) -> bool 
 
   lock_request_queue->latch_.unlock();
   txn->SetState(TransactionState::ABORTED);
-  throw bustub::TransactionAbortException(txn->GetTransactionId(), AbortReason::ATTEMPTED_UNLOCK_BUT_NO_LOCK_HELD);
+  throw hmssql::TransactionAbortException(txn->GetTransactionId(), AbortReason::ATTEMPTED_UNLOCK_BUT_NO_LOCK_HELD);
 }
 
 auto LockManager::LockRow(Transaction *txn, LockMode lock_mode, const table_oid_t &oid, const RID &rid) -> bool {
@@ -330,7 +330,7 @@ auto LockManager::UnlockRow(Transaction *txn, const table_oid_t &oid, const RID 
   if (row_lock_map_.find(rid) == row_lock_map_.end()) {
     row_lock_map_latch_.unlock();
     txn->SetState(TransactionState::ABORTED);
-    throw bustub::TransactionAbortException(txn->GetTransactionId(), AbortReason::ATTEMPTED_UNLOCK_BUT_NO_LOCK_HELD);
+    throw hmssql::TransactionAbortException(txn->GetTransactionId(), AbortReason::ATTEMPTED_UNLOCK_BUT_NO_LOCK_HELD);
   }
   auto lock_request_queue = row_lock_map_[rid];
 
@@ -362,7 +362,7 @@ auto LockManager::UnlockRow(Transaction *txn, const table_oid_t &oid, const RID 
 
   lock_request_queue->latch_.unlock();
   txn->SetState(TransactionState::ABORTED);
-  throw bustub::TransactionAbortException(txn->GetTransactionId(), AbortReason::ATTEMPTED_UNLOCK_BUT_NO_LOCK_HELD);
+  throw hmssql::TransactionAbortException(txn->GetTransactionId(), AbortReason::ATTEMPTED_UNLOCK_BUT_NO_LOCK_HELD);
 }
 
 void LockManager::AddEdge(txn_id_t t1, txn_id_t t2) {
@@ -591,4 +591,4 @@ void LockManager::InsertOrDeleteRowLockSet(Transaction *txn, const std::shared_p
   }
 }
 
-}  // namespace bustub
+}  // namespace hmssql

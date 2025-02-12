@@ -1,6 +1,6 @@
 #pragma once
 
-namespace bustub {
+namespace hmssql {
 
 template <typename KeyType, typename KeyComparator>
 class StlComparatorWrapper {
@@ -11,4 +11,4 @@ class StlComparatorWrapper {
 
   KeyComparator cmp_;
 };
-}  // namespace bustub
+}  // namespace hmssql

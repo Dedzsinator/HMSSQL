@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // macros.h
 //
@@ -15,7 +15,7 @@
 #include <cassert>
 #include <stdexcept>
 
-namespace bustub {
+namespace hmssql {
 
 #define BUSTUB_ASSERT(expr, message) assert((expr) && (message))
 
@@ -41,4 +41,4 @@ namespace bustub {
   DISALLOW_COPY(cname);               \
   DISALLOW_MOVE(cname);
 
-}  // namespace bustub
+}  // namespace hmssql

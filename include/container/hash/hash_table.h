@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // disk_hash_table.h
 //
@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace bustub {
+namespace hmssql {
 
 template <typename K, typename V>
 class HashTable {
@@ -30,4 +30,4 @@ class HashTable {
   virtual void Insert(const K &key, const V &value) = 0;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

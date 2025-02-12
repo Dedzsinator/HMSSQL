@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // numeric_type.h
 //
@@ -15,7 +15,7 @@
 
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 // A numeric value is an abstract type representing a number. Numerics can be
 // either integral or non-integral (decimal), but must provide arithmetic
 // operations on its value.
@@ -41,4 +41,4 @@ class NumericType : public Type {
     return x - std::trunc(static_cast<double>(x) / static_cast<double>(y)) * y;
   }
 };
-}  // namespace bustub
+}  // namespace hmssql

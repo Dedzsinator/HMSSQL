@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // hash_join_executor.h
 //
@@ -23,7 +23,7 @@
 #include "../include/execution/plans/hash_join_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * HashJoinExecutor executes a nested-loop JOIN on two tables.
@@ -67,4 +67,4 @@ class HashJoinExecutor : public AbstractExecutor {
   std::vector<Tuple>::const_iterator output_tuples_iter_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

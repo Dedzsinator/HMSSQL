@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // rwmutex.h
 //
@@ -17,7 +17,7 @@
 
 #include "../include/common/macros.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Reader-Writer latch backed by std::mutex.
@@ -48,4 +48,4 @@ class ReaderWriterLatch {
   std::shared_mutex mutex_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

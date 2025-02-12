@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // extendible_hash_table_index.h
 //
@@ -21,7 +21,7 @@
 #include "../include/container/hash/hash_function.h"
 #include "../include/storage/index/index.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define HASH_TABLE_INDEX_TYPE ExtendibleHashTableIndex<KeyType, ValueType, KeyComparator>
 
@@ -46,4 +46,4 @@ class ExtendibleHashTableIndex : public Index {
   DiskExtendibleHashTable<KeyType, ValueType, KeyComparator> container_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

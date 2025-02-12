@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // limit_executor.h
 //
@@ -18,7 +18,7 @@
 #include "../include/execution/executors/abstract_executor.h"
 #include "../include/execution/plans/limit_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * LimitExecutor limits the number of output tuples produced by a child operator.
@@ -56,4 +56,4 @@ class LimitExecutor : public AbstractExecutor {
 
   u_int32_t count_;
 };
-}  // namespace bustub
+}  // namespace hmssql

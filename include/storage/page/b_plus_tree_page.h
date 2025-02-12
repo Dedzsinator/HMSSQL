@@ -18,7 +18,7 @@
 #include "../include/buffer/buffer_pool_manager.h"
 #include "../include/storage/index/generic_key.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define MappingType std::pair<KeyType, ValueType>
 
@@ -73,4 +73,4 @@ class BPlusTreePage {
   page_id_t page_id_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

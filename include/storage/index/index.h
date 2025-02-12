@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // index.h
 //
@@ -21,7 +21,7 @@
 #include "../include/storage/table/tuple.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 class Transaction;
 
@@ -180,4 +180,4 @@ class Index {
   std::unique_ptr<IndexMetadata> metadata_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

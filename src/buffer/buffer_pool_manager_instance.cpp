@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // buffer_pool_manager_instance.cpp
 //
@@ -15,7 +15,7 @@
 #include "../include/common/exception.h"
 #include "../include/common/macros.h"
 
-namespace bustub {
+namespace hmssql {
 
 BufferPoolManagerInstance::BufferPoolManagerInstance(size_t pool_size, DiskManager *disk_manager, size_t replacer_k,
                                                      LogManager *log_manager)
@@ -213,4 +213,4 @@ auto BufferPoolManagerInstance::DeletePgImp(page_id_t page_id) -> bool {
 
 auto BufferPoolManagerInstance::AllocatePage() -> page_id_t { return next_page_id_++; }
 
-}  // namespace bustub
+}  // namespace hmssql

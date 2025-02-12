@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // topn_executor.h
 //
@@ -22,7 +22,7 @@
 #include "../include/execution/plans/topn_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The TopNExecutor executor executes a topn.
@@ -57,4 +57,4 @@ class TopNExecutor : public AbstractExecutor {
 
   std::stack<Tuple> child_tuples_;
 };
-}  // namespace bustub
+}  // namespace hmssql

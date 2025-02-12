@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // nested_index_join_executor.h
 //
@@ -25,7 +25,7 @@
 #include "../include/storage/table/tmp_tuple.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * IndexJoinExecutor executes index join operations.
@@ -56,4 +56,4 @@ class NestIndexJoinExecutor : public AbstractExecutor {
   const TableInfo *table_info_;
   BPlusTreeIndexForOneIntegerColumn *tree_;
 };
-}  // namespace bustub
+}  // namespace hmssql

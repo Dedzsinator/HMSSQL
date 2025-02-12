@@ -1,5 +1,5 @@
 //===----------------------------------------------------------------------===//
-//                         BusTub
+//                         HMSSQL
 //
 // binder/insert_statement.h
 //
@@ -16,7 +16,7 @@
 #include "../include/catalog/column.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 class SelectStatement;
 
@@ -31,4 +31,4 @@ class InsertStatement : public BoundStatement {
   auto ToString() const -> std::string override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

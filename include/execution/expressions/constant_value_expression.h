@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // constant_value_expression.h
 //
@@ -18,7 +18,7 @@
 
 #include "../include/execution/expressions/abstract_expression.h"
 
-namespace bustub {
+namespace hmssql {
 /**
  * ConstantValueExpression represents constants.
  */
@@ -41,4 +41,4 @@ class ConstantValueExpression : public AbstractExpression {
 
   Value val_;
 };
-}  // namespace bustub
+}  // namespace hmssql

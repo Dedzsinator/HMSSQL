@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // seq_scan_plan.h
 //
@@ -22,7 +22,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The SeqScanPlanNode represents a sequential table scan operation.
@@ -71,4 +71,4 @@ class SeqScanPlanNode : public AbstractPlanNode {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

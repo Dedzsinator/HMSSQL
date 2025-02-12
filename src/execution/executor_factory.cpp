@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // executor_factory.cpp
 //
@@ -40,7 +40,7 @@
 #include "../include/execution/plans/values_plan.h"
 #include "../include/storage/index/generic_key.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto ExecutorFactory::CreateExecutor(ExecutorContext *exec_ctx, const AbstractPlanNodeRef &plan)
     -> std::unique_ptr<AbstractExecutor> {
@@ -159,4 +159,4 @@ auto ExecutorFactory::CreateExecutor(ExecutorContext *exec_ctx, const AbstractPl
   }
 }
 
-}  // namespace bustub
+}  // namespace hmssql

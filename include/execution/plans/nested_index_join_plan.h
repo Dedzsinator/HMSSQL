@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // nested_index_join_plan.h
 //
@@ -24,7 +24,7 @@
 #include "../include/execution/plans/abstract_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * NestedIndexJoinPlanNode is used to represent performing a nested index join between two tables
@@ -87,4 +87,4 @@ class NestedIndexJoinPlanNode : public AbstractPlanNode {
                        key_predicate_, index_name_, index_table_name_);
   }
 };
-}  // namespace bustub
+}  // namespace hmssql

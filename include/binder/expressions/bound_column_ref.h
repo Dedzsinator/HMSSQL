@@ -11,7 +11,7 @@
 #include "../include/common/macros.h"
 #include "fmt/ranges.h"  // Add this include
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * A bound column reference, e.g., `y.x` in the SELECT list.
@@ -37,4 +37,4 @@ class BoundColumnRef : public BoundExpression {
   /** The name of the column. */
   std::vector<std::string> col_name_;
 };
-}  // namespace bustub
+}  // namespace hmssql

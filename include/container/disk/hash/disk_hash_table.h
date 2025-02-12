@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // hash_table.h
 //
@@ -19,7 +19,7 @@
 #include "../include/concurrency/transaction.h"
 #include "../include/storage/page/hash_table_page_defs.h"
 
-namespace bustub {
+namespace hmssql {
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
 class DiskHashTable {
@@ -54,4 +54,4 @@ class DiskHashTable {
   virtual auto GetValue(Transaction *transaction, const KeyType &key, std::vector<ValueType> *result) -> bool = 0;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

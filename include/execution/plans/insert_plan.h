@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // insert_plan.h
 //
@@ -20,7 +20,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The InsertPlanNode identifies a table into which tuples are inserted.
@@ -58,4 +58,4 @@ class InsertPlanNode : public AbstractPlanNode {
   auto PlanNodeToString() const -> std::string override { return fmt::format("Insert {{ table_oid={} }}", table_oid_); }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

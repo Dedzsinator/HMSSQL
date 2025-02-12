@@ -1,37 +1,36 @@
 #!/bin/bash
 
 ## =================================================================
-## BUSTUB PACKAGE INSTALLATION
+## HMSSQL PACKAGE INSTALLATION
 ##
 ## This script will install all the packages that are needed to
 ## build and run the DBMS.
 ##
 ## Supported environments:
-##  * Ubuntu 18.04 (x86-64)
-##  * Ubuntu 20.04 (x86-64)
 ##  * Ubuntu 22.04 (x86-64)
-##  * macOS 11 Big Sur (x86-64 or ARM)
-##  * macOS 12 Monterey (x86-64 or ARM)
+##  * Fedora (x86-64)
+##  * Arch Linux (x86-64)
+##  * macOS 13 Ventura (x86-64 or ARM)
 ## =================================================================
 
 main() {
   set -o errexit
 
-    if [ "$1" == "-y" ] 
-    then 
-        install
-    else
-        echo "PACKAGES WILL BE INSTALLED. THIS MAY BREAK YOUR EXISTING TOOLCHAIN."
-        echo "YOU ACCEPT ALL RESPONSIBILITY BY PROCEEDING."
-        read -p "Proceed? [Y/n] : " yn
-    
-        case $yn in
-            Y|y) install;;
-            *) ;;
-        esac
-    fi
+  if [ "$1" == "-y" ] 
+  then 
+      install
+  else
+      echo "PACKAGES WILL BE INSTALLED. THIS MAY BREAK YOUR EXISTING TOOLCHAIN."
+      echo "YOU ACCEPT ALL RESPONSIBILITY BY PROCEEDING."
+      read -p "Proceed? [y/N] : " yn
+  
+      case $yn in
+          Y|y) install;;
+          *) ;;
+      esac
+  fi
 
-    echo "Script complete."
+  echo "Script complete."
 }
 
 install() {
@@ -39,11 +38,14 @@ install() {
   UNAME=$(uname | tr "[:lower:]" "[:upper:]" )
 
   case $UNAME in
-    DARWIN) install_mac ;;
-
-    LINUX) install_linux ;;
-
-    *) give_up ;;
+    LINUX)
+        install_linux ;;
+    Darwin)
+        give_up ;;
+    WIN*)
+        give_up ;;
+    *)
+        give_up ;;
   esac
 }
 
@@ -54,42 +56,80 @@ give_up() {
   echo "Be sure to include the contents of this message."
   echo "Platform: $(uname -a)"
   echo
-  echo "https://github.com/cmu-db/bustub/issues"
   echo
   exit 1
 }
 
-install_mac() {
-  # Install Homebrew.
-  if test ! $(which brew); then
-    echo "Installing Homebrew (https://brew.sh/)"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+install_linux() {
+  if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$ID
+  else
+    give_up
   fi
-  # Update Homebrew.
-  brew update
-  # Install packages.
-  brew ls --versions cmake || brew install cmake
-  brew ls --versions coreutils || brew install coreutils
-  brew ls --versions doxygen || brew install doxygen
-  brew ls --versions git || brew install git
-  (brew ls --versions llvm | grep 12) || brew install llvm@12
+
+  case $OS in
+    ubuntu)
+      install_ubuntu ;;
+    fedora)
+      install_fedora ;;
+    arch)
+      install_arch ;;
+    *)
+      give_up ;;
+  esac
 }
 
-install_linux() {
+install_ubuntu() {
   # Update apt-get.
-  dnf -y update
+  apt-get -y update
   # Install packages.
-  dnf -y install \
+  apt-get -y install \
       build-essential \
-      clang-12 \
-      clang-format-12 \
-      clang-tidy-12 \
+      clang-14 \
+      clang-format-14 \
+      clang-tidy-14 \
       cmake \
       doxygen \
       git \
-      g++-12 \
       pkg-config \
-      zlib1g-dev
+      zlib1g-dev \
+      libelf-dev \
+      libdwarf-dev
+}
+
+install_fedora() {
+  # Update dnf.
+  dnf -y update
+  # Install packages.
+  dnf -y install \
+      @development-tools \
+      clang \
+      clang-tools-extra \
+      cmake \
+      doxygen \
+      git \
+      pkgconf-pkg-config \
+      zlib-devel \
+      elfutils-libelf-devel \
+      libdwarf
+}
+
+install_arch() {
+  # Update pacman.
+  pacman -Syu --noconfirm
+  # Install packages.
+  pacman -S --noconfirm \
+      base-devel \
+      clang \
+      clang-tools-extra \
+      cmake \
+      doxygen \
+      git \
+      pkgconf \
+      zlib \
+      elfutils \
+      libdwarf
 }
 
 main "$@"

@@ -1,11 +1,10 @@
-# Main CMakeLists.txt
 cmake_minimum_required(VERSION 3.10)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(BUILD_SHARED_LIBS OFF)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(BusTub VERSION 2022.8 DESCRIPTION "The BusTub Relational Database Management System (Educational) @ https://github.com/cmu-db/bustub" LANGUAGES C CXX)
+project(HMSSQL VERSION 2022.8 DESCRIPTION "The HMSSQL Relational Database Management System (Educational) @ https://github.com/cmu-db/bustub" LANGUAGES C CXX)
 
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     message(STATUS "Setting build type to `Debug` as none was specified.")
@@ -31,12 +30,12 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     if (CMAKE_CXX_COMPILER_VERSION MATCHES "^12.")
         message(STATUS "You're using ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
     else ()
-        message(WARNING "!! We recommend that you use clang-12 for developing BusTub. You're using ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}, a different version.")
+        message(WARNING "!! We recommend that you use clang-12 for developing HMSSQL. You're using ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}, a different version.")
     endif ()
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
     message(STATUS "You're using ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 else ()
-    message(WARNING "!! We recommend that you use clang-12 for developing BusTub. You're using ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}, which is not clang.")
+    message(WARNING "!! We recommend that you use clang-12 for developing HMSSQL. You're using ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}, which is not clang.")
 endif ()
 
 ######################################################################################################################
@@ -45,8 +44,6 @@ endif ()
 
 # CTest
 enable_testing()
-
-# Remove clang-format and clang-tidy references
 
 # Compiler flags.
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Werror")
@@ -65,7 +62,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Includes.
-set(BUSTUB_SRC_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/include)
+set(BUSTUB_SRC_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(BUSTUB_TEST_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/test/include)
 set(BUSTUB_THIRD_PARTY_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/third_party ${PROJECT_SOURCE_DIR}/third_party/fmt/include ${PROJECT_SOURCE_DIR}/third_party/libpg_query/include ${PROJECT_SOURCE_DIR}/third_party/argparse/include)
 
@@ -83,3 +80,7 @@ endfunction()
 
 add_subdirectory(src)
 add_subdirectory(third_party)
+
+# Add executables
+add_executable(hmssql_main tools/shell/shell.cpp)
+target_link_libraries(hmssql_main hmssql hmssql_linenoise argparse utf8proc)

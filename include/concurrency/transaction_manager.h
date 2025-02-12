@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // transaction_manager.h
 //
@@ -22,7 +22,7 @@
 #include "../include/concurrency/transaction.h"
 #include "../include/recovery/log_manager.h"
 
-namespace bustub {
+namespace hmssql {
 class LockManager;
 
 /**
@@ -142,4 +142,4 @@ class TransactionManager {
   ReaderWriterLatch global_txn_latch_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

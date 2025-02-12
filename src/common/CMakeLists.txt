@@ -1,10 +1,10 @@
 add_library(
-  bustub_common
+  hmssql_common
   OBJECT
-  bustub_instance.cpp
+  hmssql_instance.cpp
   config.cpp
   util/string_util.cpp)
 
 set(ALL_OBJECT_FILES
-    ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:bustub_common>
-    PARENT_SCOPE)
+  ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:hmssql_common>
+  PARENT_SCOPE)

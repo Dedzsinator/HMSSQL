@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // lru_k_replacer.h
 //
@@ -21,7 +21,7 @@
 #include "../include/common/config.h"
 #include "../include/common/macros.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * LRUKReplacer implements the LRU-k replacement policy.
@@ -152,4 +152,4 @@ class LRUKReplacer {
   std::unordered_map<frame_id_t, bool> is_evictable_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

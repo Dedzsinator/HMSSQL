@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // disk_extendible_hash_table.cpp
 //
@@ -20,7 +20,7 @@
 #include "../include/common/rid.h"
 #include "../include/container/disk/hash/disk_extendible_hash_table.h"
 
-namespace bustub {
+namespace hmssql {
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
 HASH_TABLE_TYPE::DiskExtendibleHashTable(const std::string &name, BufferPoolManager *buffer_pool_manager,
@@ -135,4 +135,4 @@ template class DiskExtendibleHashTable<GenericKey<16>, RID, GenericComparator<16
 template class DiskExtendibleHashTable<GenericKey<32>, RID, GenericComparator<32>>;
 template class DiskExtendibleHashTable<GenericKey<64>, RID, GenericComparator<64>>;
 
-}  // namespace bustub
+}  // namespace hmssql

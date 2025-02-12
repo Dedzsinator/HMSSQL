@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // filter_plan.h
 //
@@ -20,7 +20,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The FilterPlanNode represents a filter operation.
@@ -60,4 +60,4 @@ class FilterPlanNode : public AbstractPlanNode {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

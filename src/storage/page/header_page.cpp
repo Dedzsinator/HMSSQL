@@ -14,7 +14,7 @@
 
 #include "../include/storage/page/header_page.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Record related
@@ -101,4 +101,4 @@ auto HeaderPage::FindRecord(const std::string &name) -> int {
   }
   return -1;
 }
-}  // namespace bustub
+}  // namespace hmssql

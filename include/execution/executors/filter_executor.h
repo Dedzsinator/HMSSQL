@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // filter_executor.h
 //
@@ -21,7 +21,7 @@
 #include "../include/execution/plans/seq_scan_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The FilterExecutor executor executes a filter.
@@ -58,4 +58,4 @@ class FilterExecutor : public AbstractExecutor {
   /** The child executor from which tuples are obtained */
   std::unique_ptr<AbstractExecutor> child_executor_;
 };
-}  // namespace bustub
+}  // namespace hmssql

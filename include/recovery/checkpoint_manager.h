@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // checkpoint_manager.h
 //
@@ -16,7 +16,7 @@
 #include "../include/concurrency/transaction_manager.h"
 #include "../include/recovery/log_manager.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * CheckpointManager creates consistent checkpoints by blocking all other transactions temporarily.
@@ -40,4 +40,4 @@ class CheckpointManager {
   BufferPoolManager *buffer_pool_manager_ __attribute__((__unused__));
 };
 
-}  // namespace bustub
+}  // namespace hmssql

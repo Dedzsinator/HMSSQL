@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // executor_context.h
 //
@@ -20,7 +20,7 @@
 #include "../include/concurrency/transaction.h"
 #include "../include/storage/page/tmp_tuple_page.h"
 
-namespace bustub {
+namespace hmssql {
 /**
  * ExecutorContext stores all the context necessary to run an executor.
  */
@@ -73,4 +73,4 @@ class ExecutorContext {
   LockManager *lock_mgr_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

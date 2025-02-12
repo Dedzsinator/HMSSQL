@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // update_plan.h
 //
@@ -20,7 +20,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The UpdatePlanNode identifies a table that should be updated.
@@ -64,4 +64,4 @@ class UpdatePlanNode : public AbstractPlanNode {
   auto PlanNodeToString() const -> std::string override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

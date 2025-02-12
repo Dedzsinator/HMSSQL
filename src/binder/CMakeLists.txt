@@ -1,7 +1,7 @@
 add_subdirectory(statement)
 
 add_library(
-  bustub_binder
+  hmssql_binder
   OBJECT
   binder.cpp
   bind_create.cpp
@@ -15,5 +15,5 @@ add_library(
   transformer.cpp
 )
 set(ALL_OBJECT_FILES
-  ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:bustub_binder>
+  ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:hmssql_binder>
   PARENT_SCOPE)

@@ -15,7 +15,7 @@
 #include "../include/common/macros.h"
 #include "../include/execution/plans/aggregation_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 class BoundStatement;
 class SelectStatement;
@@ -73,7 +73,7 @@ class PlannerContext {
 };
 
 /**
- * The planner takes a bound statement, and transforms it into the BusTub plan tree.
+ * The planner takes a bound statement, and transforms it into the HMSSQL plan tree.
  * The plan tree will be taken by the execution engine to execute the statement.
  */
 class Planner {
@@ -181,4 +181,4 @@ class Planner {
 
 static constexpr const char *const UNNAMED_COLUMN = "<unnamed>";
 
-}  // namespace bustub
+}  // namespace hmssql

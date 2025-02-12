@@ -14,7 +14,7 @@
 
 #define BUSTUB_OPTIMIZER_HACK_REMOVE_AFTER_2022_FALL
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The optimizer takes an `AbstractPlanNode` and outputs an optimized `AbstractPlanNode`.
@@ -109,7 +109,7 @@ class Optimizer {
   auto OptimizeMergeFilterIndexScan(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef;
 
   /**
-   * @brief get the estimated cardinality for a table based on the table name. Useful when join reordering. BusTub
+   * @brief get the estimated cardinality for a table based on the table name. Useful when join reordering. HMSSQL
    * doesn't support statistics for now, so it's the only way for you to get the table size :(
    *
    * @param table_name
@@ -125,4 +125,4 @@ class Optimizer {
   const bool force_starter_rule_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

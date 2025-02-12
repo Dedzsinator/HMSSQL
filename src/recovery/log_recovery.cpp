@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // log_recovery.cpp
 //
@@ -14,7 +14,7 @@
 
 #include "../include/storage/page/table_page.h"
 
-namespace bustub {
+namespace hmssql {
 /*
  * deserialize a log record from log buffer
  * @return: true means deserialize succeed, otherwise can't deserialize cause
@@ -37,4 +37,4 @@ void LogRecovery::Redo() {}
  */
 void LogRecovery::Undo() {}
 
-}  // namespace bustub
+}  // namespace hmssql

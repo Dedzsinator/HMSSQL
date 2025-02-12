@@ -5,7 +5,7 @@
 #include "../include/common/macros.h"
 #include "fmt/format.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * All types of expressions in binder.
@@ -42,10 +42,10 @@ class BoundExpression {
   ExpressionType type_{ExpressionType::INVALID};
 };
 
-}  // namespace bustub
+}  // namespace hmssql
 
 template <typename T>
-struct fmt::formatter<T, std::enable_if_t<std::is_base_of<bustub::BoundExpression, T>::value, char>>
+struct fmt::formatter<T, std::enable_if_t<std::is_base_of<hmssql::BoundExpression, T>::value, char>>
     : fmt::formatter<std::string> {
   template <typename FormatCtx>
   auto format(const T &x, FormatCtx &ctx) const {
@@ -54,7 +54,7 @@ struct fmt::formatter<T, std::enable_if_t<std::is_base_of<bustub::BoundExpressio
 };
 
 template <typename T>
-struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<bustub::BoundExpression, T>::value, char>>
+struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<hmssql::BoundExpression, T>::value, char>>
     : fmt::formatter<std::string> {
   template <typename FormatCtx>
   auto format(const std::unique_ptr<T> &x, FormatCtx &ctx) const {
@@ -63,39 +63,39 @@ struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<bustu
 };
 
 template <>
-struct fmt::formatter<bustub::ExpressionType> : formatter<string_view> {
+struct fmt::formatter<hmssql::ExpressionType> : formatter<string_view> {
   template <typename FormatContext>
-  auto format(bustub::ExpressionType c, FormatContext &ctx) const {
+  auto format(hmssql::ExpressionType c, FormatContext &ctx) const {
     string_view name;
     switch (c) {
-      case bustub::ExpressionType::INVALID:
+      case hmssql::ExpressionType::INVALID:
         name = "Invalid";
         break;
-      case bustub::ExpressionType::CONSTANT:
+      case hmssql::ExpressionType::CONSTANT:
         name = "Constant";
         break;
-      case bustub::ExpressionType::COLUMN_REF:
+      case hmssql::ExpressionType::COLUMN_REF:
         name = "ColumnRef";
         break;
-      case bustub::ExpressionType::TYPE_CAST:
+      case hmssql::ExpressionType::TYPE_CAST:
         name = "TypeCast";
         break;
-      case bustub::ExpressionType::FUNCTION:
+      case hmssql::ExpressionType::FUNCTION:
         name = "Function";
         break;
-      case bustub::ExpressionType::AGG_CALL:
+      case hmssql::ExpressionType::AGG_CALL:
         name = "AggregationCall";
         break;
-      case bustub::ExpressionType::STAR:
+      case hmssql::ExpressionType::STAR:
         name = "Star";
         break;
-      case bustub::ExpressionType::UNARY_OP:
+      case hmssql::ExpressionType::UNARY_OP:
         name = "UnaryOperation";
         break;
-      case bustub::ExpressionType::BINARY_OP:
+      case hmssql::ExpressionType::BINARY_OP:
         name = "BinaryOperation";
         break;
-      case bustub::ExpressionType::ALIAS:
+      case hmssql::ExpressionType::ALIAS:
         name = "Alias";
         break;
     }

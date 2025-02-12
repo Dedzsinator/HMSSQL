@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // decimal_type.cpp
 //
@@ -18,7 +18,7 @@
 #include "../include/common/exception.h"
 #include "../include/type/decimal_type.h"
 
-namespace bustub {
+namespace hmssql {
 #define DECIMAL_COMPARE_FUNC(OP)                                          \
   switch (right.GetTypeId()) {                                            \
     case TypeId::TINYINT:                                                 \
@@ -336,4 +336,4 @@ auto DecimalType::DeserializeFrom(const char *storage) const -> Value {
 }
 
 auto DecimalType::Copy(const Value &val) const -> Value { return {TypeId::DECIMAL, val.value_.decimal_}; }
-}  // namespace bustub
+}  // namespace hmssql

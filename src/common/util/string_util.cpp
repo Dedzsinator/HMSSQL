@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // string_util.cpp
 //
@@ -23,7 +23,7 @@
 #include "fmt/format.h"
 #include "fmt/ranges.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto StringUtil::Contains(const std::string &haystack, const std::string &needle) -> bool {
   return (haystack.find(needle) != std::string::npos);
@@ -228,4 +228,4 @@ auto StringUtil::IndentAllLines(const std::string &lines, size_t num_indent, boo
   return fmt::format("{}", fmt::join(lines_str, "\n"));
 }
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,5 +1,5 @@
 //===----------------------------------------------------------------------===//
-//                         BusTub
+//                         HMSSQL
 //
 // binder/delete_statement.h
 //
@@ -15,7 +15,7 @@
 #include "../include/binder/table_ref/bound_base_table_ref.h"
 #include "../include/catalog/column.h"
 
-namespace bustub {
+namespace hmssql {
 
 class DeleteStatement : public BoundStatement {
  public:
@@ -28,4 +28,4 @@ class DeleteStatement : public BoundStatement {
   auto ToString() const -> std::string override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

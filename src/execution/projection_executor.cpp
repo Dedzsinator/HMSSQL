@@ -1,7 +1,7 @@
 #include "../include/execution/executors/projection_executor.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 ProjectionExecutor::ProjectionExecutor(ExecutorContext *exec_ctx, const ProjectionPlanNode *plan,
                                        std::unique_ptr<AbstractExecutor> &&child_executor)
@@ -33,4 +33,4 @@ auto ProjectionExecutor::Next(Tuple *tuple, RID *rid) -> bool {
 
   return true;
 }
-}  // namespace bustub
+}  // namespace hmssql

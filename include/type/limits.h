@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // limits.h
 //
@@ -17,7 +17,7 @@
 #include <cstdint>
 #include <limits>
 
-namespace bustub {
+namespace hmssql {
 
 static constexpr double DBL_LOWEST = std::numeric_limits<double>::lowest();
 static constexpr double FLT_LOWEST = std::numeric_limits<float>::lowest();
@@ -58,4 +58,4 @@ static constexpr uint32_t BUSTUB_TEXT_MAX_LEN = 1000000000;
 
 // Objects (i.e., VARCHAR) with length prefix of -1 are NULL
 static constexpr int OBJECTLENGTH_NULL = -1;
-}  // namespace bustub
+}  // namespace hmssql

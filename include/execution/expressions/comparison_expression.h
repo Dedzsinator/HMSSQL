@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // comparison_expression.h
 //
@@ -22,7 +22,7 @@
 #include "../include/storage/table/tuple.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 /** ComparisonType represents the type of comparison that we want to perform. */
 enum class ComparisonType { Equal, NotEqual, LessThan, LessThanOrEqual, GreaterThan, GreaterThanOrEqual };
@@ -78,30 +78,30 @@ class ComparisonExpression : public AbstractExpression {
     }
   }
 };
-}  // namespace bustub
+}  // namespace hmssql
 
 template <>
-struct fmt::formatter<bustub::ComparisonType> : formatter<string_view> {
+struct fmt::formatter<hmssql::ComparisonType> : formatter<string_view> {
   template <typename FormatContext>
-  auto format(bustub::ComparisonType c, FormatContext &ctx) const {
+  auto format(hmssql::ComparisonType c, FormatContext &ctx) const {
     string_view name;
     switch (c) {
-      case bustub::ComparisonType::Equal:
+      case hmssql::ComparisonType::Equal:
         name = "=";
         break;
-      case bustub::ComparisonType::NotEqual:
+      case hmssql::ComparisonType::NotEqual:
         name = "!=";
         break;
-      case bustub::ComparisonType::LessThan:
+      case hmssql::ComparisonType::LessThan:
         name = "<";
         break;
-      case bustub::ComparisonType::LessThanOrEqual:
+      case hmssql::ComparisonType::LessThanOrEqual:
         name = "<=";
         break;
-      case bustub::ComparisonType::GreaterThan:
+      case hmssql::ComparisonType::GreaterThan:
         name = ">";
         break;
-      case bustub::ComparisonType::GreaterThanOrEqual:
+      case hmssql::ComparisonType::GreaterThanOrEqual:
         name = ">=";
         break;
       default:

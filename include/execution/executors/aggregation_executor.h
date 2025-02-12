@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // aggregation_executor.h
 //
@@ -26,7 +26,7 @@
 #include "../include/storage/table/tuple.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * A simplified hash table that has all the necessary functionality for aggregations.
@@ -235,4 +235,4 @@ class AggregationExecutor : public AbstractExecutor {
   /** Simple aggregation hash table iterator */
   SimpleAggregationHashTable::Iterator aht_iterator_;
 };
-}  // namespace bustub
+}  // namespace hmssql

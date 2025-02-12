@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // values_plan.h
 //
@@ -21,7 +21,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The ValuesPlanNode represents rows of values. For example,
@@ -51,4 +51,4 @@ class ValuesPlanNode : public AbstractPlanNode {
   auto PlanNodeToString() const -> std::string override { return fmt::format("Values {{ rows={} }}", values_.size()); }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

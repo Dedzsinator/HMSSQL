@@ -7,7 +7,7 @@
 #include "../include/execution/plans/projection_plan.h"
 #include "../include/optimizer/optimizer.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Optimizer::OptimizeMergeProjection(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef {
   std::vector<AbstractPlanNodeRef> children;
@@ -54,4 +54,4 @@ auto Optimizer::OptimizeMergeProjection(const AbstractPlanNodeRef &plan) -> Abst
   return optimized_plan;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

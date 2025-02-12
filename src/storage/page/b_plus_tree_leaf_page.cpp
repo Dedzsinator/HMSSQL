@@ -15,7 +15,7 @@
 #include "../include/common/rid.h"
 #include "../include/storage/page/b_plus_tree_leaf_page.h"
 
-namespace bustub {
+namespace hmssql {
 
 /*****************************************************************************
  * HELPER METHODS AND UTILITIES
@@ -161,4 +161,4 @@ template class BPlusTreeLeafPage<GenericKey<8>, RID, GenericComparator<8>>;
 template class BPlusTreeLeafPage<GenericKey<16>, RID, GenericComparator<16>>;
 template class BPlusTreeLeafPage<GenericKey<32>, RID, GenericComparator<32>>;
 template class BPlusTreeLeafPage<GenericKey<64>, RID, GenericComparator<64>>;
-}  // namespace bustub
+}  // namespace hmssql

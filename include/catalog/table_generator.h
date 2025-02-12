@@ -7,7 +7,7 @@
 #include "../include/execution/executor_context.h"
 #include "../include/storage/table/table_heap.h"
 
-namespace bustub {
+namespace hmssql {
 
 static constexpr uint32_t TEST1_SIZE = 1000;
 static constexpr uint32_t TEST2_SIZE = 100;
@@ -111,4 +111,4 @@ class TableGenerator {
  private:
   ExecutorContext *exec_ctx_;
 };
-}  // namespace bustub
+}  // namespace hmssql

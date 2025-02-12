@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // decimal_type.h
 //
@@ -14,7 +14,7 @@
 #include <string>
 #include "../include/type/numeric_type.h"
 
-namespace bustub {
+namespace hmssql {
 class DecimalType : public NumericType {
  public:
   DecimalType();
@@ -59,4 +59,4 @@ class DecimalType : public NumericType {
  private:
   auto OperateNull(const Value &left, const Value &right) const -> Value override;
 };
-}  // namespace bustub
+}  // namespace hmssql

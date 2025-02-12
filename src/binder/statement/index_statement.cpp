@@ -4,7 +4,7 @@
 #include "fmt/format.h"
 #include "fmt/ranges.h"
 
-namespace bustub {
+namespace hmssql {
 
 IndexStatement::IndexStatement(std::string index_name, std::unique_ptr<BoundBaseTableRef> table,
                                std::vector<std::unique_ptr<BoundColumnRef>> cols)
@@ -17,4 +17,4 @@ auto IndexStatement::ToString() const -> std::string {
   return fmt::format("BoundIndex {{ index_name={}, table={}, cols={} }}", index_name_, *table_, cols_);
 }
 
-}  // namespace bustub
+}  // namespace hmssql

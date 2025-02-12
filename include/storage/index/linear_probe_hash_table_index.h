@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // linear_probe_hash_table_index.h
 //
@@ -21,7 +21,7 @@
 #include "../include/container/hash/hash_function.h"
 #include "../include/storage/index/index.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define HASH_TABLE_INDEX_TYPE LinearProbeHashTableIndex<KeyType, ValueType, KeyComparator>
 
@@ -46,4 +46,4 @@ class LinearProbeHashTableIndex : public Index {
   LinearProbeHashTable<KeyType, ValueType, KeyComparator> container_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

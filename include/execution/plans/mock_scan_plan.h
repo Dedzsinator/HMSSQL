@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // mock_scan_plan.h
 //
@@ -19,7 +19,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The MockScanPlanNode represents a "dummy" sequential
@@ -51,4 +51,4 @@ class MockScanPlanNode : public AbstractPlanNode {
   std::string table_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

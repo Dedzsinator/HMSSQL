@@ -29,7 +29,7 @@
 #include "../include/planner/planner.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Planner::PlanTableRef(const BoundTableRef &table_ref) -> AbstractPlanNodeRef {
   switch (table_ref.type_) {
@@ -103,7 +103,7 @@ auto Planner::PlanBaseTableRef(const BoundBaseTableRef &table_ref) -> AbstractPl
       return std::make_shared<MockScanPlanNode>(std::make_shared<Schema>(SeqScanPlanNode::InferScanSchema(table_ref)),
                                                 table->name_);
     }
-    throw bustub::Exception(fmt::format("unsupported internal table: {}", table->name_));
+    throw hmssql::Exception(fmt::format("unsupported internal table: {}", table->name_));
   }
   // Otherwise, plan as normal SeqScan.
   return std::make_shared<SeqScanPlanNode>(std::make_shared<Schema>(SeqScanPlanNode::InferScanSchema(table_ref)),
@@ -167,4 +167,4 @@ auto Planner::PlanExpressionListRef(const BoundExpressionListRef &table_ref) -> 
   return std::make_shared<ValuesPlanNode>(std::move(schema), std::move(all_exprs));
 }
 
-}  // namespace bustub
+}  // namespace hmssql

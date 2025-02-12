@@ -1,10 +1,10 @@
 add_library(
-    bustub_storage_table
+    hmssql_storage_table
     OBJECT
     table_heap.cpp
     table_iterator.cpp
     tuple.cpp)
 
 set(ALL_OBJECT_FILES
-    ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:bustub_storage_table>
+    ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:hmssql_storage_table>
     PARENT_SCOPE)

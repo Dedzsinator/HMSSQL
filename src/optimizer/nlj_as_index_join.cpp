@@ -19,7 +19,7 @@
 #include "../include/optimizer/optimizer.h"
 #include "../include/type/type_id.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Optimizer::MatchIndex(const std::string &table_name, uint32_t index_key_idx)
     -> std::optional<std::tuple<index_oid_t, std::string>> {
@@ -90,4 +90,4 @@ auto Optimizer::OptimizeNLJAsIndexJoin(const AbstractPlanNodeRef &plan) -> Abstr
   return optimized_plan;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

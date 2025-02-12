@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // abstract_pool.h
 //
@@ -14,7 +14,7 @@
 
 #include <cstdlib>
 
-namespace bustub {
+namespace hmssql {
 
 // Interface of a memory pool that can quickly allocate chunks of memory
 class AbstractPool {
@@ -38,4 +38,4 @@ class AbstractPool {
   virtual void Free(void *ptr) = 0;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

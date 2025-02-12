@@ -1,5 +1,5 @@
 //===----------------------------------------------------------------------===//
-//                         BusTub
+//                         HMSSQL
 //
 // binder/insert_statement.h
 //
@@ -21,7 +21,7 @@
 #include "../include/common/enums/statement_type.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 class UpdateStatement : public BoundStatement {
  public:
@@ -38,4 +38,4 @@ class UpdateStatement : public BoundStatement {
   auto ToString() const -> std::string override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

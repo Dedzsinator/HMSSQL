@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // disk_manager_memory.h
 //
@@ -26,7 +26,7 @@
 #include "../include/common/logger.h"
 #include "../include/storage/disk/disk_manager.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * DiskManagerMemory replicates the utility of DiskManager on memory. It is primarily used for
@@ -113,4 +113,4 @@ class DiskManagerUnlimitedMemory : public DiskManager {
   std::vector<std::shared_ptr<ProtectedPage>> data_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

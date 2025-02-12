@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // extendible_hash_table.h
 //
@@ -25,7 +25,7 @@
 
 #include "../include/container/hash/hash_table.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * ExtendibleHashTable implements a hash table using the extendible hashing algorithm.
@@ -198,4 +198,4 @@ class ExtendibleHashTable : public HashTable<K, V> {
   auto GetNumBucketsInternal() const -> int;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

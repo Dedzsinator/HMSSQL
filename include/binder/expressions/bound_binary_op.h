@@ -7,7 +7,7 @@
 
 #include "../include/binder/bound_expression.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * A bound binary operator, e.g., `a+b`.
@@ -35,4 +35,4 @@ class BoundBinaryOp : public BoundExpression {
   std::unique_ptr<BoundExpression> rarg_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

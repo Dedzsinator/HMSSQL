@@ -8,7 +8,7 @@
 
 #include "../include/optimizer/optimizer.h"
 
-namespace bustub {
+namespace hmssql {
 
 #ifdef BUSTUB_OPTIMIZER_HACK_REMOVE_AFTER_2022_FALL
 
@@ -38,4 +38,4 @@ auto Optimizer::OptimizeMergeFilterScan(const AbstractPlanNodeRef &plan) -> Abst
 
 #endif
 
-}  // namespace bustub
+}  // namespace hmssql

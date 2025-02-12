@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // tuple.cpp
 //
@@ -18,7 +18,7 @@
 
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 // TODO(Amadou): It does not look like nulls are supported. Add a null bitmap?
 Tuple::Tuple(std::vector<Value> values, const Schema *schema) : allocated_(true) {
@@ -171,4 +171,4 @@ void Tuple::DeserializeFrom(const char *storage) {
   this->allocated_ = true;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

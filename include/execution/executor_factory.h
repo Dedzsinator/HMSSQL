@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // executor_factory.h
 //
@@ -17,7 +17,7 @@
 #include "../include/execution/executors/abstract_executor.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 /**
  * ExecutorFactory creates executors for arbitrary plan nodes.
  */
@@ -32,4 +32,4 @@ class ExecutorFactory {
   static auto CreateExecutor(ExecutorContext *exec_ctx, const AbstractPlanNodeRef &plan)
       -> std::unique_ptr<AbstractExecutor>;
 };
-}  // namespace bustub
+}  // namespace hmssql

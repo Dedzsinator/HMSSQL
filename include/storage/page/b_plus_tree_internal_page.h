@@ -14,7 +14,7 @@
 
 #include "../include/storage/page/b_plus_tree_page.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define B_PLUS_TREE_INTERNAL_PAGE_TYPE BPlusTreeInternalPage<KeyType, ValueType, KeyComparator>
 #define INTERNAL_PAGE_HEADER_SIZE 24
@@ -64,4 +64,4 @@ class BPlusTreeInternalPage : public BPlusTreePage {
   void CopyLastFrom(const MappingType &pair, BufferPoolManager *buffer_pool_manager);
   void CopyFirstFrom(const MappingType &pair, BufferPoolManager *buffer_pool_manager);
 };
-}  // namespace bustub
+}  // namespace hmssql

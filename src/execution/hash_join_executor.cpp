@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // hash_join_executor.cpp
 //
@@ -16,7 +16,7 @@
 // Note for 2022 Fall: You don't need to implement HashJoinExecutor to pass all tests. You ONLY need to implement it
 // if you want to get faster in leaderboard tests.
 
-namespace bustub {
+namespace hmssql {
 
 HashJoinExecutor::HashJoinExecutor(ExecutorContext *exec_ctx, const HashJoinPlanNode *plan,
                                    std::unique_ptr<AbstractExecutor> &&left_child,
@@ -27,7 +27,7 @@ HashJoinExecutor::HashJoinExecutor(ExecutorContext *exec_ctx, const HashJoinPlan
       right_executor_(std::move(right_child)) {
   if (!(plan->GetJoinType() == JoinType::LEFT || plan->GetJoinType() == JoinType::INNER)) {
     // Note for 2022 Fall: You ONLY need to implement left join and inner join.
-    throw bustub::NotImplementedException(fmt::format("join type {} not supported", plan->GetJoinType()));
+    throw hmssql::NotImplementedException(fmt::format("join type {} not supported", plan->GetJoinType()));
   }
 }
 
@@ -88,4 +88,4 @@ auto HashJoinExecutor::Next(Tuple *tuple, RID *rid) -> bool {
   return true;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

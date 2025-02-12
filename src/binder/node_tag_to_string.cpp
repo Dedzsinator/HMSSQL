@@ -22,7 +22,7 @@
 
 #include "../include/binder/binder.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Binder::NodeTagToString(duckdb_libpgquery::PGNodeTag type) -> std::string {
   switch (type) {
@@ -839,4 +839,4 @@ auto Binder::NodeTagToString(duckdb_libpgquery::PGNodeTag type) -> std::string {
   }
 }  // LCOV_EXCL_STOP
 
-}  // namespace bustub
+}  // namespace hmssql

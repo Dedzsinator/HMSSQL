@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // seq_scan_executor.cpp
 //
@@ -12,7 +12,7 @@
 
 #include "../include/execution/executors/seq_scan_executor.h"
 
-namespace bustub {
+namespace hmssql {
 
 SeqScanExecutor::SeqScanExecutor(ExecutorContext *exec_ctx, const SeqScanPlanNode *plan)
     : AbstractExecutor(exec_ctx), plan_(plan) {
@@ -69,4 +69,4 @@ auto SeqScanExecutor::Next(Tuple *tuple, RID *rid) -> bool {
   return true;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

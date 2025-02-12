@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // table_page.h
 //
@@ -22,7 +22,7 @@
 
 static constexpr uint64_t DELETE_MASK = (1U << (8 * sizeof(uint32_t) - 1));
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Slotted page format:
@@ -206,4 +206,4 @@ class TablePage : public Page {
     return static_cast<uint32_t>(tuple_size & (~DELETE_MASK));
   }
 };
-}  // namespace bustub
+}  // namespace hmssql

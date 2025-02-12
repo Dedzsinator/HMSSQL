@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // integer_parent_type.cpp
 //
@@ -15,7 +15,7 @@
 
 #include "../include/type/integer_parent_type.h"
 
-namespace bustub {
+namespace hmssql {
 IntegerParentType::IntegerParentType(TypeId type) : NumericType(type) {}
 
 auto IntegerParentType::Min(const Value &left, const Value &right) const -> Value {
@@ -43,4 +43,4 @@ auto IntegerParentType::Max(const Value &left, const Value &right) const -> Valu
   }
   return right.Copy();
 }
-}  // namespace bustub
+}  // namespace hmssql

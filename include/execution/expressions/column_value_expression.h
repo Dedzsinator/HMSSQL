@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // column_value_expression.h
 //
@@ -20,7 +20,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 /**
  * ColumnValueExpression maintains the tuple index and column index relative to a particular schema or join.
  */
@@ -59,4 +59,4 @@ class ColumnValueExpression : public AbstractExpression {
   /** Column index refers to the index within the schema of the tuple, e.g. schema {A,B,C} has indexes {0,1,2} */
   uint32_t col_idx_;
 };
-}  // namespace bustub
+}  // namespace hmssql

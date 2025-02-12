@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // value_factory.h
 //
@@ -26,7 +26,7 @@
 #include "../include/type/value.h"
 #include "../include/type/varlen_type.h"
 
-namespace bustub {
+namespace hmssql {
 
 //===--------------------------------------------------------------------===//
 // Value Factory
@@ -498,4 +498,4 @@ class ValueFactory {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

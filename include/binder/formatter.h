@@ -3,7 +3,7 @@
 #include <sstream>
 #include <string>
 
-namespace bustub {
+namespace hmssql {
 
 class SimpleFormatter {
  public:
@@ -31,4 +31,4 @@ class SimpleFormatter {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // disk_manager.cpp
 //
@@ -22,7 +22,7 @@
 #include "../include/common/logger.h"
 #include "../include/storage/disk/disk_manager.h"
 
-namespace bustub {
+namespace hmssql {
 
 static char *buffer_used;
 
@@ -208,4 +208,4 @@ auto DiskManager::GetFileSize(const std::string &file_name) -> int {
   return rc == 0 ? static_cast<int>(stat_buf.st_size) : -1;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // transaction.h
 //
@@ -25,7 +25,7 @@
 #include "../include/storage/page/page.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Transaction states for 2PL:
@@ -175,7 +175,7 @@ class Transaction {
     // Initialize the sets that will be tracked.
     table_write_set_ = std::make_shared<std::deque<TableWriteRecord>>();
     index_write_set_ = std::make_shared<std::deque<IndexWriteRecord>>();
-    page_set_ = std::make_shared<std::deque<bustub::Page *>>();
+    page_set_ = std::make_shared<std::deque<hmssql::Page *>>();
     deleted_page_set_ = std::make_shared<std::unordered_set<page_id_t>>();
   }
 
@@ -364,4 +364,4 @@ class Transaction {
   std::shared_ptr<std::unordered_map<table_oid_t, std::unordered_set<RID>>> x_row_lock_set_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

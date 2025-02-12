@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // index_scan_executor.cpp
 //
@@ -13,7 +13,7 @@
 #include "../include/execution/expressions/constant_value_expression.h"
 
 
-namespace bustub {
+namespace hmssql {
 IndexScanExecutor::IndexScanExecutor(ExecutorContext *exec_ctx, const IndexScanPlanNode *plan)
     : AbstractExecutor(exec_ctx),
       plan_{plan},
@@ -76,4 +76,4 @@ auto IndexScanExecutor::Next(Tuple *tuple, RID *rid) -> bool {
   return result;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

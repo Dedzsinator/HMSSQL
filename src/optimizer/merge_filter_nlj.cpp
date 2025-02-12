@@ -13,7 +13,7 @@
 #include "../include/optimizer/optimizer.h"
 #include "../include/type/type_id.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Optimizer::RewriteExpressionForJoin(const AbstractExpressionRef &expr, size_t left_column_cnt,
                                          size_t right_column_cnt) -> AbstractExpressionRef {
@@ -31,7 +31,7 @@ auto Optimizer::RewriteExpressionForJoin(const AbstractExpressionRef &expr, size
     if (col_idx >= left_column_cnt && col_idx < left_column_cnt + right_column_cnt) {
       return std::make_shared<ColumnValueExpression>(1, col_idx - left_column_cnt, column_value_expr->GetReturnType());
     }
-    throw bustub::Exception("col_idx not in range");
+    throw hmssql::Exception("col_idx not in range");
   }
   return expr->CloneWithChildren(children);
 }
@@ -74,4 +74,4 @@ auto Optimizer::OptimizeMergeFilterNLJ(const AbstractPlanNodeRef &plan) -> Abstr
   return optimized_plan;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

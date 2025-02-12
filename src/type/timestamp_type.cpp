@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // timestamp_type.cpp
 //
@@ -17,7 +17,7 @@
 #include "../include/type/value_factory.h"
 #include "../include/type/varlen_type.h"
 
-namespace bustub {
+namespace hmssql {
 
 TimestampType::TimestampType() : Type(TypeId::TIMESTAMP) {}
 
@@ -160,4 +160,4 @@ auto TimestampType::CastAs(const Value &val, const TypeId type_id) const -> Valu
   throw Exception("TIMESTAMP is not coercable to " + Type::GetInstance(type_id)->ToString(val));
 }
 
-}  // namespace bustub
+}  // namespace hmssql

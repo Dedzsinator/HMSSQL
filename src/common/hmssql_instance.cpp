@@ -14,7 +14,7 @@
 #include "../include/buffer/buffer_pool_manager_instance.h"
 #include "../include/catalog/schema.h"
 #include "../include/catalog/table_generator.h"
-#include "../include/common/bustub_instance.h"
+#include "../include/common/hmssql_instance.h"
 #include "../include/common/enums/statement_type.h"
 #include "../include/common/exception.h"
 #include "../include/common/util/string_util.h"
@@ -35,7 +35,7 @@
 #include "../include/storage/disk/disk_manager_memory.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto BustubInstance::MakeExecutorContext(Transaction *txn) -> std::unique_ptr<ExecutorContext> {
   return std::make_unique<ExecutorContext>(txn, catalog_, buffer_pool_manager_, txn_manager_, lock_manager_);
@@ -155,13 +155,13 @@ void BustubInstance::WriteOneCell(const std::string &cell, ResultWriter &writer)
 }
 
 void BustubInstance::CmdDisplayHelp(ResultWriter &writer) {
-  std::string help = R"(Welcome to the BusTub shell!
+  std::string help = R"(Welcome to the HMSSQL shell!
 
 \dt: show all tables
 \di: show all indices
 \help: show this message again
 
-BusTub shell currently only supports a small set of Postgres queries. We'll set
+HMSSQL shell currently only supports a small set of Postgres queries. We'll set
 up a doc describing the current status later. It will silently ignore some parts
 of the query, so it's normal that you'll get a wrong result when executing
 unsupported SQL queries. This shell will be able to run `create table` only
@@ -204,7 +204,7 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
   bool is_successful = true;
 
   std::shared_lock<std::shared_mutex> l(catalog_lock_);
-  bustub::Binder binder(*catalog_);
+  hmssql::Binder binder(*catalog_);
   binder.ParseAndSave(sql);
   l.unlock();
 
@@ -219,7 +219,7 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
         l.unlock();
 
         if (info == nullptr) {
-          throw bustub::Exception("Failed to create table");
+          throw hmssql::Exception("Failed to create table");
         }
         WriteOneCell(fmt::format("Table created with id = {}", info->oid_), writer);
         continue;
@@ -247,7 +247,7 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
         l.unlock();
 
         if (info == nullptr) {
-          throw bustub::Exception("Failed to create index");
+          throw hmssql::Exception("Failed to create index");
         }
         WriteOneCell(fmt::format("Index created with id = {}", info->index_oid_), writer);
         continue;
@@ -277,7 +277,7 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
 
         std::shared_lock<std::shared_mutex> l(catalog_lock_);
 
-        bustub::Planner planner(*catalog_);
+        hmssql::Planner planner(*catalog_);
         planner.PlanQuery(*explain_stmt.statement_);
 
         bool show_schema = (explain_stmt.options_ & ExplainOptions::SCHEMA) != 0;
@@ -291,7 +291,7 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
         }
 
         // Print optimizer result.
-        bustub::Optimizer optimizer(*catalog_, IsForceStarterRule());
+        hmssql::Optimizer optimizer(*catalog_, IsForceStarterRule());
         auto optimized_plan = optimizer.Optimize(planner.plan_);
 
         l.unlock();
@@ -314,11 +314,11 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
     std::shared_lock<std::shared_mutex> l(catalog_lock_);
 
     // Plan the query.
-    bustub::Planner planner(*catalog_);
+    hmssql::Planner planner(*catalog_);
     planner.PlanQuery(*statement);
 
     // Optimize the query.
-    bustub::Optimizer optimizer(*catalog_, IsForceStarterRule());
+    hmssql::Optimizer optimizer(*catalog_, IsForceStarterRule());
     auto optimized_plan = optimizer.Optimize(planner.plan_);
 
     l.unlock();
@@ -354,7 +354,7 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
 }
 
 /**
- * FOR TEST ONLY. Generate test tables in this BusTub instance.
+ * FOR TEST ONLY. Generate test tables in this HMSSQL instance.
  * It's used in the shell to predefine some tables, as we don't support
  * create / drop table and insert for now. Should remove it in the future.
  */
@@ -372,7 +372,7 @@ void BustubInstance::GenerateTestTable() {
 }
 
 /**
- * FOR TEST ONLY. Generate test tables in this BusTub instance.
+ * FOR TEST ONLY. Generate test tables in this HMSSQL instance.
  * It's used in the shell to predefine some tables, as we don't support
  * create / drop table and insert for now. Should remove it in the future.
  */
@@ -404,4 +404,4 @@ BustubInstance::~BustubInstance() {
   delete disk_manager_;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

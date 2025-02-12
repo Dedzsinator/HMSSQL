@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // checkpoint_manager.cpp
 //
@@ -12,7 +12,7 @@
 
 #include "../include/recovery/checkpoint_manager.h"
 
-namespace bustub {
+namespace hmssql {
 
 void CheckpointManager::BeginCheckpoint() {
   // Block all the transactions and ensure that both the WAL and all dirty buffer pool pages are persisted to disk,
@@ -24,4 +24,4 @@ void CheckpointManager::EndCheckpoint() {
   // Allow transactions to resume, completing the checkpoint.
 }
 
-}  // namespace bustub
+}  // namespace hmssql

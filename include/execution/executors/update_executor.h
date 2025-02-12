@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // update_executor.h
 //
@@ -22,7 +22,7 @@
 #include "../include/storage/table/tuple.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * UpdateExecutor executes an update on a table.
@@ -68,4 +68,4 @@ class UpdateExecutor : public AbstractExecutor {
   std::vector<IndexInfo *> table_indexes_;
   bool is_end_{false};
 };
-}  // namespace bustub
+}  // namespace hmssql

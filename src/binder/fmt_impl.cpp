@@ -8,7 +8,7 @@
 #include "fmt/format.h"
 #include "fmt/ranges.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto BoundAggCall::ToString() const -> std::string {
   if (is_distinct_) {
@@ -34,4 +34,4 @@ auto BoundSubqueryRef::ToString() const -> std::string {
                      StringUtil::IndentAllLines(subquery_->ToString(), 2, true), columns);
 }
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // bigint_type.cpp
 //
@@ -16,7 +16,7 @@
 #include <string>
 
 #include "../include/type/bigint_type.h"
-namespace bustub {
+namespace hmssql {
 #define BIGINT_COMPARE_FUNC(OP)                                           \
   switch (right.GetTypeId()) {                                            \
     case TypeId::TINYINT:                                                 \
@@ -325,4 +325,4 @@ auto BigintType::CastAs(const Value &val, const TypeId type_id) const -> Value {
   }
   throw Exception("bigint is not coercable to " + Type::TypeIdToString(type_id));
 }
-}  // namespace bustub
+}  // namespace hmssql

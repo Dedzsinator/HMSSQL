@@ -15,7 +15,7 @@
 #include "../include/optimizer/optimizer.h"
 #include "../include/type/type_id.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Optimizer::OptimizeNLJAsHashJoin(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef {
   std::vector<AbstractPlanNodeRef> children;
@@ -62,4 +62,4 @@ auto Optimizer::OptimizeNLJAsHashJoin(const AbstractPlanNodeRef &plan) -> Abstra
   return optimized_plan;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

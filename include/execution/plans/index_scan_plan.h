@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // index_scan_plan.h
 //
@@ -19,7 +19,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 /**
  * IndexScanPlanNode identifies a table that should be scanned with an optional predicate.
  */
@@ -58,4 +58,4 @@ class IndexScanPlanNode : public AbstractPlanNode {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // sort_plan.h
 //
@@ -22,7 +22,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The SortPlanNode represents a sort operation. It will sort the input with
@@ -60,4 +60,4 @@ class SortPlanNode : public AbstractPlanNode {
   auto PlanNodeToString() const -> std::string override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

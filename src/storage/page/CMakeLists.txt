@@ -1,5 +1,5 @@
 add_library(
-    bustub_storage_page
+    hmssql_storage_page
     OBJECT
     b_plus_tree_internal_page.cpp
     b_plus_tree_leaf_page.cpp
@@ -11,5 +11,5 @@ add_library(
     table_page.cpp)
 
 set(ALL_OBJECT_FILES
-    ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:bustub_storage_page>
+    ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:hmssql_storage_page>
     PARENT_SCOPE)

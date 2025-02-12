@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // type.h
 //
@@ -17,7 +17,7 @@
 
 #include "../include/type/type_id.h"
 
-namespace bustub {
+namespace hmssql {
 
 class Value;
 
@@ -114,4 +114,4 @@ class Type {
   // Singleton instances.
   static Type *k_types[14];
 };
-}  // namespace bustub
+}  // namespace hmssql

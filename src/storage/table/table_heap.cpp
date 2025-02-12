@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // table_heap.cpp
 //
@@ -16,7 +16,7 @@
 #include "fmt/format.h"
 #include "../include/storage/table/table_heap.h"
 
-namespace bustub {
+namespace hmssql {
 
 TableHeap::TableHeap(BufferPoolManager *buffer_pool_manager, LockManager *lock_manager, LogManager *log_manager,
                      page_id_t first_page_id)
@@ -198,4 +198,4 @@ auto TableHeap::Begin(Transaction *txn) -> TableIterator {
 
 auto TableHeap::End() -> TableIterator { return {this, RID(INVALID_PAGE_ID, 0), nullptr}; }
 
-}  // namespace bustub
+}  // namespace hmssql

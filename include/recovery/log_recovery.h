@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // log_recovery.h
 //
@@ -20,7 +20,7 @@
 #include "../include/concurrency/lock_manager.h"
 #include "../include/recovery/log_record.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Read log file from disk, redo and undo.
@@ -54,4 +54,4 @@ class LogRecovery {
   char *log_buffer_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

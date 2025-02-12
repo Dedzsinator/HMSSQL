@@ -3,7 +3,7 @@
 #include "../include/common/util/string_util.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Optimizer::Optimize(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef {
   if (force_starter_rule_) {
@@ -42,4 +42,4 @@ auto Optimizer::EstimatedCardinality(const std::string &table_name) -> std::opti
   return std::nullopt;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // sort_executor.h
 //
@@ -21,7 +21,7 @@
 #include "../include/execution/plans/sort_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The SortExecutor executor executes a sort.
@@ -57,4 +57,4 @@ class SortExecutor : public AbstractExecutor {
 
   std::vector<Tuple>::const_iterator child_iter_;
 };
-}  // namespace bustub
+}  // namespace hmssql

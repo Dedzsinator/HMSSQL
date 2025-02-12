@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // nested_index_join_executor.cpp
 //
@@ -13,7 +13,7 @@
 #include "../include/execution/executors/nested_index_join_executor.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 NestIndexJoinExecutor::NestIndexJoinExecutor(ExecutorContext *exec_ctx, const NestedIndexJoinPlanNode *plan,
                                              std::unique_ptr<AbstractExecutor> &&child_executor)
@@ -25,7 +25,7 @@ NestIndexJoinExecutor::NestIndexJoinExecutor(ExecutorContext *exec_ctx, const Ne
       tree_{dynamic_cast<BPlusTreeIndexForOneIntegerColumn *>(index_info_->index_.get())} {
   if (!(plan->GetJoinType() == JoinType::LEFT || plan->GetJoinType() == JoinType::INNER)) {
     // Note for 2022 Fall: You ONLY need to implement left join and inner join.
-    throw bustub::NotImplementedException(fmt::format("join type {} not supported", plan->GetJoinType()));
+    throw hmssql::NotImplementedException(fmt::format("join type {} not supported", plan->GetJoinType()));
   }
 }
 
@@ -66,4 +66,4 @@ auto NestIndexJoinExecutor::Next(Tuple *tuple, RID *rid) -> bool {
   return false;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

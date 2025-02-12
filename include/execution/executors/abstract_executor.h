@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // abstract_executor.h
 //
@@ -15,7 +15,7 @@
 #include "../include/execution/executor_context.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 /**
  * The AbstractExecutor implements the Volcano tuple-at-a-time iterator model.
  * This is the base class from which all executors in the BustTub execution
@@ -56,4 +56,4 @@ class AbstractExecutor {
   /** The executor context in which the executor runs */
   ExecutorContext *exec_ctx_;
 };
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // p0_trie.h
 //
@@ -24,7 +24,7 @@
 #include "../include/common/exception.h"
 #include "../include/common/rwlatch.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * TrieNode is a generic container for any node in Trie.
@@ -441,4 +441,4 @@ class Trie {
     return {};
   }
 };
-}  // namespace bustub
+}  // namespace hmssql

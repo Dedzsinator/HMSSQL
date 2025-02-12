@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // mock_scan_executor.cpp
 //
@@ -20,7 +20,7 @@
 #include "../include/type/type_id.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 static const char *ta_list_2022[] = {"amstqq",      "durovo",     "joyceliaoo", "karthik-ramanathan-3006",
                                      "kush789",     "lmwnshn",    "mkpjnx",     "skyzh",
@@ -96,7 +96,7 @@ auto GetMockTableSchemaOf(const std::string &table) -> Schema {
     return Schema{std::vector{Column{"v4", TypeId::INTEGER}}};
   }
 
-  throw bustub::Exception(fmt::format("mock table {} not found", table));
+  throw hmssql::Exception(fmt::format("mock table {} not found", table));
 }
 
 auto GetSizeOf(const MockScanPlanNode *plan) -> size_t {
@@ -413,4 +413,4 @@ auto MockScanExecutor::Next(Tuple *tuple, RID *rid) -> bool {
 
 auto MockScanExecutor::MakeDummyRID() -> RID { return RID{0}; }
 
-}  // namespace bustub
+}  // namespace hmssql

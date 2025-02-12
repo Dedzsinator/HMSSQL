@@ -1,5 +1,5 @@
 //===----------------------------------------------------------------------===//
-//                         BusTub
+//                         HMSSQL
 //
 // binder/select_statement.h
 //
@@ -19,7 +19,7 @@
 #include "../include/binder/bound_table_ref.h"
 #include "../include/binder/table_ref/bound_subquery_ref.h"
 
-namespace bustub {
+namespace hmssql {
 
 class Catalog;
 
@@ -77,4 +77,4 @@ class SelectStatement : public BoundStatement {
   auto ToString() const -> std::string override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

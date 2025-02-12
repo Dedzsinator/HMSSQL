@@ -14,7 +14,7 @@
 #include <string>
 #include "../include/storage/page/page.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Database use the first page (page_id = 0) as header page to store metadata, in
@@ -48,4 +48,4 @@ class HeaderPage : public Page {
 
   void SetRecordCount(int record_count);
 };
-}  // namespace bustub
+}  // namespace hmssql

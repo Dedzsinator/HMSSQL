@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // seq_scan_executor.h
 //
@@ -19,7 +19,7 @@
 #include "../include/execution/plans/seq_scan_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The SeqScanExecutor executor executes a sequential table scan.
@@ -53,4 +53,4 @@ class SeqScanExecutor : public AbstractExecutor {
   TableIterator table_iter_ = {nullptr, RID(), nullptr};
   const TableInfo *table_info_;
 };
-}  // namespace bustub
+}  // namespace hmssql

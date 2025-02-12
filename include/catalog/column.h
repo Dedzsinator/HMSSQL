@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // column.h
 //
@@ -23,7 +23,7 @@
 #include "../include/common/macros.h"
 #include "../include/type/type.h"
 
-namespace bustub {
+namespace hmssql {
 class AbstractExpression;
 
 class Column {
@@ -140,22 +140,22 @@ class Column {
   uint32_t column_offset_{0};
 };
 
-}  // namespace bustub
+}  // namespace hmssql
 
 template <typename T>
-struct fmt::formatter<T, std::enable_if_t<std::is_base_of<bustub::Column, T>::value, char>>
+struct fmt::formatter<T, std::enable_if_t<std::is_base_of<hmssql::Column, T>::value, char>>
     : fmt::formatter<std::string> {
   template <typename FormatCtx>
-  auto format(const bustub::Column &x, FormatCtx &ctx) const {
+  auto format(const hmssql::Column &x, FormatCtx &ctx) const {
     return fmt::formatter<std::string>::format(x.ToString(), ctx);
   }
 };
 
 template <typename T>
-struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<bustub::Column, T>::value, char>>
+struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<hmssql::Column, T>::value, char>>
     : fmt::formatter<std::string> {
   template <typename FormatCtx>
-  auto format(const std::unique_ptr<bustub::Column> &x, FormatCtx &ctx) const {
+  auto format(const std::unique_ptr<hmssql::Column> &x, FormatCtx &ctx) const {
     return fmt::formatter<std::string>::format(x->ToString(), ctx);
   }
 };

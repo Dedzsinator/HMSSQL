@@ -20,7 +20,7 @@
 #include "../include/storage/index/b_plus_tree.h"
 #include "../include/storage/index/index.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define BPLUSTREE_INDEX_TYPE BPlusTreeIndex<KeyType, ValueType, KeyComparator>
 
@@ -48,7 +48,7 @@ class BPlusTreeIndex : public Index {
   BPlusTree<KeyType, ValueType, KeyComparator> container_;
 };
 
-/** We only support index table with one integer key for now in BusTub. Hardcode everything here. */
+/** We only support index table with one integer key for now in HMSSQL. Hardcode everything here. */
 
 constexpr static const auto INTEGER_SIZE = 4;
 using IntegerKeyType = GenericKey<INTEGER_SIZE>;
@@ -59,4 +59,4 @@ using BPlusTreeIndexIteratorForOneIntegerColumn =
     IndexIterator<IntegerKeyType, IntegerValueType, IntegerComparatorType>;
 using IntegerHashFunctionType = HashFunction<IntegerKeyType>;
 
-}  // namespace bustub
+}  // namespace hmssql

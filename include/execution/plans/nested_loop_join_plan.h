@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // nested_loop_join.h
 //
@@ -22,7 +22,7 @@
 #include "../include/execution/plans/abstract_plan.h"
 #include "fmt/core.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * NestedLoopJoinPlanNode joins tuples from two child plan nodes.
@@ -73,4 +73,4 @@ class NestedLoopJoinPlanNode : public AbstractPlanNode {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

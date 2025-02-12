@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "binder/binder.h"
-#include "common/bustub_instance.h"
+#include "common/hmssql_instance.h"
 #include "common/exception.h"
 #include "common/util/string_util.h"
 #include "libfort/lib/fort.hpp"
@@ -27,9 +27,9 @@ auto GetWidthOfUtf8(const void *beg, const void *end, size_t *width) -> int {
 auto main(int argc, char **argv) -> int {
   ft_set_u8strwid_func(&GetWidthOfUtf8);
 
-  auto bustub = std::make_unique<bustub::BustubInstance>("test.db");
+  auto hmssql = std::make_unique<hmssql::BustubInstance>("test.db");
 
-  auto default_prompt = "bustub> ";
+  auto default_prompt = "hmssql> ";
   auto emoji_prompt = "\U0001f6c1> ";  // the bathtub emoji
   bool use_emoji_prompt = false;
   bool disable_tty = false;
@@ -45,13 +45,13 @@ auto main(int argc, char **argv) -> int {
     }
   }
 
-  bustub->GenerateMockTable();
+  hmssql->GenerateMockTable();
 
-  if (bustub->buffer_pool_manager_ != nullptr) {
-    bustub->GenerateTestTable();
+  if (hmssql->buffer_pool_manager_ != nullptr) {
+    hmssql->GenerateTestTable();
   }
 
-  std::cout << "Welcome to the BusTub shell! Type \\help to learn more." << std::endl << std::endl;
+  std::cout << "Welcome to the HMSSQL shell! Type \\help to learn more." << std::endl << std::endl;
 
   linenoiseHistorySetMaxLen(1024);
   linenoiseSetMultiLine(1);
@@ -70,7 +70,7 @@ auto main(int argc, char **argv) -> int {
         }
         query += query_c_str;
         linenoiseFree(query_c_str);  // Free the allocated memory
-        if (bustub::StringUtil::EndsWith(query, ";") || bustub::StringUtil::StartsWith(query, "\\")) {
+        if (hmssql::StringUtil::EndsWith(query, ";") || hmssql::StringUtil::StartsWith(query, "\\")) {
           break;
         }
         query += " ";
@@ -82,7 +82,7 @@ auto main(int argc, char **argv) -> int {
           return 0;
         }
         query += query_line;
-        if (bustub::StringUtil::EndsWith(query, ";") || bustub::StringUtil::StartsWith(query, "\\")) {
+        if (hmssql::StringUtil::EndsWith(query, ";") || hmssql::StringUtil::StartsWith(query, "\\")) {
           break;
         }
         query += "\n";
@@ -99,12 +99,12 @@ auto main(int argc, char **argv) -> int {
     }
 
     try {
-      auto writer = bustub::FortTableWriter();
-      bustub->ExecuteSql(query, writer);
+      auto writer = hmssql::FortTableWriter();
+      hmssql->ExecuteSql(query, writer);
       for (const auto &table : writer.tables_) {
         std::cout << table;
       }
-    } catch (bustub::Exception &ex) {
+    } catch (hmssql::Exception &ex) {
       std::cerr << ex.what() << std::endl;
     }
   }

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // extendible_hash_table.cpp
 //
@@ -19,7 +19,7 @@
 #include "../include/container/hash/extendible_hash_table.h"
 #include "../include/storage/page/page.h"
 
-namespace bustub {
+namespace hmssql {
 
 template <typename K, typename V>
 ExtendibleHashTable<K, V>::ExtendibleHashTable(size_t bucket_size)
@@ -186,4 +186,4 @@ template class ExtendibleHashTable<int, int>;
 template class ExtendibleHashTable<int, std::string>;
 template class ExtendibleHashTable<int, std::list<int>::iterator>;
 
-}  // namespace bustub
+}  // namespace hmssql

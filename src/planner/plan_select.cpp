@@ -30,7 +30,7 @@
 #include "../include/type/type_id.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Planner::PlanSelect(const SelectStatement &statement) -> AbstractPlanNodeRef {
   auto ctx_guard = NewContext();
@@ -155,4 +155,4 @@ auto Planner::PlanSelect(const SelectStatement &statement) -> AbstractPlanNodeRe
   return plan;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

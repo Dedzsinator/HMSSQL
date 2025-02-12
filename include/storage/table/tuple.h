@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // tuple.h
 //
@@ -19,7 +19,7 @@
 #include "../include/common/rid.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Tuple format:
@@ -96,4 +96,4 @@ class Tuple {
   char *data_{nullptr};
 };
 
-}  // namespace bustub
+}  // namespace hmssql

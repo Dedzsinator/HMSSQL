@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // rid.h
 //
@@ -18,7 +18,7 @@
 
 #include "../include/common/config.h"
 
-namespace bustub {
+namespace hmssql {
 
 class RID {
  public:
@@ -65,11 +65,11 @@ class RID {
   uint32_t slot_num_{0};  // logical offset from 0, 1...
 };
 
-}  // namespace bustub
+}  // namespace hmssql
 
 namespace std {
 template <>
-struct hash<bustub::RID> {
-  auto operator()(const bustub::RID &obj) const -> size_t { return hash<int64_t>()(obj.Get()); }
+struct hash<hmssql::RID> {
+  auto operator()(const hmssql::RID &obj) const -> size_t { return hash<int64_t>()(obj.Get()); }
 };
 }  // namespace std

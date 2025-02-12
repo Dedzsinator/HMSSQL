@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // lock_manager.h
 //
@@ -27,7 +27,7 @@
 #include "../include/common/rid.h"
 #include "../include/concurrency/transaction.h"
 
-namespace bustub {
+namespace hmssql {
 
 class TransactionManager;
 
@@ -376,4 +376,4 @@ class LockManager {
   std::unordered_map<txn_id_t, table_oid_t> map_txn_oid_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

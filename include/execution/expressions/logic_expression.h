@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // logic_expression.h
 //
@@ -26,7 +26,7 @@
 #include "../include/type/type_id.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 /** ArithmeticType represents the type of logic operation that we want to perform. */
 enum class LogicType { And, Or };
@@ -40,7 +40,7 @@ class LogicExpression : public AbstractExpression {
   LogicExpression(AbstractExpressionRef left, AbstractExpressionRef right, LogicType logic_type)
       : AbstractExpression({std::move(left), std::move(right)}, TypeId::BOOLEAN), logic_type_{logic_type} {
     if (GetChildAt(0)->GetReturnType() != TypeId::BOOLEAN || GetChildAt(1)->GetReturnType() != TypeId::BOOLEAN) {
-      throw bustub::NotImplementedException("expect boolean from either side");
+      throw hmssql::NotImplementedException("expect boolean from either side");
     }
   }
 
@@ -102,18 +102,18 @@ class LogicExpression : public AbstractExpression {
     }
   }
 };
-}  // namespace bustub
+}  // namespace hmssql
 
 template <>
-struct fmt::formatter<bustub::LogicType> : formatter<string_view> {
+struct fmt::formatter<hmssql::LogicType> : formatter<string_view> {
   template <typename FormatContext>
-  auto format(bustub::LogicType c, FormatContext &ctx) const {
+  auto format(hmssql::LogicType c, FormatContext &ctx) const {
     string_view name;
     switch (c) {
-      case bustub::LogicType::And:
+      case hmssql::LogicType::And:
         name = "and";
         break;
-      case bustub::LogicType::Or:
+      case hmssql::LogicType::Or:
         name = "or";
         break;
       default:

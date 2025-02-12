@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // hash_util.h
 //
@@ -20,7 +20,7 @@
 #include "../include/common/macros.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 using hash_t = std::size_t;
 
@@ -102,4 +102,4 @@ class HashUtil {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

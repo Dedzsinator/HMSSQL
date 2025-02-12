@@ -22,7 +22,7 @@
 #include "../include/type/type_id.h"
 #include "../include/type/value_factory.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Planner::PlanAggCall(const BoundAggCall &agg_call, const std::vector<AbstractPlanNodeRef> &children)
     -> std::tuple<AggregationType, std::vector<AbstractExpressionRef>> {
@@ -114,7 +114,7 @@ auto Planner::PlanSelectAgg(const SelectStatement &statement, AbstractPlanNodeRe
     const auto &agg_call = dynamic_cast<const BoundAggCall &>(*item);
     auto [agg_type, exprs] = PlanAggCall(agg_call, {child});
     if (exprs.size() > 1) {
-      throw bustub::NotImplementedException("only agg call of zero/one arg is supported");
+      throw hmssql::NotImplementedException("only agg call of zero/one arg is supported");
     }
     if (exprs.empty()) {
       // Rewrite count(*) into count(1)
@@ -163,4 +163,4 @@ auto Planner::PlanSelectAgg(const SelectStatement &statement, AbstractPlanNodeRe
       std::move(exprs), std::move(plan));
 }
 
-}  // namespace bustub
+}  // namespace hmssql

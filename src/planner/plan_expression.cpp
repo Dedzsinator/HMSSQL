@@ -19,7 +19,7 @@
 #include "../include/planner/planner.h"
 #include "../include/execution/expressions/like_expression.h"
 
-namespace bustub {
+namespace hmssql {
 
   auto Planner::PlanBinaryOp(const BoundBinaryOp &expr, const std::vector<AbstractPlanNodeRef> &children)
   -> AbstractExpressionRef {
@@ -50,7 +50,7 @@ auto Planner::PlanColumnRef(const BoundColumnRef &expr, const std::vector<Abstra
     for (const auto &col : schema.GetColumns()) {
       if (col_name == col.GetName()) {
         if (found) {
-          throw bustub::Exception("duplicated column found in schema");
+          throw hmssql::Exception("duplicated column found in schema");
         }
         found = true;
       }
@@ -83,7 +83,7 @@ auto Planner::PlanColumnRef(const BoundColumnRef &expr, const std::vector<Abstra
     auto col_idx_left = left_schema.TryGetColIdx(col_name);
     auto col_idx_right = right_schema.TryGetColIdx(col_name);
     if (col_idx_left && col_idx_right) {
-      throw bustub::Exception(fmt::format("ambiguous column name {}", col_name));
+      throw hmssql::Exception(fmt::format("ambiguous column name {}", col_name));
     }
     if (col_idx_left) {
       auto col_type = left_schema.GetColumn(*col_idx_left).GetType();
@@ -93,7 +93,7 @@ auto Planner::PlanColumnRef(const BoundColumnRef &expr, const std::vector<Abstra
       auto col_type = right_schema.GetColumn(*col_idx_right).GetType();
       return std::make_tuple(col_name, std::make_shared<ColumnValueExpression>(1, *col_idx_right, col_type));
     }
-    throw bustub::Exception(fmt::format("column name {} not found", col_name));
+    throw hmssql::Exception(fmt::format("column name {} not found", col_name));
   }
   UNREACHABLE("no executor with expression has more than 2 children for now");
 }
@@ -142,7 +142,7 @@ auto Planner::PlanExpression(const BoundExpression &expr, const std::vector<Abst
   switch (expr.type_) {
     case ExpressionType::AGG_CALL: {
       if (ctx_.next_aggregation_ >= ctx_.expr_in_agg_.size()) {
-        throw bustub::Exception("unexpected agg call");
+        throw hmssql::Exception("unexpected agg call");
       }
       return std::make_tuple(UNNAMED_COLUMN, std::move(ctx_.expr_in_agg_[ctx_.next_aggregation_++]));
     }
@@ -168,4 +168,4 @@ auto Planner::PlanExpression(const BoundExpression &expr, const std::vector<Abst
   }
   throw Exception(fmt::format("expression type {} not supported in planner yet", expr.type_));
 }
-}  // namespace bustub
+}  // namespace hmssql

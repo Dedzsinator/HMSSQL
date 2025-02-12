@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // update_executor.cpp
 //
@@ -13,7 +13,7 @@
 
 #include "../include/execution/executors/update_executor.h"
 
-namespace bustub {
+namespace hmssql {
 
 UpdateExecutor::UpdateExecutor(ExecutorContext *exec_ctx, const UpdatePlanNode *plan,
                                std::unique_ptr<AbstractExecutor> &&child_executor)
@@ -91,4 +91,4 @@ auto UpdateExecutor::Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool {
   return true;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

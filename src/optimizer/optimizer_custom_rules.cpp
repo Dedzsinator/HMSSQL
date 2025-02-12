@@ -18,7 +18,7 @@
 // that for some test cases, we force using starter rules, so that the configuration here won't take effects. Starter
 // rule can be forcibly enabled by `set force_optimizer_starter_rule=yes`.
 
-namespace bustub {
+namespace hmssql {
 
 auto Optimizer::OptimizeReorderJoinUseIndex(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef {
   std::vector<AbstractPlanNodeRef> children;
@@ -372,4 +372,4 @@ auto Optimizer::OptimizeCustom(const AbstractPlanNodeRef &plan) -> AbstractPlanN
   return p;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

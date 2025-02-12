@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // topn_plan.h
 //
@@ -22,7 +22,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The TopNPlanNode represents a top-n operation. It will gather the n extreme rows based on
@@ -65,4 +65,4 @@ class TopNPlanNode : public AbstractPlanNode {
   auto PlanNodeToString() const -> std::string override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

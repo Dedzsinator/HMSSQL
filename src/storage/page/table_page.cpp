@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // table_page.cpp
 //
@@ -14,7 +14,7 @@
 
 #include <cassert>
 
-namespace bustub {
+namespace hmssql {
 
 void TablePage::Init(page_id_t page_id, uint32_t page_size, page_id_t prev_page_id, LogManager *log_manager,
                      Transaction *txn) {
@@ -351,4 +351,4 @@ auto TablePage::GetNextTupleRid(const RID &cur_rid, RID *next_rid) -> bool {
   next_rid->Set(INVALID_PAGE_ID, 0);
   return false;
 }
-}  // namespace bustub
+}  // namespace hmssql

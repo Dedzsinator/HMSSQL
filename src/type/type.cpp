@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // type.cpp
 //
@@ -21,7 +21,7 @@
 #include "../include/type/value.h"
 #include "../include/type/varlen_type.h"
 
-namespace bustub {
+namespace hmssql {
 
 Type *Type::k_types[] = {
     new Type(TypeId::INVALID),        new BooleanType(), new TinyintType(), new SmallintType(),
@@ -290,4 +290,4 @@ auto Type::GetData(char *storage __attribute__((unused))) -> char * {
   throw NotImplementedException("GetData not implemented");
 }
 
-}  // namespace bustub
+}  // namespace hmssql

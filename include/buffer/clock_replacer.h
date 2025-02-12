@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // clock_replacer.h
 //
@@ -19,7 +19,7 @@
 #include "../include/buffer/replacer.h"
 #include "../include/common/config.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * ClockReplacer implements the clock replacement policy, which approximates the Least Recently Used policy.
@@ -49,4 +49,4 @@ class ClockReplacer : public Replacer {
   // TODO(student): implement me!
 };
 
-}  // namespace bustub
+}  // namespace hmssql

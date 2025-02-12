@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // index_scan_executor.h
 //
@@ -20,7 +20,7 @@
 #include "../include/execution/plans/index_scan_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * IndexScanExecutor executes an index scan over a table.
@@ -51,4 +51,4 @@ class IndexScanExecutor : public AbstractExecutor {
   std::vector<RID> rids_;
   std::vector<RID>::const_iterator rid_iter_{};
 };
-}  // namespace bustub
+}  // namespace hmssql

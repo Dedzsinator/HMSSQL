@@ -40,7 +40,7 @@
 #include "../include/nodes/parsenodes.hpp"
 #include "../include/type/decimal_type.h"
 
-namespace bustub {
+namespace hmssql {
 
 void Binder::SaveParseTree(duckdb_libpgquery::PGList *tree) {
   std::vector<std::unique_ptr<BoundStatement>> statements;
@@ -76,4 +76,4 @@ auto Binder::BindStatement(duckdb_libpgquery::PGNode *stmt) -> std::unique_ptr<B
   }
 }
 
-}  // namespace bustub
+}  // namespace hmssql

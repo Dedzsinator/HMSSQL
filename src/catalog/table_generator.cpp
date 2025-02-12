@@ -4,7 +4,7 @@
 #include <random>
 #include <vector>
 
-namespace bustub {
+namespace hmssql {
 
 template <typename CppType>
 auto TableGenerator::GenNumericValues(ColumnInsertMeta *col_meta, uint32_t count) -> std::vector<Value> {
@@ -185,4 +185,4 @@ void TableGenerator::GenerateTestTables() {
     FillTable(info, &table_meta);
   }
 }
-}  // namespace bustub
+}  // namespace hmssql

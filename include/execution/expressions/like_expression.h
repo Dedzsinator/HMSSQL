@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // like_expression.h
 //
@@ -16,7 +16,7 @@
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * LikeExpression represents a SQL LIKE expression.
@@ -69,4 +69,4 @@ class LikeExpression : public AbstractExpression {
   }
 };
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,14 +1,14 @@
 //===----------------------------------------------------------------------===//
-//                         BusTub
+//                         HMSSQL
 //
-// bustub/binder/tokens.h
+// hmssql/binder/tokens.h
 //
 //
 //===----------------------------------------------------------------------===//
 
 #pragma once
 
-namespace bustub {
+namespace hmssql {
 
 //===--------------------------------------------------------------------===//
 // Statements
@@ -41,4 +41,4 @@ class ConstantExpression;
 //===--------------------------------------------------------------------===//
 class TableRef;
 
-}  // namespace bustub
+}  // namespace hmssql

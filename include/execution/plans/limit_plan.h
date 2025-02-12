@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // limit_plan.h
 //
@@ -18,7 +18,7 @@
 #include "../include/execution/plans/abstract_plan.h"
 #include "fmt/format.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Limit constraints the number of output tuples produced by its child executor.
@@ -54,4 +54,4 @@ class LimitPlanNode : public AbstractPlanNode {
   auto PlanNodeToString() const -> std::string override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

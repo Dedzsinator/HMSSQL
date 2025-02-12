@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // transaction_manager.cpp
 //
@@ -19,7 +19,7 @@
 
 #include "../include/catalog/catalog.h"
 #include "../include/storage/table/table_heap.h"
-namespace bustub {
+namespace hmssql {
 
 std::unordered_map<txn_id_t, Transaction *> TransactionManager::txn_map = {};
 std::shared_mutex TransactionManager::txn_map_mutex = {};
@@ -119,4 +119,4 @@ void TransactionManager::BlockAllTransactions() { global_txn_latch_.WLock(); }
 
 void TransactionManager::ResumeTransactions() { global_txn_latch_.WUnlock(); }
 
-}  // namespace bustub
+}  // namespace hmssql

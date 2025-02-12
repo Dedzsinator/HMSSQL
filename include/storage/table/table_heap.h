@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // table_heap.h
 //
@@ -18,7 +18,7 @@
 #include "../include/storage/table/table_iterator.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * TableHeap represents a physical table on disk.
@@ -115,4 +115,4 @@ class TableHeap {
   page_id_t first_page_id_{};
 };
 
-}  // namespace bustub
+}  // namespace hmssql

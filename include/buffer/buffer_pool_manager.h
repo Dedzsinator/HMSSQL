@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // buffer_pool_manager.h
 //
@@ -21,7 +21,7 @@
 #include "../include/storage/disk/disk_manager.h"
 #include "../include/storage/page/page.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * BufferPoolManager reads disk pages to and from its internal buffer pool.
@@ -142,4 +142,4 @@ class BufferPoolManager {
    */
   virtual void FlushAllPgsImp() = 0;
 };
-}  // namespace bustub
+}  // namespace hmssql

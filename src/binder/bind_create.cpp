@@ -50,7 +50,7 @@
 #include "postgres_parser.hpp"
 #include "../include/type/type_id.h"
 
-namespace bustub {
+namespace hmssql {
 
 auto Binder::BindColumnDefinition(duckdb_libpgquery::PGColumnDef *cdef) -> Column {
   std::string colname;
@@ -71,7 +71,7 @@ auto Binder::BindColumnDefinition(duckdb_libpgquery::PGColumnDef *cdef) -> Colum
   if (name == "varchar") {
     auto exprs = BindExpressionList(cdef->typeName->typmods);
     if (exprs.size() != 1) {
-      throw bustub::Exception("should specify max length for varchar field");
+      throw hmssql::Exception("should specify max length for varchar field");
     }
     const auto &varchar_max_length_val = dynamic_cast<const BoundConstant &>(*exprs[0]);
     uint32_t varchar_max_length = std::stoi(varchar_max_length_val.ToString());
@@ -109,7 +109,7 @@ auto Binder::BindCreate(duckdb_libpgquery::PGCreateStmt *pg_stmt) -> std::unique
   }
 
   if (column_count == 0) {
-    throw bustub::Exception("should have at least 1 column");
+    throw hmssql::Exception("should have at least 1 column");
   }
 
   return std::make_unique<CreateStatement>(std::move(table), std::move(columns));
@@ -132,4 +132,4 @@ auto Binder::BindIndex(duckdb_libpgquery::PGIndexStmt *stmt) -> std::unique_ptr<
   return std::make_unique<IndexStatement>(stmt->idxname, std::move(table), std::move(cols));
 }
 
-}  // namespace bustub
+}  // namespace hmssql

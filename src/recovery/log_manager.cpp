@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // log_manager.cpp
 //
@@ -12,7 +12,7 @@
 
 #include "../include/recovery/log_manager.h"
 
-namespace bustub {
+namespace hmssql {
 /*
  * set enable_logging = true
  * Start a separate thread to execute flush to disk operation periodically
@@ -51,4 +51,4 @@ void LogManager::StopFlushThread() {}
  */
 auto LogManager::AppendLogRecord(LogRecord *log_record) -> lsn_t { return INVALID_LSN; }
 
-}  // namespace bustub
+}  // namespace hmssql

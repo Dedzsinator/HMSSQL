@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // hash_table_bucket_page.h
 //
@@ -19,7 +19,7 @@
 #include "../include/storage/index/int_comparator.h"
 #include "../include/storage/page/hash_table_page_defs.h"
 
-namespace bustub {
+namespace hmssql {
 /**
  * Store indexed key and and value together within bucket page. Supports
  * non-unique keys.
@@ -146,4 +146,4 @@ class HashTableBucketPage {
   MappingType array_[1];
 };
 
-}  // namespace bustub
+}  // namespace hmssql

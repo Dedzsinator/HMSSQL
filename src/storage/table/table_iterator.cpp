@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // table_iterator.cpp
 //
@@ -16,13 +16,13 @@
 #include "../include/concurrency/transaction.h"
 #include "../include/storage/table/table_heap.h"
 
-namespace bustub {
+namespace hmssql {
 
 TableIterator::TableIterator(TableHeap *table_heap, RID rid, Transaction *txn)
     : table_heap_(table_heap), tuple_(new Tuple(rid)), txn_(txn) {
   if (rid.GetPageId() != INVALID_PAGE_ID) {
     if (!table_heap_->GetTuple(tuple_->rid_, tuple_, txn_)) {
-      throw bustub::Exception("read non-existing tuple");
+      throw hmssql::Exception("read non-existing tuple");
     }
   }
 }
@@ -65,7 +65,7 @@ auto TableIterator::operator++() -> TableIterator & {
     if (!table_heap_->GetTuple(tuple_->rid_, tuple_, txn_, false)) {
       cur_page->RUnlatch();
       buffer_pool_manager->UnpinPage(cur_page->GetTablePageId(), false);
-      throw bustub::Exception("read non-existing tuple");
+      throw hmssql::Exception("read non-existing tuple");
     }
   }
   // release until copy the tuple
@@ -80,4 +80,4 @@ auto TableIterator::operator++(int) -> TableIterator {
   return clone;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

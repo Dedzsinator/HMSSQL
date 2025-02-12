@@ -1,5 +1,5 @@
 //===----------------------------------------------------------------------===//
-//                         BusTub
+//                         HMSSQL
 //
 // binder/keyword_helper.h
 //
@@ -34,7 +34,7 @@
 
 #include "../include/common/config.h"
 
-namespace bustub {
+namespace hmssql {
 
 class KeywordHelper {
  public:
@@ -48,4 +48,4 @@ class KeywordHelper {
   static auto WriteOptionallyQuoted(const std::string &text, char quote = '"') -> std::string;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // abstract_plan.h
 //
@@ -20,7 +20,7 @@
 #include "../include/catalog/schema.h"
 #include "fmt/format.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define BUSTUB_PLAN_NODE_CLONE_WITH_CHILDREN(cname)                                                          \
   auto CloneWithChildren(std::vector<AbstractPlanNodeRef> children) const->std::unique_ptr<AbstractPlanNode> \
@@ -115,10 +115,10 @@ class AbstractPlanNode {
  private:
 };
 
-}  // namespace bustub
+}  // namespace hmssql
 
 template <typename T>
-struct fmt::formatter<T, std::enable_if_t<std::is_base_of<bustub::AbstractPlanNode, T>::value, char>>
+struct fmt::formatter<T, std::enable_if_t<std::is_base_of<hmssql::AbstractPlanNode, T>::value, char>>
     : fmt::formatter<std::string> {
   template <typename FormatCtx>
   auto format(const T &x, FormatCtx &ctx) const {
@@ -127,7 +127,7 @@ struct fmt::formatter<T, std::enable_if_t<std::is_base_of<bustub::AbstractPlanNo
 };
 
 template <typename T>
-struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<bustub::AbstractPlanNode, T>::value, char>>
+struct fmt::formatter<std::unique_ptr<T>, std::enable_if_t<std::is_base_of<hmssql::AbstractPlanNode, T>::value, char>>
     : fmt::formatter<std::string> {
   template <typename FormatCtx>
   auto format(const std::unique_ptr<T> &x, FormatCtx &ctx) const {

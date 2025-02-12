@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // insert_executor.cpp
 //
@@ -14,7 +14,7 @@
 
 #include "../include/execution/executors/insert_executor.h"
 
-namespace bustub {
+namespace hmssql {
 
 InsertExecutor::InsertExecutor(ExecutorContext *exec_ctx, const InsertPlanNode *plan,
                                std::unique_ptr<AbstractExecutor> &&child_executor)
@@ -75,4 +75,4 @@ auto InsertExecutor::Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool {
   return true;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

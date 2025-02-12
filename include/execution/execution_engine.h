@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // execution_engine.h
 //
@@ -23,7 +23,7 @@
 #include "../include/execution/plans/abstract_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * The ExecutionEngine class executes query plans.
@@ -99,4 +99,4 @@ class ExecutionEngine {
   [[maybe_unused]] Catalog *catalog_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

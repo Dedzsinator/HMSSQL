@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // nested_loop_join_executor.h
 //
@@ -21,7 +21,7 @@
 #include "../include/execution/plans/nested_loop_join_plan.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * NestedLoopJoinExecutor executes a nested-loop JOIN on two tables.
@@ -65,4 +65,4 @@ class NestedLoopJoinExecutor : public AbstractExecutor {
   int32_t right_tuple_idx_ = -1;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

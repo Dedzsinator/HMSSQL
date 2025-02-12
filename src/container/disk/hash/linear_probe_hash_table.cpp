@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // linear_probe_hash_table.cpp
 //
@@ -20,7 +20,7 @@
 #include "../include/common/rid.h"
 #include "../include/container/disk/hash/linear_probe_hash_table.h"
 
-namespace bustub {
+namespace hmssql {
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
 HASH_TABLE_TYPE::LinearProbeHashTable(const std::string &name, BufferPoolManager *buffer_pool_manager,
@@ -73,4 +73,4 @@ template class LinearProbeHashTable<GenericKey<16>, RID, GenericComparator<16>>;
 template class LinearProbeHashTable<GenericKey<32>, RID, GenericComparator<32>>;
 template class LinearProbeHashTable<GenericKey<64>, RID, GenericComparator<64>>;
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // delete_executor.cpp
 //
@@ -14,7 +14,7 @@
 
 #include "../include/execution/executors/delete_executor.h"
 
-namespace bustub {
+namespace hmssql {
 
 DeleteExecutor::DeleteExecutor(ExecutorContext *exec_ctx, const DeletePlanNode *plan,
                                std::unique_ptr<AbstractExecutor> &&child_executor)
@@ -75,4 +75,4 @@ auto DeleteExecutor::Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool {
   return true;
 }
 
-}  // namespace bustub
+}  // namespace hmssql

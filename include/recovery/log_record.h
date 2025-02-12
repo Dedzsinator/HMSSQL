@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // log_record.h
 //
@@ -18,7 +18,7 @@
 #include "../include/common/config.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 /** The type of the log record. */
 enum class LogRecordType {
   INVALID = 0,
@@ -177,6 +177,6 @@ class LogRecord {
   page_id_t prev_page_id_{INVALID_PAGE_ID};
   page_id_t page_id_{INVALID_PAGE_ID};
   static const int HEADER_SIZE = 20;
-};  // namespace bustub
+};  // namespace hmssql
 
-}  // namespace bustub
+}  // namespace hmssql

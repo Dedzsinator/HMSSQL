@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // statement_type.h
 //
@@ -15,7 +15,7 @@
 #include "../include/common/config.h"
 #include "fmt/format.h"
 
-namespace bustub {
+namespace hmssql {
 
 //===--------------------------------------------------------------------===//
 // Statement Types
@@ -34,45 +34,45 @@ enum class StatementType : uint8_t {
   VARIABLE_SHOW_STATEMENT,  // show variable statement type
 };
 
-}  // namespace bustub
+}  // namespace hmssql
 
 template <>
-struct fmt::formatter<bustub::StatementType> : formatter<string_view> {
+struct fmt::formatter<hmssql::StatementType> : formatter<string_view> {
   template <typename FormatContext>
-  auto format(bustub::StatementType c, FormatContext &ctx) const {
+  auto format(hmssql::StatementType c, FormatContext &ctx) const {
     string_view name;
     switch (c) {
-      case bustub::StatementType::INVALID_STATEMENT:
+      case hmssql::StatementType::INVALID_STATEMENT:
         name = "Invalid";
         break;
-      case bustub::StatementType::SELECT_STATEMENT:
+      case hmssql::StatementType::SELECT_STATEMENT:
         name = "Select";
         break;
-      case bustub::StatementType::INSERT_STATEMENT:
+      case hmssql::StatementType::INSERT_STATEMENT:
         name = "Insert";
         break;
-      case bustub::StatementType::UPDATE_STATEMENT:
+      case hmssql::StatementType::UPDATE_STATEMENT:
         name = "Update";
         break;
-      case bustub::StatementType::CREATE_STATEMENT:
+      case hmssql::StatementType::CREATE_STATEMENT:
         name = "Create";
         break;
-      case bustub::StatementType::DELETE_STATEMENT:
+      case hmssql::StatementType::DELETE_STATEMENT:
         name = "Delete";
         break;
-      case bustub::StatementType::EXPLAIN_STATEMENT:
+      case hmssql::StatementType::EXPLAIN_STATEMENT:
         name = "Explain";
         break;
-      case bustub::StatementType::DROP_STATEMENT:
+      case hmssql::StatementType::DROP_STATEMENT:
         name = "Drop";
         break;
-      case bustub::StatementType::INDEX_STATEMENT:
+      case hmssql::StatementType::INDEX_STATEMENT:
         name = "Index";
         break;
-      case bustub::StatementType::VARIABLE_SHOW_STATEMENT:
+      case hmssql::StatementType::VARIABLE_SHOW_STATEMENT:
         name = "VariableShow";
         break;
-      case bustub::StatementType::VARIABLE_SET_STATEMENT:
+      case hmssql::StatementType::VARIABLE_SET_STATEMENT:
         name = "VariableSet";
         break;
     }

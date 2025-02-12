@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // tinyint_type.h
 //
@@ -14,7 +14,7 @@
 #include <string>
 #include "../include/type/integer_parent_type.h"
 
-namespace bustub {
+namespace hmssql {
 // An integer value of the common sizes.
 class TinyintType : public IntegerParentType {
  public:
@@ -57,4 +57,4 @@ class TinyintType : public IntegerParentType {
 
   auto IsZero(const Value &val) const -> bool override;
 };
-}  // namespace bustub
+}  // namespace hmssql

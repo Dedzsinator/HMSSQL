@@ -15,7 +15,7 @@
 
 #include "../include/storage/page/b_plus_tree_page.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define B_PLUS_TREE_LEAF_PAGE_TYPE BPlusTreeLeafPage<KeyType, ValueType, KeyComparator>
 #define LEAF_PAGE_HEADER_SIZE 28
@@ -68,4 +68,4 @@ class BPlusTreeLeafPage : public BPlusTreePage {
   void CopyLastFrom(const MappingType &item);
   void CopyFirstFrom(const MappingType &item);
 };
-}  // namespace bustub
+}  // namespace hmssql

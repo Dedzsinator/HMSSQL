@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // config.h
 //
@@ -16,7 +16,7 @@
 #include <chrono>  // NOLINT
 #include <cstdint>
 
-namespace bustub {
+namespace hmssql {
 
 /** Cycle detection is performed every CYCLE_DETECTION_INTERVAL milliseconds. */
 extern std::chrono::milliseconds cycle_detection_interval;
@@ -46,4 +46,4 @@ using oid_t = uint16_t;
 
 static constexpr int VARCHAR_DEFAULT_LENGTH = 128;  // default length for varchar when constructing the column
 
-}  // namespace bustub
+}  // namespace hmssql

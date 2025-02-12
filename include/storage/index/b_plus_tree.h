@@ -21,7 +21,7 @@
 
 #include "../include/common/rwlatch.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define BPLUSTREE_TYPE BPlusTree<KeyType, ValueType, KeyComparator>
 
@@ -122,4 +122,4 @@ class BPlusTree {
   ReaderWriterLatch root_page_id_latch_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // value.cpp
 //
@@ -18,7 +18,7 @@
 #include "../include/common/exception.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 Value::Value(const Value &other) {
   type_id_ = other.type_id_;
   size_ = other.size_;
@@ -346,4 +346,4 @@ auto Value::Like(const Value &other) const -> CmpBool {
   std::regex regex_pattern(pattern);
   return std::regex_match(value_.varlen_, regex_pattern) ? CmpBool::CmpTrue : CmpBool::CmpFalse;
 }
-}  // namespace bustub
+}  // namespace hmssql

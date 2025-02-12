@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // timestamp_type.h
 //
@@ -16,7 +16,7 @@
 #include "../include/type/abstract_pool.h"
 #include "../include/type/value.h"
 
-namespace bustub {
+namespace hmssql {
 
 class TimestampType : public Type {
  public:
@@ -54,4 +54,4 @@ class TimestampType : public Type {
   auto CastAs(const Value &val, TypeId type_id) const -> Value override;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

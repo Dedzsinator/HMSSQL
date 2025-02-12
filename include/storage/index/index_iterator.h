@@ -15,7 +15,7 @@
 #pragma once
 #include "../include/storage/page/b_plus_tree_leaf_page.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define INDEXITERATOR_TYPE IndexIterator<KeyType, ValueType, KeyComparator>
 
@@ -46,4 +46,4 @@ class IndexIterator {
   int index_ = 0;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

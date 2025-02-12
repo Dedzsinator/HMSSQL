@@ -8,7 +8,7 @@
 #include "../include/binder/bound_table_ref.h"
 #include "fmt/format.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Join types.
@@ -51,27 +51,27 @@ class BoundJoinRef : public BoundTableRef {
   /** Join condition. */
   std::unique_ptr<BoundExpression> condition_;
 };
-}  // namespace bustub
+}  // namespace hmssql
 
 template <>
-struct fmt::formatter<bustub::JoinType> : formatter<string_view> {
+struct fmt::formatter<hmssql::JoinType> : formatter<string_view> {
   template <typename FormatContext>
-  auto format(bustub::JoinType c, FormatContext &ctx) const {
+  auto format(hmssql::JoinType c, FormatContext &ctx) const {
     string_view name;
     switch (c) {
-      case bustub::JoinType::INVALID:
+      case hmssql::JoinType::INVALID:
         name = "Invalid";
         break;
-      case bustub::JoinType::LEFT:
+      case hmssql::JoinType::LEFT:
         name = "Left";
         break;
-      case bustub::JoinType::RIGHT:
+      case hmssql::JoinType::RIGHT:
         name = "Right";
         break;
-      case bustub::JoinType::INNER:
+      case hmssql::JoinType::INNER:
         name = "Inner";
         break;
-      case bustub::JoinType::OUTER:
+      case hmssql::JoinType::OUTER:
         name = "Outer";
         break;
       default:

@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // disk_extendible_hash_table.h
 //
@@ -22,7 +22,7 @@
 #include "../include/storage/page/hash_table_bucket_page.h"
 #include "../include/storage/page/hash_table_directory_page.h"
 
-namespace bustub {
+namespace hmssql {
 
 #define HASH_TABLE_TYPE DiskExtendibleHashTable<KeyType, ValueType, KeyComparator>
 
@@ -171,4 +171,4 @@ class DiskExtendibleHashTable {
   HashFunction<KeyType> hash_fn_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql

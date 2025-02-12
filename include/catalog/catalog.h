@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // catalog.h
 //
@@ -26,7 +26,7 @@
 #include "../include/storage/index/index.h"
 #include "../include/storage/table/table_heap.h"
 
-namespace bustub {
+namespace hmssql {
 
 /**
  * Typedefs
@@ -373,4 +373,4 @@ class Catalog {
   std::atomic<index_oid_t> next_index_oid_{0};
 };
 
-}  // namespace bustub
+}  // namespace hmssql

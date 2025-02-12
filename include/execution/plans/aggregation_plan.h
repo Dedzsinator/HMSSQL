@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // aggregation_plan.h
 //
@@ -23,7 +23,7 @@
 #include "fmt/format.h"
 #include "../include/storage/table/tuple.h"
 
-namespace bustub {
+namespace hmssql {
 
 /** AggregationType enumerates all the possible aggregation functions in our system */
 enum class AggregationType { CountStarAggregate, CountAggregate, SumAggregate, MinAggregate, MaxAggregate };
@@ -118,18 +118,18 @@ struct AggregateValue {
   std::vector<Value> aggregates_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql
 
 namespace std {
 
 /** Implements std::hash on AggregateKey */
 template <>
-struct hash<bustub::AggregateKey> {
-  auto operator()(const bustub::AggregateKey &agg_key) const -> std::size_t {
+struct hash<hmssql::AggregateKey> {
+  auto operator()(const hmssql::AggregateKey &agg_key) const -> std::size_t {
     size_t curr_hash = 0;
     for (const auto &key : agg_key.group_bys_) {
       if (!key.IsNull()) {
-        curr_hash = bustub::HashUtil::CombineHashes(curr_hash, bustub::HashUtil::HashValue(&key));
+        curr_hash = hmssql::HashUtil::CombineHashes(curr_hash, hmssql::HashUtil::HashValue(&key));
       }
     }
     return curr_hash;
@@ -139,10 +139,10 @@ struct hash<bustub::AggregateKey> {
 }  // namespace std
 
 template <>
-struct fmt::formatter<bustub::AggregationType> : formatter<std::string> {
+struct fmt::formatter<hmssql::AggregationType> : formatter<std::string> {
   template <typename FormatContext>
-  auto format(bustub::AggregationType c, FormatContext &ctx) const {
-    using bustub::AggregationType;
+  auto format(hmssql::AggregationType c, FormatContext &ctx) const {
+    using hmssql::AggregationType;
     std::string name = "unknown";
     switch (c) {
       case AggregationType::CountStarAggregate:

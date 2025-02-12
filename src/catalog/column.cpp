@@ -1,6 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         BusTub
+//                         HMSSQL
 //
 // column.cpp
 //
@@ -15,7 +15,7 @@
 #include <sstream>
 #include <string>
 
-namespace bustub {
+namespace hmssql {
 
 auto Column::ToString(bool simplified) const -> std::string {
   if (simplified) {
@@ -38,4 +38,4 @@ auto Column::ToString(bool simplified) const -> std::string {
   return (os.str());
 }
 
-}  // namespace bustub
+}  // namespace hmssql

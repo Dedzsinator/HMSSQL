@@ -1,7 +1,7 @@
 //===----------------------------------------------------------------------===//
-//                         BusTub
+//                         HMSSQL
 //
-// bustub/binder/parser.h
+// hmssql/binder/parser.h
 //
 //
 //===----------------------------------------------------------------------===//
@@ -65,7 +65,7 @@ struct PGAExpr;
 struct PGJoinExpr;
 }  // namespace duckdb_libpgquery
 
-namespace bustub {
+namespace hmssql {
 
 class Catalog;
 class BoundColumnRef;
@@ -84,7 +84,7 @@ class UpdateStatement;
 
 /**
  * The binder is responsible for transforming the Postgres parse tree to a binder tree
- * which can be recognized unambiguously by the BusTub planner.
+ * which can be recognized unambiguously by the HMSSQL planner.
  */
 class Binder {
  public:
@@ -255,4 +255,4 @@ class Binder {
   duckdb::PostgresParser parser_;
 };
 
-}  // namespace bustub
+}  // namespace hmssql
