@@ -47,7 +47,9 @@ enum class PlanType {
   Projection,
   Sort,
   TopN,
-  MockScan
+  MockScan,
+  CreateView,
+  CreateTempTable,
 };
 
 class AbstractPlanNode;

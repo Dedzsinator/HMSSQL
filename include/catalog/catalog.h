@@ -154,6 +154,19 @@ class Catalog {
     return tmp;
   }
 
+  auto CreateView(Transaction *txn, const std::string &view_name, const std::string &query) -> bool {
+    if (view_names_.count(view_name) != 0) {
+      return false;
+    }
+
+    view_names_.emplace(view_name, query);
+    return true;
+  }
+
+  auto CreateTempTable(Transaction *txn, const std::string &table_name, const Schema &schema) -> TableInfo * {
+    return CreateTable(txn, "__temp__" + table_name, schema, true);
+  }
+
   /**
    * Query table metadata by name.
    * @param table_name The name of the table
@@ -184,6 +197,20 @@ class Catalog {
     }
 
     return (meta->second).get();
+  }
+
+  /**
+   * Query view metadata by name.
+   * @param view_name The name of the view
+   * @return The query associated with the view, or an empty string if the view does not exist
+   */
+  auto GetView(const std::string &view_name) const -> std::string {
+    auto view_query = view_names_.find(view_name);
+    if (view_query == view_names_.end()) {
+      // View not found
+      return "";
+    }
+    return view_query->second;
   }
 
   /**
@@ -355,6 +382,9 @@ class Catalog {
 
   /** Map table name -> table identifiers. */
   std::unordered_map<std::string, table_oid_t> table_names_;
+
+  /** Map view name -> view query */
+  std::unordered_map<std::string, std::string> view_names_;
 
   /** The next table identifier to be used. */
   std::atomic<table_oid_t> next_table_oid_{0};

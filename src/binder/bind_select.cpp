@@ -306,27 +306,6 @@ auto Binder::BindBaseTableRef(std::string table_name, std::optional<std::string>
                                              table_info->schema_);
 }
 
-auto Binder::BindRangeVar(duckdb_libpgquery::PGRangeVar *table_ref) -> std::unique_ptr<BoundTableRef> {
-  if (cte_scope_ != nullptr) {
-    // Firstly, find the table in CTE list.
-    for (const auto &cte : *cte_scope_) {
-      if (cte->alias_ == table_ref->relname) {
-        std::string bound_name;
-        if (table_ref->alias != nullptr) {
-          bound_name = table_ref->alias->aliasname;
-        } else {
-          bound_name = table_ref->relname;
-        }
-        return std::make_unique<BoundCTERef>(cte->alias_, std::move(bound_name));
-      }
-    }
-  }
-  if (table_ref->alias != nullptr) {
-    return BindBaseTableRef(table_ref->relname, std::make_optional(table_ref->alias->aliasname));
-  }
-  return BindBaseTableRef(table_ref->relname, std::nullopt);
-}
-
 auto Binder::BindTableRef(duckdb_libpgquery::PGNode *node) -> std::unique_ptr<BoundTableRef> {
   switch (node->type) {
     case duckdb_libpgquery::T_PGRangeVar: {

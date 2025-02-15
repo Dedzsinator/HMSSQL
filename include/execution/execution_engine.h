@@ -76,6 +76,9 @@ class ExecutionEngine {
     return executor_succeeded;
   }
 
+  void ExecuteCreateView(const CreateViewStatement &stmt);
+  void ExecuteCreateTempTable(const CreateTempTableStatement &stmt);
+
  private:
   /**
    * Poll the executor until exhausted, or exception escapes.

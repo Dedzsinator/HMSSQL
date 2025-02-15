@@ -51,6 +51,7 @@
 #include "postgres_parser.hpp"
 #include "../include/type/type_id.h"
 #include "../include/type/value.h"
+#include "../include/binder/statement/create_statement.h"
 
 namespace duckdb_libpgquery {
 struct PGList;
@@ -90,6 +91,8 @@ class Binder {
  public:
   explicit Binder(const Catalog &catalog);
 
+  auto Parse(const std::string &query) -> duckdb_libpgquery::PGNode*;
+
   /** Attempts to parse a query into a series of SQL statements. The parsed statements
    * will be stored in the `statements_nodes_` variable.
    */
@@ -117,6 +120,10 @@ class Binder {
   // node type in the Postgres parse tree.
 
   auto BindExplain(duckdb_libpgquery::PGExplainStmt *stmt) -> std::unique_ptr<ExplainStatement>;
+
+  auto BindCreateView(duckdb_libpgquery::PGViewStmt *pg_stmt) -> std::unique_ptr<CreateViewStatement>;
+
+  auto ConvertQueryNodeToString(duckdb_libpgquery::PGNode *node) -> std::string;
 
   auto BindCreate(duckdb_libpgquery::PGCreateStmt *pg_stmt) -> std::unique_ptr<CreateStatement>;
 

@@ -39,6 +39,10 @@
 #include "../include/execution/plans/topn_plan.h"
 #include "../include/execution/plans/values_plan.h"
 #include "../include/storage/index/generic_key.h"
+#include "../include/execution/plans/create_view_plan.h"
+#include "../include/execution/plans/create_temptable_plan.h"
+#include "../include/execution/executors/create_view_executor.h"
+#include "../include/execution/executors/create_temptable_executor.h"
 
 namespace hmssql {
 
@@ -152,6 +156,18 @@ auto ExecutorFactory::CreateExecutor(ExecutorContext *exec_ctx, const AbstractPl
       const auto *topn_plan = dynamic_cast<const TopNPlanNode *>(plan.get());
       auto child = ExecutorFactory::CreateExecutor(exec_ctx, topn_plan->GetChildPlan());
       return std::make_unique<TopNExecutor>(exec_ctx, topn_plan, std::move(child));
+    }
+
+    // Create a new create view executor
+    case PlanType::CreateView: {
+      const auto *create_view_plan = dynamic_cast<const CreateViewPlanNode *>(plan.get());
+      return std::make_unique<CreateViewExecutor>(exec_ctx, create_view_plan);
+    }
+
+    // Create a new create temp table executor
+    case PlanType::CreateTempTable: {
+      const auto *create_temp_table_plan = dynamic_cast<const CreateTempTablePlanNode *>(plan.get());
+      return std::make_unique<CreateTempTableExecutor>(exec_ctx, create_temp_table_plan);
     }
 
     default:

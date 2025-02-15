@@ -20,6 +20,9 @@
 #include "execution/plans/projection_plan.h"
 #include "fmt/format.h"
 #include "planner/planner.h"
+#include "execution/execution_engine.h"
+#include "execution/plans/create_temptable_plan.h"
+#include "execution/plans/create_view_plan.h"
 
 namespace hmssql {
 
@@ -41,9 +44,39 @@ void Planner::PlanQuery(const BoundStatement &statement) {
       plan_ = PlanUpdate(dynamic_cast<const UpdateStatement &>(statement));
       return;
     }
+    case StatementType::CREATE_VIEW_STATEMENT: {
+      plan_ = PlanCreateView(dynamic_cast<const CreateViewStatement &>(statement));
+      return;
+    }
+    case StatementType::CREATE_TEMP_TABLE_STATEMENT: {
+      plan_ = PlanCreateTempTable(dynamic_cast<const CreateTempTableStatement &>(statement));
+      return;
+    }
     default:
       throw Exception(fmt::format("the statement {} is not supported in planner yet", statement.type_));
   }
+}
+
+auto Planner::PlanCreateView(const CreateViewStatement &statement) -> AbstractPlanNodeRef {
+  // Validate the view name and query
+  if (statement.view_.empty() || statement.query_.empty()) {
+    throw Exception("View name or query cannot be empty");
+  }
+
+  // Create a plan node for creating the view
+  auto output_schema = std::make_shared<Schema>(std::vector<Column>{});
+  return std::make_shared<CreateViewPlanNode>(output_schema, statement.view_, statement.query_);
+}
+
+auto Planner::PlanCreateTempTable(const CreateTempTableStatement &statement) -> AbstractPlanNodeRef {
+  // Validate the table name and columns
+  if (statement.table_.empty() || statement.columns_.empty()) {
+    throw Exception("Table name or columns cannot be empty");
+  }
+
+  // Create a plan node for creating the temporary table
+  auto output_schema = std::make_shared<Schema>(statement.columns_);
+  return std::make_shared<CreateTempTablePlanNode>(output_schema, statement.table_, statement.columns_);
 }
 
 auto Planner::MakeOutputSchema(const std::vector<std::pair<std::string, TypeId>> &exprs) -> SchemaRef {

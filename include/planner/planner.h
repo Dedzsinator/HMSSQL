@@ -14,6 +14,7 @@
 #include "../include/common/exception.h"
 #include "../include/common/macros.h"
 #include "../include/execution/plans/aggregation_plan.h"
+#include "../include/binder/statement/create_statement.h"
 
 namespace hmssql {
 
@@ -140,6 +141,10 @@ class Planner {
   auto PlanDelete(const DeleteStatement &statement) -> AbstractPlanNodeRef;
 
   auto PlanUpdate(const UpdateStatement &statement) -> AbstractPlanNodeRef;
+
+  auto PlanCreateView(const CreateViewStatement &statement) -> AbstractPlanNodeRef;
+
+  auto PlanCreateTempTable(const CreateTempTableStatement &statement) -> AbstractPlanNodeRef;
 
   /** the root plan node of the plan tree */
   AbstractPlanNodeRef plan_;

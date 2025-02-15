@@ -168,3 +168,4 @@ to open a shell within the box. You can find Bustub's code mounted at `/bustub` 
 $ cd build
 $ make check-tests
 ```
+curl -X POST http://localhost:8080/query -d "SELECT * FROM test_2;"

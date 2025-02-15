@@ -1,25 +1,3 @@
-//===----------------------------------------------------------------------===//
-// Copyright 2018-2022 Stichting DuckDB Foundation
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice (including the next paragraph)
-// shall be included in all copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//===----------------------------------------------------------------------===//
-
 #include <iostream>
 #include <unordered_set>
 
@@ -41,6 +19,14 @@
 namespace hmssql {
 
 Binder::Binder(const Catalog &catalog) : catalog_(catalog) {}
+
+auto Binder::Parse(const std::string &query) -> duckdb_libpgquery::PGNode* {
+  parser_.Parse(query);
+  if (!parser_.success) {
+    throw Exception(fmt::format("Query failed to parse: {}", parser_.error_message));
+  }
+  return reinterpret_cast<duckdb_libpgquery::PGNode*>(parser_.parse_tree);
+}
 
 void Binder::ParseAndSave(const std::string &query) {
   parser_.Parse(query);
@@ -120,6 +106,166 @@ auto Binder::Tokenize(const std::string &query) -> std::vector<SimplifiedToken> 
     result.push_back(token);
   }
   return result;
+}
+
+auto Binder::BindCreateView(duckdb_libpgquery::PGViewStmt *pg_stmt) -> std::unique_ptr<CreateViewStatement> {
+  // Validate the view name and query
+  if (pg_stmt->view == nullptr || pg_stmt->query == nullptr) {
+    throw Exception("View name or query cannot be empty");
+  }
+
+  // Extract the view name
+  std::string view_name = pg_stmt->view->relname;
+
+  // Convert the query node to a string representation
+  std::string query = ConvertQueryNodeToString(pg_stmt->query);
+
+  // Create and return the CreateViewStatement
+  return std::make_unique<CreateViewStatement>(view_name, query);
+}
+
+std::string Binder::ConvertQueryNodeToString(duckdb_libpgquery::PGNode *node) {
+  if (node == nullptr) {
+    return "";
+  }
+
+  switch (node->type) {
+    case duckdb_libpgquery::T_PGSelectStmt: {
+      auto select_stmt = reinterpret_cast<duckdb_libpgquery::PGSelectStmt *>(node);
+      std::string result = "SELECT ";
+      if (select_stmt->distinctClause != nullptr) {
+        result += "DISTINCT ";
+      }
+      result += ConvertQueryNodeToString(reinterpret_cast<duckdb_libpgquery::PGNode *>(select_stmt->targetList));
+      result += " FROM ";
+      result += ConvertQueryNodeToString(reinterpret_cast<duckdb_libpgquery::PGNode *>(select_stmt->fromClause));
+      if (select_stmt->whereClause != nullptr) {
+        result += " WHERE ";
+        result += ConvertQueryNodeToString(select_stmt->whereClause);
+      }
+      if (select_stmt->groupClause != nullptr) {
+        result += " GROUP BY ";
+        result += ConvertQueryNodeToString(reinterpret_cast<duckdb_libpgquery::PGNode *>(select_stmt->groupClause));
+      }
+      if (select_stmt->havingClause != nullptr) {
+        result += " HAVING ";
+        result += ConvertQueryNodeToString(select_stmt->havingClause);
+      }
+      if (select_stmt->sortClause != nullptr) {
+        result += " ORDER BY ";
+        result += ConvertQueryNodeToString(reinterpret_cast<duckdb_libpgquery::PGNode *>(select_stmt->sortClause));
+      }
+      if (select_stmt->limitCount != nullptr) {
+        result += " LIMIT ";
+        result += ConvertQueryNodeToString(select_stmt->limitCount);
+      }
+      if (select_stmt->limitOffset != nullptr) {
+        result += " OFFSET ";
+        result += ConvertQueryNodeToString(select_stmt->limitOffset);
+      }
+      return result;
+    }
+    case duckdb_libpgquery::T_PGResTarget: {
+      auto res_target = reinterpret_cast<duckdb_libpgquery::PGResTarget *>(node);
+      return ConvertQueryNodeToString(res_target->val);
+    }
+    case duckdb_libpgquery::T_PGColumnRef: {
+      auto column_ref = reinterpret_cast<duckdb_libpgquery::PGColumnRef *>(node);
+      std::string result;
+      for (auto cell = column_ref->fields->head; cell != nullptr; cell = cell->next) {
+        if (!result.empty()) {
+          result += ".";
+        }
+        auto field = reinterpret_cast<duckdb_libpgquery::PGNode *>(cell->data.ptr_value);
+        if (field->type == duckdb_libpgquery::T_PGString) {
+          result += reinterpret_cast<duckdb_libpgquery::PGValue *>(field)->val.str;
+        }
+      }
+      return result;
+    }
+    case duckdb_libpgquery::T_PGAConst: {
+      auto aconst = reinterpret_cast<duckdb_libpgquery::PGAConst *>(node);
+      auto val = aconst->val;
+      switch (val.type) {
+        case duckdb_libpgquery::T_PGInteger:
+          return std::to_string(val.val.ival);
+        case duckdb_libpgquery::T_PGString:
+          return fmt::format("'{}'", val.val.str);
+        default:
+          throw Exception("Unsupported constant type");
+      }
+    }
+    case duckdb_libpgquery::T_PGAExpr: {
+      auto aexpr = reinterpret_cast<duckdb_libpgquery::PGAExpr *>(node);
+      std::string result = ConvertQueryNodeToString(aexpr->lexpr);
+      result += " ";
+      result += reinterpret_cast<duckdb_libpgquery::PGValue *>(aexpr->name->head->data.ptr_value)->val.str;
+      result += " ";
+      result += ConvertQueryNodeToString(aexpr->rexpr);
+      return result;
+    }
+    case duckdb_libpgquery::T_PGFuncCall: {
+      auto func_call = reinterpret_cast<duckdb_libpgquery::PGFuncCall *>(node);
+      std::string result;
+      for (auto cell = func_call->funcname->head; cell != nullptr; cell = cell->next) {
+        if (!result.empty()) {
+          result += ".";
+        }
+        result += reinterpret_cast<duckdb_libpgquery::PGValue *>(cell->data.ptr_value)->val.str;
+      }
+      result += "(";
+      for (auto cell = func_call->args->head; cell != nullptr; cell = cell->next) {
+        if (cell != func_call->args->head) {
+          result += ", ";
+        }
+        result += ConvertQueryNodeToString(reinterpret_cast<duckdb_libpgquery::PGNode *>(cell->data.ptr_value));
+      }
+      result += ")";
+      return result;
+    }
+    case duckdb_libpgquery::T_PGList: {
+      std::string result;
+      for (auto cell = reinterpret_cast<duckdb_libpgquery::PGList *>(node)->head; cell != nullptr; cell = cell->next) {
+        if (!result.empty()) {
+          result += ", ";
+        }
+        result += ConvertQueryNodeToString(reinterpret_cast<duckdb_libpgquery::PGNode *>(cell->data.ptr_value));
+      }
+      return result;
+    }
+    case duckdb_libpgquery::T_PGRangeVar: {
+      auto range_var = reinterpret_cast<duckdb_libpgquery::PGRangeVar *>(node);
+      std::string result;
+      if (range_var->schemaname != nullptr) {
+        result += range_var->schemaname;
+        result += ".";
+      }
+      result += range_var->relname;
+      return result;
+    }
+    default:
+      throw Exception(fmt::format("Unsupported node type: {}", Binder::NodeTagToString(node->type)));
+  }
+}
+
+auto Binder::BindRangeVar(duckdb_libpgquery::PGRangeVar *range_var) -> std::unique_ptr<BoundTableRef> {
+  // Check if the range variable refers to a view
+  auto view_query = catalog_.GetView(range_var->relname);
+  if (!view_query.empty()) {
+    // Expand the view into its underlying query
+    auto view_stmt = reinterpret_cast<duckdb_libpgquery::PGSelectStmt*>(Parse(view_query));
+    auto select_stmt = BindSelect(view_stmt);
+    std::vector<std::vector<std::string>> select_list_name; // Placeholder for select list names
+    return std::make_unique<BoundSubqueryRef>(std::move(select_stmt), std::move(select_list_name), range_var->relname);
+  }
+
+  // Otherwise, bind the table reference as usual
+  auto table_info = catalog_.GetTable(range_var->relname);
+  if (table_info == nullptr) {
+    throw Exception(fmt::format("invalid table {}", range_var->relname));
+  }
+
+  return std::make_unique<BoundBaseTableRef>(table_info);
 }
 
 }  // namespace hmssql

@@ -64,7 +64,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Includes.
 set(BUSTUB_SRC_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(BUSTUB_TEST_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/test/include)
-set(BUSTUB_THIRD_PARTY_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/third_party ${PROJECT_SOURCE_DIR}/third_party/fmt/include ${PROJECT_SOURCE_DIR}/third_party/libpg_query/include ${PROJECT_SOURCE_DIR}/third_party/argparse/include)
+set(BUSTUB_THIRD_PARTY_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/third_party ${PROJECT_SOURCE_DIR}/third_party/fmt/include ${PROJECT_SOURCE_DIR}/third_party/libpg_query/include ${PROJECT_SOURCE_DIR}/third_party/argparse/include ${PROJECT_SOURCE_DIR}/third_party/spdlog/include)
 
 include_directories(${BUSTUB_SRC_INCLUDE_DIR} ${BUSTUB_TEST_INCLUDE_DIR} ${BUSTUB_THIRD_PARTY_INCLUDE_DIR})
 include_directories(BEFORE src) # This is needed for gtest.
@@ -83,4 +83,8 @@ add_subdirectory(third_party)
 
 # Add executables
 add_executable(hmssql_main tools/shell/shell.cpp)
-target_link_libraries(hmssql_main hmssql hmssql_linenoise argparse utf8proc)
+target_link_libraries(hmssql_main hmssql hmssql_linenoise argparse utf8proc spdlog::spdlog)
+
+# Add the following lines to create a new executable for the daemon
+add_executable(daemon tools/daemon/daemon.cpp)
+target_link_libraries(daemon PRIVATE hmssql utf8proc spdlog::spdlog)

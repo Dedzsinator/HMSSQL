@@ -5,6 +5,7 @@
 #include <utility>
 #include "../include/binder/bound_table_ref.h"
 #include "../include/catalog/schema.h"
+#include "../include/catalog/catalog.h" // Include the catalog header to get the TableInfo type
 #include "../include/concurrency/transaction.h"
 #include "fmt/core.h"
 
@@ -21,6 +22,11 @@ class BoundBaseTableRef : public BoundTableRef {
         oid_(oid),
         alias_(std::move(alias)),
         schema_(std::move(schema)) {}
+
+  explicit BoundBaseTableRef(TableInfo *table_info)
+      : BoundBaseTableRef(table_info->name_, table_info->oid_, std::nullopt, table_info->schema_) {
+    table_info_ = table_info;
+  }
 
   auto ToString() const -> std::string override {
     if (alias_ == std::nullopt) {
@@ -47,5 +53,9 @@ class BoundBaseTableRef : public BoundTableRef {
 
   /** The schema of the table. */
   Schema schema_;
+
+ private:
+  TableInfo *table_info_;
 };
+
 }  // namespace hmssql
