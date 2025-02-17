@@ -1,6 +1,5 @@
 # HMSSQL
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/dedzsinator/hmssql/build.yml?branch=main)](https://github.com/dedzsinator/hmssql/actions/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![C++](https://img.shields.io/badge/C++-17-brightgreen.svg)](https://en.wikipedia.org/wiki/C%2B%2B17)
 [![GitHub issues](https://img.shields.io/github/issues-raw/dedzsinator/hmssql)](https://github.com/dedzsinator/hmssql/issues)
@@ -9,9 +8,10 @@
 [![Last Commit](https://img.shields.io/github/last-commit/dedzsinator/hmssql/main)](https://github.com/dedzsinator/hmssql/commits/main)
 [![Documentation Status](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://github.com/dedzsinator/hmssql/wiki)
 [![Test Coverage](https://img.shields.io/badge/coverage-80%25-yellowgreen.svg)](https://github.com/dedzsinator/hmssql/actions)
-[![Language](https://img.shields.io/github/languages/top/dedzsinator/hmssql)](https://github.com/dedzsinator/hmssql)
-[![Release](https://img.shields.io/github/v/release/dedzsinator/hmssql?include_prereleases)](https://github.com/dedzsinator/hmssql/releases)
-[![Lines of Code](https://img.shields.io/tokei/lines/github/dedzsinator/hmssql)](https://github.com/dedzsinator/hmssql)
+[![Language](https://img.shields.io/github/languages/top/dedzsinator/HMSSQL)](https://github.com/dedzsinator/HMSSQL)
+[![Release](https://img.shields.io/github/v/release/dedzsinator/HMSSQL)](https://github.com/dedzsinator/HMSSQL/releases)
+[![Lines of Code](https://img.shields.io/github/languages/code-size/dedzsinator/hmssql)](https://github.com/dedzsinator/hmssql)
+[![Lines of Code](https://sloc.xyz/github/dedzsinator/hmssql?category=code)](https://github.com/dedzsinator/hmssql)
 
 Oktatási célú relációs adatbázis-kezelő rendszer. A HMSSQL egy egyszerű SQL motorral és interaktív shell-lel rendelkezik.
 
@@ -20,7 +20,7 @@ Oktatási célú relációs adatbázis-kezelő rendszer. A HMSSQL egy egyszerű 
 ### Fordítás és telepítés
 
 ```bash
-sudo ./build_support/packages.sh
+sudo ./preinstall.sh
 ```
 
 ## Projekt klónozása
