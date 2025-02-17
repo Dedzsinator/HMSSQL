@@ -6,7 +6,6 @@
 //
 // Identification: src/include/common/macros.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

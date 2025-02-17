@@ -30,7 +30,7 @@ auto GetWidthOfUtf8(const void *beg, const void *end, size_t *width) -> int {
 }
 
 // Function to handle SQL queries and return JSON response
-auto HandleSqlQuery(hmssql::BustubInstance &hmssql, const std::string &query) -> json {
+auto HandleSqlQuery(hmssql::HMSSQL &hmssql, const std::string &query) -> json {
   json response;
   try {
     auto writer = hmssql::FortTableWriter();
@@ -54,7 +54,7 @@ auto HandleSqlQuery(hmssql::BustubInstance &hmssql, const std::string &query) ->
 auto main(int argc, char **argv) -> int {
   ft_set_u8strwid_func(&GetWidthOfUtf8);
 
-  auto hmssql = std::make_unique<hmssql::BustubInstance>("test.db");
+  auto hmssql = std::make_unique<hmssql::HMSSQL>("test.db");
 
   // Initialize spdlog
   auto logger = spdlog::basic_logger_mt("basic_logger", "logs/shell.log");

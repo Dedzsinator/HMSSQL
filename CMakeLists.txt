@@ -82,9 +82,17 @@ add_subdirectory(src)
 add_subdirectory(third_party)
 
 # Add executables
+# Update executables to not explicitly link spdlog
 add_executable(hmssql_main tools/shell/shell.cpp)
-target_link_libraries(hmssql_main hmssql hmssql_linenoise argparse utf8proc spdlog::spdlog)
+target_link_libraries(hmssql_main PRIVATE 
+    hmssql 
+    hmssql_linenoise 
+    argparse 
+    utf8proc
+)
 
-# Add the following lines to create a new executable for the daemon
 add_executable(daemon tools/daemon/daemon.cpp)
-target_link_libraries(daemon PRIVATE hmssql utf8proc spdlog::spdlog)
+target_link_libraries(daemon PRIVATE 
+    hmssql 
+    utf8proc
+)

@@ -29,7 +29,7 @@ auto GetWidthOfUtf8(const void *beg, const void *end, size_t *width) -> int {
 }
 
 // Function to handle SQL queries and return JSON response
-auto HandleSqlQuery(hmssql::BustubInstance &hmssql, const std::string &query) -> json {
+auto HandleSqlQuery(hmssql::HMSSQL &hmssql, const std::string &query) -> json {
   json response;
   try {
     auto writer = hmssql::FortTableWriter();
@@ -49,11 +49,10 @@ auto HandleSqlQuery(hmssql::BustubInstance &hmssql, const std::string &query) ->
   return response;
 }
 
-// NOLINTNEXTLINE
 auto main(int argc, char **argv) -> int {
   ft_set_u8strwid_func(&GetWidthOfUtf8);
 
-  auto hmssql = std::make_unique<hmssql::BustubInstance>("test.db");
+  auto hmssql = std::make_unique<hmssql::HMSSQL>("test.db");
 
   // Initialize spdlog
   auto logger = spdlog::basic_logger_mt("basic_logger", "logs/daemon.log");
@@ -66,6 +65,7 @@ auto main(int argc, char **argv) -> int {
   // Start HTTP server
   httplib::Server svr;
 
+  // Add route for SQL queries
   svr.Post("/query", [&](const httplib::Request &req, httplib::Response &res) {
     auto query = req.body;
     spdlog::info("Received query: {}", query);
@@ -73,6 +73,17 @@ auto main(int argc, char **argv) -> int {
     res.set_content(response.dump(), "application/json");
   });
 
+  // Set up static file serving
+  svr.set_mount_point("/", "./tools/web/static");
+
+  // Add CORS headers
+  svr.set_default_headers({
+    {"Access-Control-Allow-Origin", "*"},
+    {"Access-Control-Allow-Methods", "GET, POST, OPTIONS"},
+    {"Access-Control-Allow-Headers", "Content-Type"}
+  });
+
+  // Start listening
   svr.listen("0.0.0.0", 8080);
 
   return 0;

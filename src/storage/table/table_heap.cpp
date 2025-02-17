@@ -6,7 +6,6 @@
 //
 // Identification: src/storage/table/table_heap.cpp
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

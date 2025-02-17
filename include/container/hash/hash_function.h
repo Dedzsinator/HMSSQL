@@ -6,7 +6,6 @@
 //
 // Identification: src/include/container/hash/hash_function.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

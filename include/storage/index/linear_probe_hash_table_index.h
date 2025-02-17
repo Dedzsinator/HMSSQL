@@ -6,7 +6,6 @@
 //
 // Identification: src/include/storage/index/linear_probe_hash_table_index.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

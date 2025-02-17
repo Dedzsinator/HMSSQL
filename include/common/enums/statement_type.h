@@ -34,6 +34,8 @@ enum class StatementType : uint8_t {
   VARIABLE_SHOW_STATEMENT,  // show variable statement type
   CREATE_VIEW_STATEMENT,
   CREATE_TEMP_TABLE_STATEMENT,
+  CREATE_DATABASE_STATEMENT,
+  USE_STATEMENT,
 };
 
 }  // namespace hmssql
@@ -82,6 +84,12 @@ struct fmt::formatter<hmssql::StatementType> : formatter<string_view> {
         break;
       case hmssql::StatementType::CREATE_TEMP_TABLE_STATEMENT:
         name = "CreateTempTable";                             
+        break;
+      case hmssql::StatementType::CREATE_DATABASE_STATEMENT:
+        name = "CreateDatabase";
+        break;
+      case hmssql::StatementType::USE_STATEMENT:
+        name = "Use";
         break;
     }
     return formatter<string_view>::format(name, ctx);

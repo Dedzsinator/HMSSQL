@@ -6,7 +6,6 @@
 //
 // Identification: src/common/util/string_util.cpp
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -33,6 +32,9 @@ void StringUtil::RTrim(std::string *str) {
   // remove trailing ' ', \f, \n, \r, \t, \v
   str->erase(std::find_if(str->rbegin(), str->rend(), [](int ch) { return std::isspace(ch) == 0; }).base(), str->end());
 }
+
+//equals function: StringUtil::Equals(var_stmt->name, "database"))
+auto StringUtil::Equals(const std::string &str1, const std::string &str2) -> bool { return str1 == str2; }
 
 auto StringUtil::Indent(int num_indent) -> std::string { return std::string(num_indent, ' '); }  // NOLINT
 
@@ -226,6 +228,20 @@ auto StringUtil::IndentAllLines(const std::string &lines, size_t num_indent, boo
     lines_str.push_back(fmt::format("{}{}", indent_str, line));
   }
   return fmt::format("{}", fmt::join(lines_str, "\n"));
+}
+
+auto StringUtil::Trim(std::string str) -> std::string {
+  // Remove leading whitespace
+  str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](unsigned char ch) {
+    return !std::isspace(ch);
+  }));
+
+  // Remove trailing whitespace
+  str.erase(std::find_if(str.rbegin(), str.rend(), [](unsigned char ch) {
+    return !std::isspace(ch);
+  }).base(), str.end());
+
+  return str;
 }
 
 }  // namespace hmssql

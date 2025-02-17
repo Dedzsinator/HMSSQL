@@ -6,7 +6,6 @@
 //
 // Identification: src/include/recovery/log_record.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -32,6 +31,8 @@ enum class LogRecordType {
   ABORT,
   /** Creating a new page in the table heap. */
   NEWPAGE,
+  CREATE_DATABASE,
+  CHECKPOINT
 };
 
 /**
@@ -58,6 +59,12 @@ enum class LogRecordType {
  * | HEADER | prev_page_id |
  *--------------------------
  */
+struct TransactionTag {};
+struct CheckpointTag {};
+static constexpr TransactionTag TRANSACTION_TAG;
+static constexpr CheckpointTag CHECKPOINT_TAG;
+
+
 class LogRecord {
   friend class LogManager;
   friend class LogRecovery;
@@ -66,8 +73,16 @@ class LogRecord {
   LogRecord() = default;
 
   // constructor for Transaction type(BEGIN/COMMIT/ABORT)
-  LogRecord(txn_id_t txn_id, lsn_t prev_lsn, LogRecordType log_record_type)
-      : size_(HEADER_SIZE), txn_id_(txn_id), prev_lsn_(prev_lsn), log_record_type_(log_record_type) {}
+  LogRecord(txn_id_t txn_id, lsn_t prev_lsn, LogRecordType log_record_type, TransactionTag)
+    : size_(HEADER_SIZE),
+      lsn_(INVALID_LSN),
+      txn_id_(txn_id),
+      prev_lsn_(prev_lsn),
+      log_record_type_(log_record_type) {
+      assert(log_record_type == LogRecordType::BEGIN || 
+            log_record_type == LogRecordType::COMMIT || 
+            log_record_type == LogRecordType::ABORT);
+  }
 
   // constructor for INSERT/DELETE type
   LogRecord(txn_id_t txn_id, lsn_t prev_lsn, LogRecordType log_record_type, const RID &rid, const Tuple &tuple)
@@ -84,6 +99,27 @@ class LogRecord {
     // calculate log record size
     size_ = HEADER_SIZE + sizeof(RID) + sizeof(int32_t) + tuple.GetLength();
   }
+
+  LogRecord(txn_id_t txn_id, lsn_t prev_lsn, LogRecordType log_record_type, const std::string& db_name)
+        : size_(HEADER_SIZE + db_name.length() + sizeof(size_t)),
+          lsn_(INVALID_LSN),
+          txn_id_(txn_id),
+          prev_lsn_(prev_lsn),
+          log_record_type_(log_record_type),
+          database_name_(db_name) {
+        assert(log_record_type == LogRecordType::CREATE_DATABASE);
+    }
+
+  // constructor for checkpoint
+  LogRecord(txn_id_t txn_id, lsn_t prev_lsn, LogRecordType log_record_type, CheckpointTag)
+        : size_(HEADER_SIZE),
+          lsn_(INVALID_LSN),
+          txn_id_(txn_id),
+          prev_lsn_(prev_lsn),
+          log_record_type_(log_record_type) {
+        assert(log_record_type == LogRecordType::CHECKPOINT);
+    }
+
 
   // constructor for UPDATE type
   LogRecord(txn_id_t txn_id, lsn_t prev_lsn, LogRecordType log_record_type, const RID &update_rid,
@@ -130,7 +166,7 @@ class LogRecord {
 
   inline auto GetSize() -> int32_t { return size_; }
 
-  inline auto GetLSN() -> lsn_t { return lsn_; }
+  inline auto GetLSN() const -> lsn_t { return lsn_; }
 
   inline auto GetTxnId() -> txn_id_t { return txn_id_; }
 
@@ -152,30 +188,25 @@ class LogRecord {
   }
 
  private:
-  // the length of log record(for serialization, in bytes)
+  // Keep members in initialization order
   int32_t size_{0};
-  // must have fields
   lsn_t lsn_{INVALID_LSN};
   txn_id_t txn_id_{INVALID_TXN_ID};
   lsn_t prev_lsn_{INVALID_LSN};
   LogRecordType log_record_type_{LogRecordType::INVALID};
+  std::string database_name_;  // Move after log_record_type_
 
-  // case1: for delete operation, delete_tuple_ for UNDO operation
+  // Case-specific members
   RID delete_rid_;
   Tuple delete_tuple_;
-
-  // case2: for insert operation
   RID insert_rid_;
   Tuple insert_tuple_;
-
-  // case3: for update operation
   RID update_rid_;
   Tuple old_tuple_;
   Tuple new_tuple_;
-
-  // case4: for new page operation
   page_id_t prev_page_id_{INVALID_PAGE_ID};
   page_id_t page_id_{INVALID_PAGE_ID};
+
   static const int HEADER_SIZE = 20;
 };  // namespace hmssql
 

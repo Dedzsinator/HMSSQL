@@ -6,7 +6,6 @@
 //
 // Identification: src/include/concurrency/transaction_manager.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -82,6 +81,8 @@ class TransactionManager {
 
   /** Resumes all transactions, used for checkpointing. */
   void ResumeTransactions();
+  void BlockNewTransactions();
+  void WaitForActiveTransactions();
 
  private:
   /**
@@ -134,6 +135,10 @@ class TransactionManager {
     }
   }
 
+  std::mutex txn_mutex_;
+  std::condition_variable txn_cv_;
+  bool transactions_blocked_{false};
+  size_t active_txn_count_{0};
   std::atomic<txn_id_t> next_txn_id_{0};
   LockManager *lock_manager_ __attribute__((__unused__));
   LogManager *log_manager_ __attribute__((__unused__));

@@ -6,49 +6,79 @@
 //
 // Identification: src/recovery/log_manager.cpp
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
 #include "../include/recovery/log_manager.h"
+#include "../third_party/spdlog/spdlog.h"
 
 namespace hmssql {
-/*
- * set enable_logging = true
- * Start a separate thread to execute flush to disk operation periodically
- * The flush can be triggered when timeout or the log buffer is full or buffer
- * pool manager wants to force flush (it only happens when the flushed page has
- * a larger LSN than persistent LSN)
- *
- * This thread runs forever until system shutdown/StopFlushThread
- */
-void LogManager::RunFlushThread() {}
 
-/*
- * Stop and join the flush thread, set enable_logging = false
- */
-void LogManager::StopFlushThread() {}
+void LogManager::RunFlushThread() {
+    std::unique_lock<std::mutex> lock(latch_);
+    if (flush_thread_running_) {
+        return;
+    }
+    
+    flush_thread_running_ = true;
+    flush_thread_ = new std::thread([this] {
+        while (flush_thread_running_) {
+            std::unique_lock<std::mutex> guard(latch_);
+            if (!log_buffer_.empty()) {
+                FlushAllLogs();
+            }
+            cv_.wait_for(guard, std::chrono::milliseconds(100));
+        }
+    });
+}
 
-/*
- * append a log record into log buffer
- * you MUST set the log record's lsn within this method
- * @return: lsn that is assigned to this log record
- *
- *
- * example below
- * // First, serialize the must have fields(20 bytes in total)
- * log_record.lsn_ = next_lsn_++;
- * memcpy(log_buffer_ + offset_, &log_record, 20);
- * int pos = offset_ + 20;
- *
- * if (log_record.log_record_type_ == LogRecordType::INSERT) {
- *    memcpy(log_buffer_ + pos, &log_record.insert_rid_, sizeof(RID));
- *    pos += sizeof(RID);
- *    // we have provided serialize function for tuple class
- *    log_record.insert_tuple_.SerializeTo(log_buffer_ + pos);
- *  }
- *
- */
-auto LogManager::AppendLogRecord(LogRecord *log_record) -> lsn_t { return INVALID_LSN; }
+void LogManager::StopFlushThread() {
+    {
+        std::unique_lock<std::mutex> lock(latch_);
+        if (!flush_thread_running_) {
+            return;
+        }
+        flush_thread_running_ = false;
+    }
+    
+    cv_.notify_one();
+    if (flush_thread_ && flush_thread_->joinable()) {
+        flush_thread_->join();
+        delete flush_thread_;
+        flush_thread_ = nullptr;
+    }
+}
 
-}  // namespace hmssql
+void LogManager::FlushAllLogs() {
+    std::unique_lock<std::mutex> lock(latch_);
+    
+    if (log_buffer_.empty()) {
+        return;
+    }
+
+    for (const auto& record : log_buffer_) {
+        // No need to remove const now since WriteLog accepts const char*
+        disk_manager_->WriteLog(
+            reinterpret_cast<const char*>(&record),
+            sizeof(LogRecord)
+        );
+        // GetLSN() is now const-qualified
+        persistent_lsn_ = record.GetLSN();
+    }
+    
+    disk_manager_->FlushLog();
+    log_buffer_.clear();
+    
+    spdlog::info("Flushed {} log records to disk", log_buffer_.size());
+}
+
+auto LogManager::AppendLogRecord(LogRecord *log_record) -> lsn_t {
+    std::unique_lock<std::mutex> lock(latch_);
+    
+    log_record->lsn_ = next_lsn_++;
+    log_buffer_.push_back(*log_record);
+    
+    return log_record->lsn_;
+}
+
+} // namespace hmssql

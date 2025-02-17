@@ -28,6 +28,12 @@ namespace hmssql {
 
 void Planner::PlanQuery(const BoundStatement &statement) {
   switch (statement.type_) {
+    case StatementType::USE_STATEMENT: {
+      // USE statements don't need planning since they're handled directly
+      plan_ = nullptr;
+      break;
+    }
+    
     case StatementType::SELECT_STATEMENT: {
       plan_ = PlanSelect(dynamic_cast<const SelectStatement &>(statement));
       return;

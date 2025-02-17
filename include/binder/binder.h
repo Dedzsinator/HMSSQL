@@ -52,6 +52,7 @@
 #include "../include/type/type_id.h"
 #include "../include/type/value.h"
 #include "../include/binder/statement/create_statement.h"
+#include "binder/statement/use_statement.h"
 
 namespace duckdb_libpgquery {
 struct PGList;
@@ -191,6 +192,8 @@ class Binder {
 
   auto BindInsert(duckdb_libpgquery::PGInsertStmt *pg_stmt) -> std::unique_ptr<InsertStatement>;
 
+  auto BindUse(duckdb_libpgquery::PGVariableSetStmt *stmt) -> std::unique_ptr<UseStatement>;
+
   auto BindValuesList(duckdb_libpgquery::PGList *list) -> std::unique_ptr<BoundExpressionListRef>;
 
   auto BindLimitCount(duckdb_libpgquery::PGNode *root) -> std::unique_ptr<BoundExpression>;
@@ -258,6 +261,8 @@ class Binder {
 
   /** Sometimes we will need to assign a name to some unnamed items. This variable gives them a universal ID. */
   size_t universal_id_{0};
+
+  std::string text_;
 
   duckdb::PostgresParser parser_;
 };

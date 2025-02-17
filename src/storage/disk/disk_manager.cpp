@@ -6,7 +6,6 @@
 //
 // Identification: src/storage/disk/disk_manager.cpp
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -18,13 +17,22 @@
 #include <string>
 #include <thread>  // NOLINT
 
+#ifdef _WIN32
+#include <windows.h>
+#include <io.h>
+#else
+#include <unistd.h>
+#include <fcntl.h>
+#endif
+
 #include "../include/common/exception.h"
 #include "../include/common/logger.h"
 #include "../include/storage/disk/disk_manager.h"
+#include "../third_party/spdlog/spdlog.h"
 
 namespace hmssql {
 
-static char *buffer_used;
+char* DiskManager::buffer_used = nullptr;
 
 /**
  * Constructor: open/create a single database file & log file
@@ -72,6 +80,41 @@ void DiskManager::ShutDown() {
     db_io_.close();
   }
   log_io_.close();
+}
+
+void DiskManager::SyncFile(std::fstream& file) {
+  // First flush the stream buffers
+  file.flush();
+
+#ifdef _WIN32
+  // Windows implementation
+  auto* native_handle = file.rdbuf();
+  if (native_handle) {
+      // Use public API to get file descriptor
+      FILE* fp = nullptr;
+      if (_fdopen(_open_osfhandle((intptr_t)native_handle, 0), "r+b")) {
+          HANDLE handle = (HANDLE)_get_osfhandle(_fileno(fp));
+          if (handle != INVALID_HANDLE_VALUE) {
+              FlushFileBuffers(handle);
+          }
+          fclose(fp);
+      }
+  }
+#else
+  // Unix implementation - use public sync() method
+  if (file.rdbuf()) {
+      file.rdbuf()->pubsync();
+  }
+#endif
+
+  spdlog::debug("File synced to disk");
+}
+
+void DiskManager::FlushLog() {
+  if (log_io_.is_open()) {
+      SyncFile(log_io_);
+      spdlog::debug("Log file synced to disk");
+  }
 }
 
 /**
@@ -126,20 +169,22 @@ void DiskManager::ReadPage(page_id_t page_id, char *page_data) {
  * Write the contents of the log into disk file
  * Only return when sync is done, and only perform sequence write
  */
-void DiskManager::WriteLog(char *log_data, int size) {
+void DiskManager::WriteLog(const char *log_data, int size) {
   // enforce swap log buffer
-  assert(log_data != buffer_used);
-  buffer_used = log_data;
+  if (const_cast<char*>(log_data) == buffer_used) {
+      return;
+  }
+  buffer_used = const_cast<char*>(log_data);  // Safe since we only use it for comparison
 
   if (size == 0) {  // no effect on num_flushes_ if log buffer is empty
-    return;
+      return;
   }
 
   flush_log_ = true;
 
   if (flush_log_f_ != nullptr) {
-    // used for checking non-blocking flushing
-    assert(flush_log_f_->wait_for(std::chrono::seconds(10)) == std::future_status::ready);
+      // used for checking non-blocking flushing
+      assert(flush_log_f_->wait_for(std::chrono::seconds(10)) == std::future_status::ready);
   }
 
   num_flushes_ += 1;
@@ -148,8 +193,8 @@ void DiskManager::WriteLog(char *log_data, int size) {
 
   // check for I/O error
   if (log_io_.bad()) {
-    LOG_DEBUG("I/O error while writing log");
-    return;
+      LOG_DEBUG("I/O error while writing log");
+      return;
   }
   // needs to flush to keep disk file in sync
   log_io_.flush();

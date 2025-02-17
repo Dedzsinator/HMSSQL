@@ -15,6 +15,8 @@
 #include "pg_definitions.hpp"
 #include "postgres_parser.hpp"
 #include "../include/type/decimal_type.h"
+#include "../include/binder/statement/use_statement.h"
+#include "../include/binder/postgres_extension.hpp"
 
 namespace hmssql {
 
@@ -28,8 +30,45 @@ auto Binder::Parse(const std::string &query) -> duckdb_libpgquery::PGNode* {
   return reinterpret_cast<duckdb_libpgquery::PGNode*>(parser_.parse_tree);
 }
 
+auto Binder::BindUse(duckdb_libpgquery::PGVariableSetStmt *stmt) -> std::unique_ptr<UseStatement> {
+  if (stmt->args && stmt->args->head) {
+    auto val = reinterpret_cast<duckdb_libpgquery::PGAConst *>(stmt->args->head->data.ptr_value);
+    std::string db_name = val->val.val.str;
+    // Remove any trailing semicolon
+    if (!db_name.empty() && db_name.back() == ';') {
+      db_name.pop_back();
+    }
+    return std::make_unique<UseStatement>(db_name);
+  }
+  throw Exception("Invalid USE statement");
+}
+
 void Binder::ParseAndSave(const std::string &query) {
-  parser_.Parse(query);
+  text_ = query;
+  
+  // Initialize parser with extensions
+  PostgresParserExtension::ExtendParser();
+  
+  // Try parsing with our extended syntax
+  if (StringUtil::StartsWith(StringUtil::Lower(query), "create database") ||
+      StringUtil::StartsWith(StringUtil::Lower(query), "use")) {
+    
+    // Convert to PostgreSQL syntax
+    std::string pg_query = query;
+    if (StringUtil::StartsWith(StringUtil::Lower(query), "create database")) {
+      // Convert to CREATE SCHEMA which PostgreSQL understands
+      pg_query = "CREATE SCHEMA " + query.substr(15);
+    } else if (StringUtil::StartsWith(StringUtil::Lower(query), "use")) {
+      // Convert to SET search_path which PostgreSQL understands
+      pg_query = "SET search_path TO " + query.substr(4);
+    }
+    
+    parser_.Parse(pg_query);
+  } else {
+    // Normal parsing for other queries
+    parser_.Parse(query);
+  }
+
   if (!parser_.success) {
     LOG_INFO("Query failed to parse!");
     throw Exception(fmt::format("Query failed to parse: {}", parser_.error_message));

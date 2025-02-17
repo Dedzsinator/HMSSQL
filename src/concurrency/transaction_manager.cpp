@@ -6,7 +6,6 @@
 //
 // Identification: src/concurrency/transaction_manager.cpp
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -29,13 +28,19 @@ auto TransactionManager::Begin(Transaction *txn, IsolationLevel isolation_level)
   global_txn_latch_.RLock();
 
   if (txn == nullptr) {
-    txn = new Transaction(next_txn_id_++, isolation_level);
+      txn = new Transaction(next_txn_id_++, isolation_level);
   }
 
   if (enable_logging) {
-    LogRecord record = LogRecord(txn->GetTransactionId(), txn->GetPrevLSN(), LogRecordType::BEGIN);
-    lsn_t lsn = log_manager_->AppendLogRecord(&record);
-    txn->SetPrevLSN(lsn);
+      // Use the tag-based constructor
+      LogRecord record(
+          txn->GetTransactionId(),
+          txn->GetPrevLSN(),
+          LogRecordType::BEGIN,
+          TRANSACTION_TAG  // Add the transaction tag
+      );
+      lsn_t lsn = log_manager_->AppendLogRecord(&record);
+      txn->SetPrevLSN(lsn);
   }
 
   std::unique_lock<std::shared_mutex> l(txn_map_mutex);
@@ -117,6 +122,20 @@ void TransactionManager::Abort(Transaction *txn) {
 
 void TransactionManager::BlockAllTransactions() { global_txn_latch_.WLock(); }
 
-void TransactionManager::ResumeTransactions() { global_txn_latch_.WUnlock(); }
+void TransactionManager::BlockNewTransactions() {
+  std::unique_lock<std::mutex> lock(txn_mutex_);
+  transactions_blocked_ = true;
+}
+
+void TransactionManager::ResumeTransactions() {
+  std::unique_lock<std::mutex> lock(txn_mutex_);
+  transactions_blocked_ = false;
+  txn_cv_.notify_all();
+}
+
+void TransactionManager::WaitForActiveTransactions() {
+  std::unique_lock<std::mutex> lock(txn_mutex_);
+  txn_cv_.wait(lock, [this] { return active_txn_count_ == 0; });
+}
 
 }  // namespace hmssql

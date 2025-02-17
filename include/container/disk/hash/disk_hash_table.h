@@ -6,7 +6,6 @@
 //
 // Identification: src/include/container/disk/hash/hash_table.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

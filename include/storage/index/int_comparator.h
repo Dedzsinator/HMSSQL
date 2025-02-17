@@ -6,7 +6,6 @@
 //
 // Identification: src/include/storage/index/int_comparator.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

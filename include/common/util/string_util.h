@@ -6,7 +6,6 @@
 //
 // Identification: src/include/common/util/string_util.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -36,6 +35,22 @@ class StringUtil {
 
   /** @return input string split based on the delimiter */
   static auto Split(const std::string &str, char delimiter) -> std::vector<std::string>;
+
+  /**
+   * Removes leading and trailing whitespace from a string.
+   * @param str string to be trimmed
+   * @return trimmed string
+   */
+  static auto Trim(std::string str) -> std::string;
+
+  /**
+   * @brief Check if two strings are equal.
+   * @param str1 
+   * @param str2 
+   * @return true 
+   * @return false 
+   */
+  static auto Equals(const std::string &str1, const std::string &str2) -> bool;
 
   /** @return concatenation of all input strings, separated by the separator */
   static auto Join(const std::vector<std::string> &input, const std::string &separator) -> std::string;

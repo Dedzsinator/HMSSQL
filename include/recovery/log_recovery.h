@@ -6,7 +6,6 @@
 //
 // Identification: src/include/recovery/log_recovery.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -40,6 +39,20 @@ class LogRecovery {
   void Redo();
   void Undo();
   auto DeserializeLogRecord(const char *data, LogRecord *log_record) -> bool;
+
+  auto GetLSN() const -> lsn_t { 
+    if (lsn_mapping_.empty()) {
+        return INVALID_LSN;
+    }
+    // Find max LSN using std::max_element
+    return std::max_element(
+        lsn_mapping_.begin(), 
+        lsn_mapping_.end(),
+        [](const auto& p1, const auto& p2) {
+            return p1.first < p2.first;
+        }
+    )->first;
+}
 
  private:
   DiskManager *disk_manager_ __attribute__((__unused__));

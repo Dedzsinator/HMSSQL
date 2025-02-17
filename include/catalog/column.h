@@ -6,7 +6,6 @@
 //
 // Identification: src/include/catalog/column.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

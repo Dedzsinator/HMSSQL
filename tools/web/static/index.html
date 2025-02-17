@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMSSQL Web Interface</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="database-section">
+                <h3>Databases</h3>
+                <button id="createDbBtn">Create Database</button>
+                <ul id="databaseList"></ul>
+            </div>
+            <div class="table-section">
+                <h3>Tables</h3>
+                <ul id="tableList"></ul>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="query-section">
+                <div class="query-designer">
+                    <textarea id="queryInput" placeholder="Enter your SQL query here..."></textarea>
+                    <button id="executeBtn">Execute</button>
+                </div>
+                <div class="result-section">
+                    <h3>Results</h3>
+                    <div id="queryResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

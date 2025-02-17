@@ -6,7 +6,6 @@
 //
 // Identification: src/include/common/hmssql_instance.h
 //
-// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -203,24 +202,41 @@ class FortTableWriter : public ResultWriter {
   std::vector<std::string> tables_;
 };
 
-class BustubInstance {
+class HMSSQL {
  private:
   /**
    * Get the executor context from the HMSSQL instance.
    */
   auto MakeExecutorContext(Transaction *txn) -> std::unique_ptr<ExecutorContext>;
+  std::string current_database_;
+  std::unordered_map<std::string, std::unique_ptr<Catalog>> databases_;
+  std::shared_mutex databases_lock_;
+  const std::string state_file_ = "hmssql_state.db";
 
  public:
-  explicit BustubInstance(const std::string &db_file_name);
+  explicit HMSSQL(const std::string &db_file_name);
 
-  BustubInstance();
+  HMSSQL();
 
-  ~BustubInstance();
+  HMSSQL(const std::string& db_file, bool enable_logging);
+
+  ~HMSSQL();
+
+  auto SaveState() -> bool;
+  auto LoadState() -> bool;
+  auto Checkpoint() -> bool;  // Add semicolon here
+
+  void CmdDisplayDatabases(ResultWriter &writer);  // Change return type from auto
+  auto CreateDatabase(const std::string &db_name) -> bool;
+  auto UseDatabase(const std::string &db_name) -> bool;
+  auto GetCurrentDatabase() const -> std::string { return current_database_; }
 
   /**
    * Execute a SQL query in the HMSSQL instance.
    */
   auto ExecuteSql(const std::string &sql, ResultWriter &writer) -> bool;
+
+  auto ExecuteSqlStatement(const std::string &sql, ResultWriter &writer, Transaction *txn) -> bool;
 
   /**
    * Execute a SQL query in the HMSSQL instance with provided txn.
@@ -266,7 +282,7 @@ class BustubInstance {
     return variable == "1" || variable == "true" || variable == "yes";
   }
 
- private:
+private:
   void CmdDisplayTables(ResultWriter &writer);
   void CmdDisplayIndices(ResultWriter &writer);
   void CmdDisplayHelp(ResultWriter &writer);
