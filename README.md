@@ -45,24 +45,23 @@ cd hmssql
 
 #### Debug mód
 
+```bash
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+```
+
 - AddressSanitizer engedélyezve
 - Debug szimbólumok
 - Tesztek és mock objektumok elérhetők
-- Production mód:
 
 #### Production mód
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DCMAKE_BUILD_TYPE=Release -DHMSSQL_BUILD_PROD=ON ..
 ```
 
 -Optimalizált teljesítmény
 -Mock és teszt kód kizárva
 -Minimális méretű bináris
-
-```bash
-cmake -DCMAKE_BUILD_TYPE=Release -DHMSSQL_BUILD_PROD=ON ..
-```
 
 ```sql
 -- Adatbázis létrehozása
