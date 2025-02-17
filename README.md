@@ -59,9 +59,9 @@ cmake -DCMAKE_BUILD_TYPE=Debug ..
 cmake -DCMAKE_BUILD_TYPE=Release -DHMSSQL_BUILD_PROD=ON ..
 ```
 
--Optimalizált teljesítmény
--Mock és teszt kód kizárva
--Minimális méretű bináris
+- Optimalizált teljesítmény
+- Mock és teszt kód kizárva
+- Minimális méretű bináris
 
 ```sql
 -- Adatbázis létrehozása
