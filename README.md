@@ -63,6 +63,69 @@ cmake -DCMAKE_BUILD_TYPE=Release -DHMSSQL_BUILD_PROD=ON ..
 - Mock és teszt kód kizárva
 - Minimális méretű bináris
 
+### 🌐 Web Felület Indítása
+
+#### Előfeltételek Telepítése
+
+```bash
+# Navigálás a web könyvtárba
+cd tools/web
+
+# Node.js függőségek telepítése
+npm install express child_process path
+```
+
+#### Package.json Konfiguráció
+
+```json
+{
+  "name": "hmssql-web",
+  "version": "2.0.0",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "child_process": "^1.0.2"
+  }
+}
+```
+
+#### HMSSQL Daemon Fordítása
+
+```bash
+# Projekt gyökérkönyvtárában
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Release
+```
+
+#### Web Szerver Indítása
+
+1. Tailwind CSS Figyelő Indítása (első terminál):
+
+```bash
+cd tools/web
+npm run build:css
+```
+
+2. Web Szerver Indítása (második terminál):
+
+```bash
+cd tools/web
+node server.js
+```
+
+A web felület ezután elérhető a következő címen: [http://localhost:3000]
+
+#### Hibaelhárítás
+
+- Ellenőrizze, hogy a daemon sikeresen lefordult-e
+- Győződjön meg róla, hogy a 3000-es port szabad
+- Ellenőrizze, hogy minden npm csomag telepítve van-e
+- Ellenőrizze, hogy a daemon fut-e a 8080-as porton
+
 ```sql
 -- Adatbázis létrehozása
 CREATE DATABASE pelda;

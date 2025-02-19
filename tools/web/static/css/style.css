@@ -1,0 +1,19 @@
+.tab-btn {
+    @apply px-4 py-2 rounded-t-lg bg-opacity-50 hover:bg-opacity-75;
+}
+
+.tab-btn.active {
+    @apply bg-accent text-white;
+}
+
+.view-content {
+    @apply h-full;
+}
+
+.view-content.hidden {
+    display: none;
+}
+
+#graphContainer {
+    @apply h-[calc(100vh-120px)];
+}

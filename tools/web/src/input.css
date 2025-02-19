@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply bg-accent text-textColor px-4 py-2 rounded hover:opacity-90;
+  }
+  
+  .sidebar-section {
+    @apply p-4 bg-secondary rounded-lg mb-4;
+  }
+  
+  .list-item {
+    @apply cursor-pointer hover:text-accent py-1;
+  }
+}
