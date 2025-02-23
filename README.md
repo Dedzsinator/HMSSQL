@@ -119,12 +119,46 @@ node server.js
 
 A web felület ezután elérhető a következő címen: [http://localhost:3000]
 
-#### Hibaelhárítás
+#### Web Felület Hibái
 
 - Ellenőrizze, hogy a daemon sikeresen lefordult-e
 - Győződjön meg róla, hogy a 3000-es port szabad
 - Ellenőrizze, hogy minden npm csomag telepítve van-e
 - Ellenőrizze, hogy a daemon fut-e a 8080-as porton
+
+### 🔄 Daemon Kezelése
+
+```bash
+# Jogosultság beállítása a szkripthez
+sudo chmod +x tools/scripts/manage_daemon.sh
+
+# Felhasználó és csoport létrehozása
+sudo useradd -r -s /bin/false hmssql
+sudo groupadd hmssql
+
+# Daemon telepítése és indítása
+sudo ./tools/scripts/manage_daemon.sh
+
+# Daemon állapotának ellenőrzése
+sudo systemctl status hmssql
+
+# Daemon vezérlése
+sudo systemctl start hmssql    # Indítás
+sudo systemctl stop hmssql     # Leállítás
+sudo systemctl restart hmssql  # Újraindítás
+sudo systemctl enable hmssql   # Automatikus indítás beállítása
+
+# Naplók megtekintése
+journalctl -u hmssql -f        # Valós idejű napló követése
+journalctl -u hmssql -n 50     # Utolsó 50 naplóbejegyzés
+```
+
+#### Daemon Hibái
+
+- Ha a daemon nem indul: `journalctl -u hmssql -n 50`
+- Jogosultságok ellenőrzése: `ls -l /usr/local/bin/hmssql_daemon`
+- Port foglaltság ellenőrzése: `sudo lsof -i :8080`
+- Folyamat ellenőrzése: `ps aux | grep hmssql`
 
 ```sql
 -- Adatbázis létrehozása
