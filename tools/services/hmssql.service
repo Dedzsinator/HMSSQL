@@ -1,0 +1,28 @@
+[Unit]
+Description=HMSSQL Adatbázis-kezelő Rendszer
+After=network.target
+Wants=network.target
+Documentation=https://github.com/dedzsinator/hmssql
+
+[Service]
+Type=simple
+User=hmssql
+Group=hmssql
+ExecStart=/usr/local/bin/hmssql_daemon
+ExecStop=/bin/kill -TERM $MAINPID
+Restart=always
+RestartSec=3
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=hmssql
+
+# Security settings
+ProtectSystem=full
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+
+[Install]
+WantedBy=multi-user.target
