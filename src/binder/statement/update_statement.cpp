@@ -1,6 +1,6 @@
 #include "fmt/ranges.h"
 
-#include "../include/binder/statement/update_statement.h"
+#include "../include/binder/bound_statement.h"
 
 namespace hmssql {
 

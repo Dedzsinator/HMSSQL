@@ -6,7 +6,6 @@
 //
 // Identification: src/include/storage/page/hash_table_page_defs.h
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

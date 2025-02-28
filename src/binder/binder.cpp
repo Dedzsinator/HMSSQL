@@ -3,19 +3,13 @@
 
 #include "../include/binder/binder.h"
 #include "../include/binder/bound_statement.h"
-#include "../include/binder/statement/create_statement.h"
-#include "../include/binder/statement/delete_statement.h"
-#include "../include/binder/statement/insert_statement.h"
-#include "../include/binder/statement/select_statement.h"
 #include "../include/binder/tokens.h"
 #include "../include/common/exception.h"
-#include "../include/common/logger.h"
 #include "../include/common/util/string_util.h"
 #include "fmt/format.h"
 #include "pg_definitions.hpp"
 #include "postgres_parser.hpp"
 #include "../include/type/decimal_type.h"
-#include "../include/binder/statement/use_statement.h"
 #include "../include/binder/postgres_extension.hpp"
 
 namespace hmssql {
@@ -70,13 +64,13 @@ void Binder::ParseAndSave(const std::string &query) {
   }
 
   if (!parser_.success) {
-    LOG_INFO("Query failed to parse!");
+    //LOG_INFO("Query failed to parse!");
     throw Exception(fmt::format("Query failed to parse: {}", parser_.error_message));
     return;
   }
 
   if (parser_.parse_tree == nullptr) {
-    LOG_INFO("parser received empty statement");
+    //LOG_INFO("parser received empty statement");
     return;
   }
 

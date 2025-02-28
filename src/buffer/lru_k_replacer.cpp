@@ -6,7 +6,6 @@
 //
 // Identification: src/buffer/lru_k_replacer.cpp
 //
-// Copyright (c) 2015-2022, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

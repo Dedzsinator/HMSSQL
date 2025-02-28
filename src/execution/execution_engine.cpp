@@ -1,5 +1,5 @@
 #include "../include/execution/execution_engine.h"
-#include "../include/binder/statement/create_statement.h"
+#include "../include/binder/bound_statement.h"
 
 namespace hmssql {
 

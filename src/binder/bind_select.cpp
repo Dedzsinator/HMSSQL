@@ -9,15 +9,7 @@
 #include "../include/binder/bound_order_by.h"
 #include "../include/binder/bound_statement.h"
 #include "../include/binder/bound_table_ref.h"
-#include "../include/binder/expressions/bound_agg_call.h"
-#include "../include/binder/expressions/bound_alias.h"
-#include "../include/binder/expressions/bound_binary_op.h"
-#include "../include/binder/expressions/bound_column_ref.h"
-#include "../include/binder/expressions/bound_constant.h"
-#include "../include/binder/expressions/bound_star.h"
-#include "../include/binder/expressions/bound_unary_op.h"
-#include "../include/binder/statement/explain_statement.h"
-#include "../include/binder/statement/select_statement.h"
+#include "../include/binder/bound_statement.h"
 #include "../include/binder/table_ref/bound_base_table_ref.h"
 #include "../include/binder/table_ref/bound_cross_product_ref.h"
 #include "../include/binder/table_ref/bound_cte_ref.h"
@@ -814,27 +806,7 @@ auto Binder::BindExplain(duckdb_libpgquery::PGExplainStmt *stmt) -> std::unique_
   return std::make_unique<ExplainStatement>(BindStatement(stmt->query), explain_options);
 }
 
-//===----------------------------------------------------------------------===//
-// Copyright 2018-2022 Stichting DuckDB Foundation
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice (including the next paragraph)
-// shall be included in all copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//===----------------------------------------------------------------------===//
 
 auto Binder::BindSort(duckdb_libpgquery::PGList *list) -> std::vector<std::unique_ptr<BoundOrderBy>> {
   auto order_by = std::vector<std::unique_ptr<BoundOrderBy>>{};

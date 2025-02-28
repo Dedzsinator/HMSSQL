@@ -6,11 +6,6 @@
 #include "../include/binder/binder.h"
 #include "../include/binder/bound_expression.h"
 #include "../include/binder/bound_statement.h"
-#include "../include/binder/statement/create_statement.h"
-#include "../include/binder/statement/explain_statement.h"
-#include "../include/binder/statement/index_statement.h"
-#include "../include/binder/statement/select_statement.h"
-#include "../include/binder/statement/set_show_statement.h"
 #include "../include/buffer/buffer_pool_manager_instance.h"
 #include "../include/catalog/schema.h"
 #include "../include/catalog/table_generator.h"
@@ -35,8 +30,6 @@
 #include "../include/storage/disk/disk_manager_memory.h"
 #include "../include/type/value_factory.h"
 #include "../../third_party/spdlog/spdlog.h"
-#include "../include/binder/statement/use_statement.h"
-#include "../include/binder/statement/create_db_statement.h"
 #include "../include/recovery/log_record.h"
 namespace hmssql {
 

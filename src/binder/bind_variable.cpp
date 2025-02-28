@@ -2,8 +2,7 @@
 #include <memory>
 #include "../include/binder/binder.h"
 #include "../include/binder/bound_expression.h"
-#include "../include/binder/expressions/bound_constant.h"
-#include "../include/binder/statement/set_show_statement.h"
+#include "../include/binder/bound_statement.h"
 #include "../include/common/exception.h"
 namespace hmssql {
 

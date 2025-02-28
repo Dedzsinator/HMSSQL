@@ -20,7 +20,6 @@
 #include <unordered_set>
 
 #include "../include/common/config.h"
-#include "../include/common/logger.h"
 #include "../include/storage/page/page.h"
 #include "../include/storage/table/tuple.h"
 

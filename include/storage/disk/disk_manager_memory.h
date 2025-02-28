@@ -23,7 +23,6 @@
 
 #include "../include/common/config.h"
 #include "../include/common/exception.h"
-#include "../include/common/logger.h"
 #include "../include/storage/disk/disk_manager.h"
 
 namespace hmssql {
@@ -92,11 +91,11 @@ class DiskManagerUnlimitedMemory : public DiskManager {
   void ReadPage(page_id_t page_id, char *page_data) override {
     std::unique_lock<std::mutex> l(mutex_);
     if (page_id >= static_cast<int>(data_.size()) || page_id < 0) {
-      LOG_WARN("page not exist");
+      //LOG_WARN("page not exist");
       return;
     }
     if (data_[page_id] == nullptr) {
-      LOG_WARN("page not exist");
+      //LOG_WARN("page not exist");
       return;
     }
     std::shared_ptr<ProtectedPage> ptr = data_[page_id];

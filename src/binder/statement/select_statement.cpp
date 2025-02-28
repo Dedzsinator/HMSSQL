@@ -8,7 +8,7 @@
 #include "../include/binder/bound_expression.h"
 #include "../include/binder/bound_statement.h"
 #include "../include/binder/bound_table_ref.h"
-#include "../include/binder/statement/select_statement.h"
+#include "../include/binder/bound_statement.h"
 
 namespace hmssql {
 

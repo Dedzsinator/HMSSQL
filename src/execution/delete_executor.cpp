@@ -6,7 +6,6 @@
 //
 // Identification: src/execution/delete_executor.cpp
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

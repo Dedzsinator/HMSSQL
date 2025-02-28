@@ -6,12 +6,10 @@
 //
 // Identification: src/storage/page/hash_table_bucket_page.cpp
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
 #include "../include/storage/page/hash_table_bucket_page.h"
-#include "../include/common/logger.h"
 #include "../include/common/util/hash_util.h"
 #include "../include/storage/index/generic_key.h"
 #include "../include/storage/index/hash_comparator.h"
@@ -97,7 +95,7 @@ void HASH_TABLE_BUCKET_TYPE::PrintBucket() {
     }
   }
 
-  LOG_INFO("Bucket Capacity: %lu, Size: %u, Taken: %u, Free: %u", BUCKET_ARRAY_SIZE, size, taken, free);
+  //LOG_INFO("Bucket Capacity: %lu, Size: %u, Taken: %u, Free: %u", BUCKET_ARRAY_SIZE, size, taken, free);
 }
 
 // DO NOT REMOVE ANYTHING BELOW THIS LINE

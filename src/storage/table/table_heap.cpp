@@ -11,7 +11,6 @@
 
 #include <cassert>
 
-#include "../include/common/logger.h"
 #include "fmt/format.h"
 #include "../include/storage/table/table_heap.h"
 

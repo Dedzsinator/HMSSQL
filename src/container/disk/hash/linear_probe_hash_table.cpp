@@ -15,7 +15,6 @@
 #include <vector>
 
 #include "../include/common/exception.h"
-#include "../include/common/logger.h"
 #include "../include/common/rid.h"
 #include "../include/container/disk/hash/linear_probe_hash_table.h"
 

@@ -6,7 +6,6 @@
 //
 // Identification: src/buffer/buffer_pool_manager.cpp
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

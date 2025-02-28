@@ -3,10 +3,7 @@
 #include <unordered_map>
 
 #include "../include/binder/bound_expression.h"
-#include "../include/binder/statement/delete_statement.h"
-#include "../include/binder/statement/insert_statement.h"
-#include "../include/binder/statement/select_statement.h"
-#include "../include/binder/statement/update_statement.h"
+#include "../include/binder/bound_statement.h"
 #include "../include/binder/tokens.h"
 #include "../include/catalog/column.h"
 #include "../include/catalog/schema.h"

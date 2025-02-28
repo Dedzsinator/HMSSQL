@@ -15,6 +15,7 @@
 #include <functional>
 #include <list>
 #include <utility>
+#include <algorithm>
 
 #include "../include/container/hash/extendible_hash_table.h"
 #include "../include/storage/page/page.h"

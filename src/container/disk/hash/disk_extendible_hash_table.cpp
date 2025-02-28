@@ -6,7 +6,6 @@
 //
 // Identification: src/container/hash/extendible_hash_table.cpp
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -16,7 +15,6 @@
 #include <vector>
 
 #include "../include/common/exception.h"
-#include "../include/common/logger.h"
 #include "../include/common/rid.h"
 #include "../include/container/disk/hash/disk_extendible_hash_table.h"
 

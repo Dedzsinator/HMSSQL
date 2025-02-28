@@ -4,7 +4,6 @@
 #include "../include/binder/bound_order_by.h"
 #include "../include/binder/bound_statement.h"
 #include "../include/binder/bound_table_ref.h"
-#include "../include/binder/statement/select_statement.h"
 #include "../include/binder/table_ref/bound_base_table_ref.h"
 #include "../include/binder/table_ref/bound_cross_product_ref.h"
 #include "../include/binder/table_ref/bound_cte_ref.h"

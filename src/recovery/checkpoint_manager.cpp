@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 #include "../include/recovery/checkpoint_manager.h"
-#include "../include/common/logger.h"
 #include "../third_party/spdlog/spdlog.h"
 
 namespace hmssql {

@@ -1,6 +1,5 @@
-#include "../include/binder/statement/index_statement.h"
+#include "../include/binder/bound_statement.h"
 #include "../include/binder/bound_expression.h"
-#include "../include/binder/expressions/bound_column_ref.h"
 #include "fmt/format.h"
 #include "fmt/ranges.h"
 

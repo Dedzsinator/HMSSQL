@@ -6,7 +6,6 @@
 //
 // Identification: src/include/execution/plans/hash_join_plan.h
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

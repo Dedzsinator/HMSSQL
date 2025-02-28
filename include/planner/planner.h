@@ -14,7 +14,7 @@
 #include "../include/common/exception.h"
 #include "../include/common/macros.h"
 #include "../include/execution/plans/aggregation_plan.h"
-#include "../include/binder/statement/create_statement.h"
+#include "../include/binder/bound_statement.h"
 
 namespace hmssql {
 

@@ -6,14 +6,12 @@
 //
 // Identification: src/storage/page/hash_table_header_page.cpp
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
 #include "../include/storage/page/hash_table_directory_page.h"
 #include <algorithm>
 #include <unordered_map>
-#include "../include/common/logger.h"
 
 namespace hmssql {
 auto HashTableDirectoryPage::GetPageId() const -> page_id_t { return page_id_; }
@@ -74,9 +72,8 @@ void HashTableDirectoryPage::VerifyIntegrity() {
     ++page_id_to_count[curr_page_id];
 
     if (page_id_to_ld.count(curr_page_id) > 0 && curr_ld != page_id_to_ld[curr_page_id]) {
-      uint32_t old_ld = page_id_to_ld[curr_page_id];
-      LOG_WARN("Verify Integrity: curr_local_depth: %u, old_local_depth %u, for page_id: %u", curr_ld, old_ld,
-               curr_page_id);
+      //uint32_t old_ld = page_id_to_ld[curr_page_id];
+      //LOG_WARN("Verify Integrity: curr_local_depth: %u, old_local_depth %u, for page_id: %u", curr_ld, old_ld,curr_page_id);
       PrintDirectory();
       assert(curr_ld == page_id_to_ld[curr_page_id]);
     } else {
@@ -93,8 +90,7 @@ void HashTableDirectoryPage::VerifyIntegrity() {
     uint32_t required_count = 0x1 << (global_depth_ - curr_ld);
 
     if (curr_count != required_count) {
-      LOG_WARN("Verify Integrity: curr_count: %u, required_count %u, for page_id: %u", curr_count, required_count,
-               curr_page_id);
+      //LOG_WARN("Verify Integrity: curr_count: %u, required_count %u, for page_id: %u", curr_count, required_count,curr_page_id);
       PrintDirectory();
       assert(curr_count == required_count);
     }
@@ -103,12 +99,12 @@ void HashTableDirectoryPage::VerifyIntegrity() {
 }
 
 void HashTableDirectoryPage::PrintDirectory() {
-  LOG_DEBUG("======== DIRECTORY (global_depth_: %u) ========", global_depth_);
-  LOG_DEBUG("| bucket_idx | page_id | local_depth |");
+  //LOG_DEBUG("======== DIRECTORY (global_depth_: %u) ========", global_depth_);
+  //LOG_DEBUG("| bucket_idx | page_id | local_depth |");
   for (uint32_t idx = 0; idx < static_cast<uint32_t>(0x1 << global_depth_); idx++) {
-    LOG_DEBUG("|      %u     |     %u     |     %u     |", idx, bucket_page_ids_[idx], local_depths_[idx]);
+    //LOG_DEBUG("|      %u     |     %u     |     %u     |", idx, bucket_page_ids_[idx], local_depths_[idx]);
   }
-  LOG_DEBUG("================ END DIRECTORY ================");
+  //LOG_DEBUG("================ END DIRECTORY ================");
 }
 
 }  // namespace hmssql

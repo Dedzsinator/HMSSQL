@@ -1,7 +1,7 @@
 #include "../include/catalog/column.h"
 #include "fmt/ranges.h"
 
-#include "../include/binder/statement/create_statement.h"
+#include "../include/binder/bound_statement.h"
 
 namespace hmssql {
 

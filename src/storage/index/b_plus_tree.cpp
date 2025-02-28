@@ -1,7 +1,6 @@
 #include <string>
 
 #include "../include/common/exception.h"
-#include "../include/common/logger.h"
 #include "../include/common/rid.h"
 #include "../include/storage/index/b_plus_tree.h"
 #include "../include/storage/page/header_page.h"
@@ -611,7 +610,7 @@ void BPLUSTREE_TYPE::RemoveFromFile(const std::string &file_name, Transaction *t
 INDEX_TEMPLATE_ARGUMENTS
 void BPLUSTREE_TYPE::Draw(BufferPoolManager *bpm, const std::string &outf) {
   if (IsEmpty()) {
-    LOG_WARN("Draw an empty tree");
+    //LOG_WARN("Draw an empty tree");
     return;
   }
   std::ofstream out(outf);
@@ -628,7 +627,7 @@ void BPLUSTREE_TYPE::Draw(BufferPoolManager *bpm, const std::string &outf) {
 INDEX_TEMPLATE_ARGUMENTS
 void BPLUSTREE_TYPE::Print(BufferPoolManager *bpm) {
   if (IsEmpty()) {
-    LOG_WARN("Print an empty tree");
+    //LOG_WARN("Print an empty tree");
     return;
   }
   ToString(reinterpret_cast<BPlusTreePage *>(bpm->FetchPage(root_page_id_)->GetData()), bpm);

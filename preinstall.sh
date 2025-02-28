@@ -43,7 +43,7 @@ install() {
     Darwin)
         give_up ;;
     WIN*)
-        give_up ;;
+        install_win ;;
     *)
         give_up ;;
   esac
@@ -58,6 +58,45 @@ give_up() {
   echo
   echo
   exit 1
+}
+
+
+### test it!!!!!
+install_win() {
+  echo "Setting up Windows environment for HMSSQL..."
+  
+  # Check if running in WSL
+  if grep -q Microsoft /proc/version; then
+    echo "Detected WSL environment."
+    echo "Installing dependencies within WSL..."
+    install_ubuntu
+    return
+  fi
+
+  # Check if PowerShell is available
+  if ! command -v powershell.exe &> /dev/null; then
+    echo "PowerShell not found. Please run this script within a PowerShell environment."
+    give_up
+  fi
+
+  # Check if Chocolatey is installed
+  echo "Checking for Chocolatey package manager..."
+  if ! powershell.exe -Command "if (!(Get-Command choco.exe -ErrorAction SilentlyContinue)) { exit 1 }"; then
+    echo "Installing Chocolatey package manager..."
+    powershell.exe -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+  fi
+
+  echo "Installing required packages with Chocolatey..."
+  powershell.exe -Command "choco install -y git cmake --installargs 'ADD_CMAKE_TO_PATH=System'"
+  powershell.exe -Command "choco install -y visualstudio2022-workload-vctools"
+  powershell.exe -Command "choco install -y llvm"
+  
+  echo "Setting up environment variables..."
+  # Add MSVC and LLVM to the PATH if needed
+  powershell.exe -Command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';C:\Program Files\LLVM\bin', 'Machine')"
+  
+  echo "Windows environment setup complete."
+  echo "Please restart your shell or terminal to ensure all changes take effect."
 }
 
 install_linux() {

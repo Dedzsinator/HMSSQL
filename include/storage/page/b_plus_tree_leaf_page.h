@@ -1,11 +1,6 @@
 //===----------------------------------------------------------------------===//
 //
-//                         CMU-DB Project (15-445/645)
-//                         ***DO NO SHARE PUBLICLY***
-//
 // Identification: src/include/page/b_plus_tree_leaf_page.h
-//
-// Copyright (c) 2018, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 #pragma once

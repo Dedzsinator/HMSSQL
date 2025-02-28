@@ -20,7 +20,6 @@
 #include <thread>  // NOLINT
 
 #include "../include/common/exception.h"
-#include "../include/common/logger.h"
 
 namespace hmssql {
 

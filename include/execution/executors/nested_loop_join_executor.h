@@ -6,7 +6,6 @@
 //
 // Identification: src/include/execution/executors/nested_loop_join_executor.h
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

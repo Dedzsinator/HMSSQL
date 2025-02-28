@@ -17,18 +17,23 @@ Oktatási célú relációs adatbázis-kezelő rendszer. A HMSSQL egy egyszerű 
 
 ## 🚀 Gyors kezdés
 
-### Fordítás és telepítés
-
-```bash
-sudo ./preinstall.sh
-```
-
 ## Projekt klónozása
 
 ```bash
 git clone https://github.com/dedzsinator/hmssql.git
 cd hmssql
 ```
+
+### Fordítás és telepítés
+
+```bash
+sudo ./preinstall.sh
+mkdir build && cd build
+cmake ..
+make -j4
+```
+
+megjegyzés, hogy a '-j4' a szálak számát jelenti, amelyeket a fordítás során használni fog. A számot a processzor magjainak számára kell beállítani ahogy kívánja.
 
 ## Miket tud?
 
@@ -144,3 +149,14 @@ INSERT INTO felhasznalok VALUES (1, 'Kiss János', 'kiss.janos@pelda.hu');
 -- Lekérdezés
 SELECT * FROM felhasznalok;
 ```
+
+## 🤝 Kontribúció otletek fontossagi sorrendben
+
+[ ] Tesztek irása !!!
+[ ] Windwos támogatás
+[ ] Desktop frontend
+[ ] Docker támogatás
+[ ] Web felület fejlesztése
+[ ] Dokumentáció frissítése
+[ ] SQL Engine optimalizálása
+[ ] Saját SQL Parser

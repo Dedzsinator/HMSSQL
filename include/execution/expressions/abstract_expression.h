@@ -6,7 +6,6 @@
 //
 // Identification: src/include/expression/abstract_expression.h
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

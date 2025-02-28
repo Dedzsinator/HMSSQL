@@ -1,46 +1,16 @@
-//===----------------------------------------------------------------------===//
-// Copyright 2018-2022 Stichting DuckDB Foundation
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice (including the next paragraph)
-// shall be included in all copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//===----------------------------------------------------------------------===//
 
 #include <memory>
 #include "../include/binder/binder.h"
 #include "../include/binder/bound_expression.h"
 #include "../include/binder/bound_order_by.h"
 #include "../include/binder/bound_statement.h"
-#include "../include/binder/statement/create_statement.h"
-#include "../include/binder/statement/delete_statement.h"
-#include "../include/binder/statement/explain_statement.h"
-#include "../include/binder/statement/index_statement.h"
-#include "../include/binder/statement/insert_statement.h"
-#include "../include/binder/statement/select_statement.h"
-#include "../include/binder/statement/update_statement.h"
 #include "../include/binder/table_ref/bound_base_table_ref.h"
 #include "../include/common/exception.h"
-#include "../include/common/logger.h"
 #include "../include/common/util/string_util.h"
 #include "../include/nodes/nodes.hpp"
 #include "../include/nodes/parsenodes.hpp"
 #include "../include/type/decimal_type.h"
-#include "../include/binder/statement/use_statement.h"
-#include "../include/binder/statement/create_db_statement.h"
 
 namespace hmssql {
 

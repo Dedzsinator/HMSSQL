@@ -4,8 +4,6 @@
 #include "../include/binder/bound_expression.h"
 #include "../include/binder/bound_statement.h"
 #include "../include/binder/bound_table_ref.h"
-#include "../include/binder/expressions/bound_agg_call.h"
-#include "../include/binder/statement/select_statement.h"
 #include "../include/binder/tokens.h"
 #include "../include/common/exception.h"
 #include "../include/common/macros.h"

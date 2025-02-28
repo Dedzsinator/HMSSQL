@@ -6,7 +6,6 @@
 //
 // Identification: src/include/execution/execution_engine.h
 //
-// Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -64,9 +63,7 @@ class ExecutionEngine {
       executor->Init();
       PollExecutor(executor.get(), plan, result_set);
     } catch (const ExecutionException &ex) {
-#ifndef NDEBUG
-      LOG_ERROR("Error Encountered in Executor Execution: %s", ex.what());
-#endif
+      //"Error Encountered in Executor Execution: %s", ex.what());
       executor_succeeded = false;
       if (result_set != nullptr) {
         result_set->clear();
