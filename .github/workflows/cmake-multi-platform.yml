@@ -50,7 +50,8 @@ jobs:
         -S ${{ github.workspace }}
 
     - name: Build
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
+      run: >
+        cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --parallel
 
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
@@ -67,7 +68,15 @@ jobs:
       image: ${{ matrix.os }}:latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Install Git (for Arch & Fedora)
+      run: |
+        if [[ "${{ matrix.os }}" == "archlinux" ]]; then
+          pacman -Sy --noconfirm git
+        elif [[ "${{ matrix.os }}" == "fedora" ]]; then
+          dnf install -y git
+        fi
+
+    - uses: actions/checkout@v4  # Checkout inside the container
 
     - name: Install Dependencies (Arch Linux)
       if: matrix.os == 'archlinux'
