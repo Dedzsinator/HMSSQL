@@ -6,7 +6,6 @@
 //
 // Identification: src/include/expression/arithmetic_expression.h
 //
-// Copyright (c) 2015-19, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

@@ -6,7 +6,6 @@
 #include "../include/binder/bound_table_ref.h"
 #include "../include/catalog/schema.h"
 #include "../include/catalog/catalog.h" // Include the catalog header to get the TableInfo type
-#include "../include/concurrency/transaction.h"
 #include "fmt/core.h"
 
 namespace hmssql {

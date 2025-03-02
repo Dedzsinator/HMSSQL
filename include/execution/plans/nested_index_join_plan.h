@@ -6,7 +6,6 @@
 //
 // Identification: src/include/execution/plans/nested_index_join_plan.h
 //
-// Copyright (c) 2015-19, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -19,7 +18,6 @@
 #include "../include/binder/table_ref/bound_join_ref.h"
 #include "../include/catalog/catalog.h"
 #include "../include/catalog/schema.h"
-#include "../include/concurrency/transaction.h"
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 #include "../include/storage/table/tuple.h"

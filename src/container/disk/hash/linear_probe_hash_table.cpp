@@ -30,14 +30,14 @@ HASH_TABLE_TYPE::LinearProbeHashTable(const std::string &name, BufferPoolManager
  * SEARCH
  *****************************************************************************/
 template <typename KeyType, typename ValueType, typename KeyComparator>
-auto HASH_TABLE_TYPE::GetValue(Transaction *transaction, const KeyType &key, std::vector<ValueType> *result) -> bool {
+auto HASH_TABLE_TYPE::GetValue(const KeyType &key, std::vector<ValueType> *result) -> bool {
   return false;
 }
 /*****************************************************************************
  * INSERTION
  *****************************************************************************/
 template <typename KeyType, typename ValueType, typename KeyComparator>
-auto HASH_TABLE_TYPE::Insert(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool {
+auto HASH_TABLE_TYPE::Insert(const KeyType &key, const ValueType &value) -> bool {
   return false;
 }
 
@@ -45,7 +45,7 @@ auto HASH_TABLE_TYPE::Insert(Transaction *transaction, const KeyType &key, const
  * REMOVE
  *****************************************************************************/
 template <typename KeyType, typename ValueType, typename KeyComparator>
-auto HASH_TABLE_TYPE::Remove(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool {
+auto HASH_TABLE_TYPE::Remove(const KeyType &key, const ValueType &value) -> bool {
   return false;
 }
 

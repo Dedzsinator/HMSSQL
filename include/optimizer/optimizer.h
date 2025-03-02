@@ -8,7 +8,6 @@
 #include <vector>
 
 #include "../include/catalog/catalog.h"
-#include "../include/concurrency/transaction.h"
 #include "../include/execution/expressions/abstract_expression.h"
 #include "../include/execution/plans/abstract_plan.h"
 

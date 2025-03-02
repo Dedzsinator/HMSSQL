@@ -22,8 +22,6 @@
 
 namespace hmssql {
 
-class Transaction;
-
 /**
  * class IndexMetadata - Holds metadata of an index object.
  *
@@ -154,25 +152,22 @@ class Index {
    * Insert an entry into the index.
    * @param key The index key
    * @param rid The RID associated with the key
-   * @param transaction The transaction context
    */
-  virtual void InsertEntry(const Tuple &key, RID rid, Transaction *transaction) = 0;
+  virtual void InsertEntry(const Tuple &key, RID rid) = 0;
 
   /**
    * Delete an index entry by key.
    * @param key The index key
    * @param rid The RID associated with the key (unused)
-   * @param transaction The transaction context
    */
-  virtual void DeleteEntry(const Tuple &key, RID rid, Transaction *transaction) = 0;
+  virtual void DeleteEntry(const Tuple &key, RID rid) = 0;
 
   /**
    * Search the index for the provided key.
    * @param key The index key
    * @param result The collection of RIDs that is populated with results of the search
-   * @param transaction The transaction context
    */
-  virtual void ScanKey(const Tuple &key, std::vector<RID> *result, Transaction *transaction) = 0;
+  virtual void ScanKey(const Tuple &key, std::vector<RID> *result) = 0;
 
  private:
   /** The Index structure owns its metadata */

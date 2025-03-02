@@ -21,13 +21,22 @@ auto Binder::BindInsert(duckdb_libpgquery::PGInsertStmt *pg_stmt) -> std::unique
     throw NotImplementedException("insert only supports all columns, don't specify columns");
   }
 
-  auto table = BindBaseTableRef(pg_stmt->relation->relname, std::nullopt);
+  auto table = BindBaseTableRef(pg_stmt->relation->relname, {});
 
   if (StringUtil::StartsWith(table->table_, "__")) {
     throw hmssql::Exception(fmt::format("invalid table for insert: {}", table->table_));
   }
 
+  // Save current scope
+  const BoundTableRef* current_scope = scope_;
+  
+  // Set the table as the current scope for binding expressions
+  scope_ = table.get();
+  
   auto select_statement = BindSelect(reinterpret_cast<duckdb_libpgquery::PGSelectStmt *>(pg_stmt->selectStmt));
+  
+  // Restore original scope
+  scope_ = current_scope;
 
   return std::make_unique<InsertStatement>(std::move(table), std::move(select_statement));
 }

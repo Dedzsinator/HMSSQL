@@ -17,9 +17,6 @@
 
 namespace hmssql {
 
-/** Cycle detection is performed every CYCLE_DETECTION_INTERVAL milliseconds. */
-extern std::chrono::milliseconds cycle_detection_interval;
-
 /** True if logging should be enabled, false otherwise. */
 extern std::atomic<bool> enable_logging;
 

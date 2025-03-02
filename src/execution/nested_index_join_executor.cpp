@@ -6,7 +6,6 @@
 //
 // Identification: src/execution/nested_index_join_executor.cpp
 //
-// Copyright (c) 2015-19, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 
@@ -38,11 +37,11 @@ auto NestIndexJoinExecutor::Next(Tuple *tuple, RID *rid) -> bool {
   while (child_->Next(&left_tuple, &emit_rid)) {
     Value value = plan_->KeyPredicate()->Evaluate(&left_tuple, child_->GetOutputSchema());
     std::vector<RID> rids;
-    tree_->ScanKey(Tuple{{value}, index_info_->index_->GetKeySchema()}, &rids, exec_ctx_->GetTransaction());
+    tree_->ScanKey(Tuple{{value}, index_info_->index_->GetKeySchema()}, &rids);
 
     Tuple right_tuple{};
     if (!rids.empty()) {
-      table_info_->table_->GetTuple(rids[0], &right_tuple, exec_ctx_->GetTransaction());
+      table_info_->table_->GetTuple(rids[0], &right_tuple);
       for (uint32_t idx = 0; idx < child_->GetOutputSchema().GetColumnCount(); idx++) {
         vals.push_back(left_tuple.GetValue(&child_->GetOutputSchema(), idx));
       }

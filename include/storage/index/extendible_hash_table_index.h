@@ -32,11 +32,11 @@ class ExtendibleHashTableIndex : public Index {
 
   ~ExtendibleHashTableIndex() override = default;
 
-  void InsertEntry(const Tuple &key, RID rid, Transaction *transaction) override;
+  void InsertEntry(const Tuple &key, RID rid) override;
 
-  void DeleteEntry(const Tuple &key, RID rid, Transaction *transaction) override;
+  void DeleteEntry(const Tuple &key, RID rid) override;
 
-  void ScanKey(const Tuple &key, std::vector<RID> *result, Transaction *transaction) override;
+  void ScanKey(const Tuple &key, std::vector<RID> *result) override;
 
  protected:
   // comparator for key

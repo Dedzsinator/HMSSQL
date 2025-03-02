@@ -25,24 +25,15 @@ void CheckpointManager::BeginCheckpoint() {
   // Set checkpoint flag
   checkpoint_in_progress_ = true;
   
-  // Block new transactions
-  transaction_manager_->BlockNewTransactions();
-  
-  // Wait for active transactions to finish
-  transaction_manager_->WaitForActiveTransactions();
-  
   // Flush WAL
   if (log_manager_ != nullptr) {
-    log_manager_->StopFlushThread();  // Stop background flush
-    log_manager_->FlushAllLogs();     // Force flush all logs
+    log_manager_->FlushAllLogs();
   }
   
   // Flush all dirty pages to disk
   if (buffer_pool_manager_ != nullptr) {
     buffer_pool_manager_->FlushAllPages();
   }
-  
-  spdlog::info("Checkpoint started - all transactions blocked");
 }
 
 void CheckpointManager::EndCheckpoint() {
@@ -56,9 +47,6 @@ void CheckpointManager::EndCheckpoint() {
   if (log_manager_ != nullptr) {
     log_manager_->RunFlushThread();
   }
-  
-  // Allow new transactions
-  transaction_manager_->ResumeTransactions();
   
   // Reset checkpoint flag
   checkpoint_in_progress_ = false;

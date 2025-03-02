@@ -17,30 +17,30 @@ BPLUSTREE_INDEX_TYPE::BPlusTreeIndex(std::unique_ptr<IndexMetadata> &&metadata, 
       container_(GetMetadata()->GetName(), buffer_pool_manager, comparator_) {}
 
 INDEX_TEMPLATE_ARGUMENTS
-void BPLUSTREE_INDEX_TYPE::InsertEntry(const Tuple &key, RID rid, Transaction *transaction) {
+void BPLUSTREE_INDEX_TYPE::InsertEntry(const Tuple &key, RID rid) {
   // construct insert index key
   KeyType index_key;
   index_key.SetFromKey(key);
 
-  container_.Insert(index_key, rid, transaction);
+  container_.Insert(index_key, rid);
 }
 
 INDEX_TEMPLATE_ARGUMENTS
-void BPLUSTREE_INDEX_TYPE::DeleteEntry(const Tuple &key, RID rid, Transaction *transaction) {
+void BPLUSTREE_INDEX_TYPE::DeleteEntry(const Tuple &key, RID rid) {
   // construct delete index key
   KeyType index_key;
   index_key.SetFromKey(key);
 
-  container_.Remove(index_key, transaction);
+  container_.Remove(index_key);
 }
 
 INDEX_TEMPLATE_ARGUMENTS
-void BPLUSTREE_INDEX_TYPE::ScanKey(const Tuple &key, std::vector<RID> *result, Transaction *transaction) {
+void BPLUSTREE_INDEX_TYPE::ScanKey(const Tuple &key, std::vector<RID> *result) {
   // construct scan index key
   KeyType index_key;
   index_key.SetFromKey(key);
 
-  container_.GetValue(index_key, result, transaction);
+  container_.GetValue(index_key, result);
 }
 
 INDEX_TEMPLATE_ARGUMENTS

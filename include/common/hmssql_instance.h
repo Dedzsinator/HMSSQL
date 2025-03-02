@@ -29,12 +29,9 @@
 
 namespace hmssql {
 
-class Transaction;
 class ExecutorContext;
 class DiskManager;
 class BufferPoolManager;
-class LockManager;
-class TransactionManager;
 class LogManager;
 class CheckpointManager;
 class Catalog;
@@ -207,7 +204,7 @@ class HMSSQL {
   /**
    * Get the executor context from the HMSSQL instance.
    */
-  auto MakeExecutorContext(Transaction *txn) -> std::unique_ptr<ExecutorContext>;
+  auto MakeExecutorContext() -> std::unique_ptr<ExecutorContext>;
   std::string current_database_;
   std::unordered_map<std::string, std::unique_ptr<Catalog>> databases_;
   std::shared_mutex databases_lock_;
@@ -236,12 +233,12 @@ class HMSSQL {
    */
   auto ExecuteSql(const std::string &sql, ResultWriter &writer) -> bool;
 
-  auto ExecuteSqlStatement(const std::string &sql, ResultWriter &writer, Transaction *txn) -> bool;
+  auto ExecuteSqlStatement(const std::string &sql, ResultWriter &writer) -> bool;
 
   /**
    * Execute a SQL query in the HMSSQL instance with provided txn.
    */
-  auto ExecuteSqlTxn(const std::string &sql, ResultWriter &writer, Transaction *txn) -> bool;
+  auto ExecuteSqlTxn(const std::string &sql, ResultWriter &writer) -> bool;
 
   /**
    * FOR TEST ONLY. Generate test tables in this HMSSQL instance.
@@ -262,8 +259,6 @@ class HMSSQL {
 
   DiskManager *disk_manager_;
   BufferPoolManager *buffer_pool_manager_;
-  LockManager *lock_manager_;
-  TransactionManager *txn_manager_;
   LogManager *log_manager_;
   CheckpointManager *checkpoint_manager_;
   Catalog *catalog_;

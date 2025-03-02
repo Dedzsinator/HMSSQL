@@ -108,21 +108,19 @@ class Catalog {
   /**
    * Construct a new Catalog instance.
    * @param bpm The buffer pool manager backing tables created by this catalog
-   * @param lock_manager The lock manager in use by the system
    * @param log_manager The log manager in use by the system
    */
-  Catalog(BufferPoolManager *bpm, LockManager *lock_manager, LogManager *log_manager)
-      : bpm_{bpm}, lock_manager_{lock_manager}, log_manager_{log_manager} {}
+  Catalog(BufferPoolManager *bpm, LogManager *log_manager)
+      : bpm_{bpm}, log_manager_{log_manager} {}
 
   /**
    * Create a new table and return its metadata.
-   * @param txn The transaction in which the table is being created
    * @param table_name The name of the new table, note that all tables beginning with `__` are reserved for the system.
    * @param schema The schema of the new table
    * @param create_table_heap whether to create a table heap for the new table
    * @return A (non-owning) pointer to the metadata for the table
    */
-  auto CreateTable(Transaction *txn, const std::string &table_name, const Schema &schema, bool create_table_heap = true)
+  auto CreateTable(const std::string &table_name, const Schema &schema, bool create_table_heap = true)
       -> TableInfo * {
     if (table_names_.count(table_name) != 0) {
       return NULL_TABLE_INFO;
@@ -132,10 +130,8 @@ class Catalog {
     std::unique_ptr<TableHeap> table = nullptr;
 
     // TODO(Wan,chi): This should be refactored into a private ctor for the binder tests, we shouldn't allow nullptr.
-    // When create_table_heap == false, it means that we're running binder tests (where no txn will be provided) or
-    // we are running shell without buffer pool. We don't need to create TableHeap in this case.
     if (create_table_heap) {
-      table = std::make_unique<TableHeap>(bpm_, lock_manager_, log_manager_, txn);
+      table = std::make_unique<TableHeap>(bpm_, log_manager_);
     }
 
     // Fetch the table OID for the new table
@@ -153,7 +149,7 @@ class Catalog {
     return tmp;
   }
 
-  auto CreateView(Transaction *txn, const std::string &view_name, const std::string &query) -> bool {
+  auto CreateView(const std::string &view_name, const std::string &query) -> bool {
     if (view_names_.count(view_name) != 0) {
       return false;
     }
@@ -162,8 +158,8 @@ class Catalog {
     return true;
   }
 
-  auto CreateTempTable(Transaction *txn, const std::string &table_name, const Schema &schema) -> TableInfo * {
-    return CreateTable(txn, "__temp__" + table_name, schema, true);
+  auto CreateTempTable(const std::string &table_name, const Schema &schema) -> TableInfo * {
+    return CreateTable("__temp__" + table_name, schema, true);
   }
 
   /**
@@ -214,7 +210,6 @@ class Catalog {
 
   /**
    * Create a new index, populate existing data of the table and return its metadata.
-   * @param txn The transaction in which the table is being created
    * @param index_name The name of the new index
    * @param table_name The name of the table
    * @param schema The schema of the table
@@ -225,7 +220,7 @@ class Catalog {
    * @return A (non-owning) pointer to the metadata of the new table
    */
   template <class KeyType, class ValueType, class KeyComparator>
-  auto CreateIndex(Transaction *txn, const std::string &index_name, const std::string &table_name, const Schema &schema,
+  auto CreateIndex(const std::string &index_name, const std::string &table_name, const Schema &schema,
                    const Schema &key_schema, const std::vector<uint32_t> &key_attrs, std::size_t keysize,
                    HashFunction<KeyType> hash_function) -> IndexInfo * {
     // Reject the creation request for nonexistent table
@@ -257,8 +252,8 @@ class Catalog {
     // Populate the index with all tuples in table heap
     auto *table_meta = GetTable(table_name);
     auto *heap = table_meta->table_.get();
-    for (auto tuple = heap->Begin(txn); tuple != heap->End(); ++tuple) {
-      index->InsertEntry(tuple->KeyFromTuple(schema, key_schema, key_attrs), tuple->GetRid(), txn);
+    for (auto tuple = heap->Begin(); tuple != heap->End(); ++tuple) {
+      index->InsertEntry(tuple->KeyFromTuple(schema, key_schema, key_attrs), tuple->GetRid());
     }
 
     // Get the next OID for the new index
@@ -369,7 +364,6 @@ class Catalog {
 
  private:
   [[maybe_unused]] BufferPoolManager *bpm_;
-  [[maybe_unused]] LockManager *lock_manager_;
   [[maybe_unused]] LogManager *log_manager_;
 
   /**

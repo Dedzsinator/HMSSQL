@@ -15,30 +15,30 @@ HASH_TABLE_INDEX_TYPE::ExtendibleHashTableIndex(std::unique_ptr<IndexMetadata> &
       container_(GetMetadata()->GetName(), buffer_pool_manager, comparator_, hash_fn) {}
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
-void HASH_TABLE_INDEX_TYPE::InsertEntry(const Tuple &key, RID rid, Transaction *transaction) {
+void HASH_TABLE_INDEX_TYPE::InsertEntry(const Tuple &key, RID rid) {
   // construct insert index key
   KeyType index_key;
   index_key.SetFromKey(key);
 
-  container_.Insert(transaction, index_key, rid);
+  container_.Insert(index_key, rid);
 }
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
-void HASH_TABLE_INDEX_TYPE::DeleteEntry(const Tuple &key, RID rid, Transaction *transaction) {
+void HASH_TABLE_INDEX_TYPE::DeleteEntry(const Tuple &key, RID rid) {
   // construct delete index key
   KeyType index_key;
   index_key.SetFromKey(key);
 
-  container_.Remove(transaction, index_key, rid);
+  container_.Remove(index_key, rid);
 }
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
-void HASH_TABLE_INDEX_TYPE::ScanKey(const Tuple &key, std::vector<RID> *result, Transaction *transaction) {
+void HASH_TABLE_INDEX_TYPE::ScanKey(const Tuple &key, std::vector<RID> *result) {
   // construct scan index key
   KeyType index_key;
   index_key.SetFromKey(key);
 
-  container_.GetValue(transaction, index_key, result);
+  container_.GetValue(index_key, result);
 }
 template class ExtendibleHashTableIndex<GenericKey<4>, RID, GenericComparator<4>>;
 template class ExtendibleHashTableIndex<GenericKey<8>, RID, GenericComparator<8>>;

@@ -49,7 +49,7 @@ class SeqScanExecutor : public AbstractExecutor {
  private:
   /** The sequential scan plan node to be executed */
   const SeqScanPlanNode *plan_;
-  TableIterator table_iter_ = {nullptr, RID(), nullptr};
+  TableIterator table_iter_ = {nullptr, RID()};
   const TableInfo *table_info_;
 };
 }  // namespace hmssql

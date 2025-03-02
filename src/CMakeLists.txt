@@ -2,7 +2,6 @@ add_subdirectory(binder)
 add_subdirectory(buffer)
 add_subdirectory(catalog)
 add_subdirectory(common)
-add_subdirectory(concurrency)
 add_subdirectory(container)
 add_subdirectory(execution)
 add_subdirectory(recovery)
@@ -18,7 +17,6 @@ set(BUSTUB_LIBS
         hmssql_buffer
         hmssql_catalog
         hmssql_common
-        hmssql_concurrency
         hmssql_execution
         hmssql_recovery
         hmssql_type

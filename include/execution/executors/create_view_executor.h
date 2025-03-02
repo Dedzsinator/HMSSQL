@@ -18,8 +18,7 @@ class CreateViewExecutor : public AbstractExecutor {
   bool Next(Tuple *tuple, RID *rid) override {
     // Execute the create view plan
     auto catalog = exec_ctx_->GetCatalog();
-    auto txn = exec_ctx_->GetTransaction();
-    catalog->CreateView(txn, plan_->GetViewName(), plan_->GetQuery());
+    catalog->CreateView(plan_->GetViewName(), plan_->GetQuery());
     return false;
   }
 

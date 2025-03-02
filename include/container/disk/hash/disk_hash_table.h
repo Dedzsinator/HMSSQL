@@ -15,7 +15,6 @@
 #include <string>
 #include <vector>
 
-#include "../include/concurrency/transaction.h"
 #include "../include/storage/page/hash_table_page_defs.h"
 
 namespace hmssql {
@@ -32,7 +31,7 @@ class DiskHashTable {
    * @param value the value to be associated with the key
    * @return true if insert succeeded, false otherwise
    */
-  virtual auto Insert(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool = 0;
+  virtual auto Insert(const KeyType &key, const ValueType &value) -> bool = 0;
 
   /**
    * Deletes the associated value for the given key.
@@ -41,7 +40,7 @@ class DiskHashTable {
    * @param value the value to delete
    * @return true if remove succeeded, false otherwise
    */
-  virtual auto Remove(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool = 0;
+  virtual auto Remove(const KeyType &key, const ValueType &value) -> bool = 0;
 
   /**
    * Performs a point query on the hash table.
@@ -50,7 +49,7 @@ class DiskHashTable {
    * @param[out] result the value(s) associated with a given key
    * @return the value(s) associated with the given key
    */
-  virtual auto GetValue(Transaction *transaction, const KeyType &key, std::vector<ValueType> *result) -> bool = 0;
+  virtual auto GetValue(const KeyType &key, std::vector<ValueType> *result) -> bool = 0;
 };
 
 }  // namespace hmssql

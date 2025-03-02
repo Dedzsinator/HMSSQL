@@ -16,7 +16,6 @@
 #include <vector>
 
 #include "../include/buffer/buffer_pool_manager.h"
-#include "../include/concurrency/transaction.h"
 #include "../include/container/hash/hash_function.h"
 #include "../include/storage/page/hash_table_bucket_page.h"
 #include "../include/storage/page/hash_table_directory_page.h"
@@ -51,7 +50,7 @@ class DiskExtendibleHashTable {
    * @param value the value to be associated with the key
    * @return true if insert succeeded, false otherwise
    */
-  auto Insert(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool;
+  auto Insert(const KeyType &key, const ValueType &value) -> bool;
 
   /**
    * Deletes the associated value for the given key.
@@ -61,7 +60,7 @@ class DiskExtendibleHashTable {
    * @param value the value to delete
    * @return true if remove succeeded, false otherwise
    */
-  auto Remove(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool;
+  auto Remove(const KeyType &key, const ValueType &value) -> bool;
 
   /**
    * Performs a point query on the hash table.
@@ -71,7 +70,7 @@ class DiskExtendibleHashTable {
    * @param[out] result the value(s) associated with a given key
    * @return the value(s) associated with the given key
    */
-  auto GetValue(Transaction *transaction, const KeyType &key, std::vector<ValueType> *result) -> bool;
+  auto GetValue(const KeyType &key, std::vector<ValueType> *result) -> bool;
 
   /**
    * Returns the global depth
@@ -143,7 +142,7 @@ class DiskExtendibleHashTable {
    * @param value the value to insert
    * @return whether or not the insertion was successful
    */
-  auto SplitInsert(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool;
+  auto SplitInsert(const KeyType &key, const ValueType &value) -> bool;
 
   /**
    * Optionally merges an empty bucket into it's pair.  This is called by Remove,
@@ -158,7 +157,7 @@ class DiskExtendibleHashTable {
    * @param key the key that was removed
    * @param value the value that was removed
    */
-  void Merge(Transaction *transaction, const KeyType &key, const ValueType &value);
+  void Merge(const KeyType &key, const ValueType &value);
 
   // member variables
   page_id_t directory_page_id_;

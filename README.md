@@ -194,3 +194,4 @@ SELECT * FROM felhasznalok;
 [ ] Dokumentáció frissítése
 [ ] SQL Engine optimalizálása
 [ ] Saját SQL Parser
+[ ] XML (or json) metadata (instead of config.h)

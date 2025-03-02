@@ -6,7 +6,6 @@
 //
 // Identification: src/include/execution/plans/abstract_plan.h
 //
-// Copyright (c) 2015-19, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
 

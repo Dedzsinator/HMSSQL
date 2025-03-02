@@ -15,8 +15,6 @@
 
 #include "../include/buffer/buffer_pool_manager.h"
 #include "../include/catalog/catalog.h"
-#include "../include/concurrency/transaction.h"
-#include "../include/concurrency/transaction_manager.h"
 #include "../include/execution/executor_context.h"
 #include "../include/execution/executor_factory.h"
 #include "../include/execution/plans/abstract_plan.h"
@@ -32,11 +30,10 @@ class ExecutionEngine {
   /**
    * Construct a new ExecutionEngine instance.
    * @param bpm The buffer pool manager used by the execution engine
-   * @param txn_mgr The transaction manager used by the execution engine
    * @param catalog The catalog used by the execution engine
    */
-  ExecutionEngine(BufferPoolManager *bpm, TransactionManager *txn_mgr, Catalog *catalog)
-      : bpm_{bpm}, txn_mgr_{txn_mgr}, catalog_{catalog} {}
+  ExecutionEngine(BufferPoolManager *bpm, Catalog *catalog)
+      : bpm_{bpm}, catalog_{catalog} {}
 
   DISALLOW_COPY_AND_MOVE(ExecutionEngine);
 
@@ -44,14 +41,12 @@ class ExecutionEngine {
    * Execute a query plan.
    * @param plan The query plan to execute
    * @param result_set The set of tuples produced by executing the plan
-   * @param txn The transaction context in which the query executes
    * @param exec_ctx The executor context in which the query executes
    * @return `true` if execution of the query plan succeeds, `false` otherwise
    */
   // NOLINTNEXTLINE
-  auto Execute(const AbstractPlanNodeRef &plan, std::vector<Tuple> *result_set, Transaction *txn,
+  auto Execute(const AbstractPlanNodeRef &plan, std::vector<Tuple> *result_set,
                ExecutorContext *exec_ctx) -> bool {
-    BUSTUB_ASSERT((txn == exec_ctx->GetTransaction()), "Broken Invariant");
 
     // Construct the executor for the abstract plan node
     auto executor = ExecutorFactory::CreateExecutor(exec_ctx, plan);
@@ -95,7 +90,6 @@ class ExecutionEngine {
   }
 
   [[maybe_unused]] BufferPoolManager *bpm_;
-  [[maybe_unused]] TransactionManager *txn_mgr_;
   [[maybe_unused]] Catalog *catalog_;
 };
 

@@ -16,7 +16,6 @@
 #include <vector>
 
 #include "../include/buffer/buffer_pool_manager.h"
-#include "../include/concurrency/transaction.h"
 #include "../include/container/hash/hash_function.h"
 #include "../include/storage/page/hash_table_block_page.h"
 #include "../include/storage/page/hash_table_header_page.h"
@@ -51,7 +50,7 @@ class LinearProbeHashTable {
    * @param value the value to be associated with the key
    * @return true if insert succeeded, false otherwise
    */
-  auto Insert(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool;
+  auto Insert(const KeyType &key, const ValueType &value) -> bool;
 
   /**
    * Deletes the associated value for the given key.
@@ -60,7 +59,7 @@ class LinearProbeHashTable {
    * @param value the value to delete
    * @return true if remove succeeded, false otherwise
    */
-  auto Remove(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool;
+  auto Remove(const KeyType &key, const ValueType &value) -> bool;
 
   /**
    * Performs a point query on the hash table.
@@ -69,7 +68,7 @@ class LinearProbeHashTable {
    * @param[out] result the value(s) associated with a given key
    * @return the value(s) associated with the given key
    */
-  auto GetValue(Transaction *transaction, const KeyType &key, std::vector<ValueType> *result) -> bool;
+  auto GetValue(const KeyType &key, std::vector<ValueType> *result) -> bool;
 
   /**
    * Resizes the table to at least twice the initial size provided.
@@ -89,7 +88,7 @@ class LinearProbeHashTable {
   void ResizeInsert(HashTableHeaderPage *header_page, const KeyType &key, const ValueType &value);
   void DeleteBlockPages(HashTableHeaderPage *old_header_page);
   void CreateNewBlockPages(HashTableHeaderPage *header_page, size_t num_blocks);
-  auto GetValueLatchFree(Transaction *transaction, const KeyType &key, std::vector<ValueType> *result) -> bool;
+  auto GetValueLatchFree(const KeyType &key, std::vector<ValueType> *result) -> bool;
 
   // member variable
   page_id_t header_page_id_;

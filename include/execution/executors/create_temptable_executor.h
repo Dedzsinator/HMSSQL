@@ -18,9 +18,8 @@ class CreateTempTableExecutor : public AbstractExecutor {
   bool Next(Tuple *tuple, RID *rid) override {
     // Execute the create temp table plan
     auto catalog = exec_ctx_->GetCatalog();
-    auto txn = exec_ctx_->GetTransaction();
     Schema schema(plan_->GetColumns());
-    catalog->CreateTempTable(txn, plan_->GetTableName(), schema);
+    catalog->CreateTempTable(plan_->GetTableName(), schema);
     return false;
   }
 

@@ -14,7 +14,6 @@
 #include <cassert>
 
 #include "../include/common/rid.h"
-#include "../include/concurrency/transaction.h"
 #include "../include/storage/table/tuple.h"
 
 namespace hmssql {
@@ -28,10 +27,10 @@ class TableIterator {
   friend class Cursor;
 
  public:
-  TableIterator(TableHeap *table_heap, RID rid, Transaction *txn);
+  TableIterator(TableHeap *table_heap, RID rid);
 
   TableIterator(const TableIterator &other)
-      : table_heap_(other.table_heap_), tuple_(new Tuple(*other.tuple_)), txn_(other.txn_) {}
+      : table_heap_(other.table_heap_), tuple_(new Tuple(*other.tuple_)) {}
 
   ~TableIterator() { delete tuple_; }
 
@@ -52,14 +51,12 @@ class TableIterator {
   auto operator=(const TableIterator &other) -> TableIterator & {
     table_heap_ = other.table_heap_;
     *tuple_ = *other.tuple_;
-    txn_ = other.txn_;
     return *this;
   }
 
  private:
   TableHeap *table_heap_;
   Tuple *tuple_;
-  Transaction *txn_;
 };
 
 }  // namespace hmssql

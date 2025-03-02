@@ -16,7 +16,6 @@
 #include <unordered_map>
 
 #include "../include/buffer/buffer_pool_manager.h"
-#include "../include/concurrency/lock_manager.h"
 #include "../include/recovery/log_record.h"
 
 namespace hmssql {

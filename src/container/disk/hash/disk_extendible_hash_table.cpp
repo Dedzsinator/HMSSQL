@@ -22,7 +22,7 @@ namespace hmssql {
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
 HASH_TABLE_TYPE::DiskExtendibleHashTable(const std::string &name, BufferPoolManager *buffer_pool_manager,
-                                         const KeyComparator &comparator, HashFunction<KeyType> hash_fn)
+                                        const KeyComparator &comparator, HashFunction<KeyType> hash_fn)
     : buffer_pool_manager_(buffer_pool_manager), comparator_(comparator), hash_fn_(std::move(hash_fn)) {
   //  implement me!
 }
@@ -66,7 +66,7 @@ auto HASH_TABLE_TYPE::FetchBucketPage(page_id_t bucket_page_id) -> HASH_TABLE_BU
  * SEARCH
  *****************************************************************************/
 template <typename KeyType, typename ValueType, typename KeyComparator>
-auto HASH_TABLE_TYPE::GetValue(Transaction *transaction, const KeyType &key, std::vector<ValueType> *result) -> bool {
+auto HASH_TABLE_TYPE::GetValue(const KeyType &key, std::vector<ValueType> *result) -> bool {
   return false;
 }
 
@@ -74,12 +74,12 @@ auto HASH_TABLE_TYPE::GetValue(Transaction *transaction, const KeyType &key, std
  * INSERTION
  *****************************************************************************/
 template <typename KeyType, typename ValueType, typename KeyComparator>
-auto HASH_TABLE_TYPE::Insert(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool {
+auto HASH_TABLE_TYPE::Insert(const KeyType &key, const ValueType &value) -> bool {
   return false;
 }
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
-auto HASH_TABLE_TYPE::SplitInsert(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool {
+auto HASH_TABLE_TYPE::SplitInsert(const KeyType &key, const ValueType &value) -> bool {
   return false;
 }
 
@@ -87,7 +87,7 @@ auto HASH_TABLE_TYPE::SplitInsert(Transaction *transaction, const KeyType &key, 
  * REMOVE
  *****************************************************************************/
 template <typename KeyType, typename ValueType, typename KeyComparator>
-auto HASH_TABLE_TYPE::Remove(Transaction *transaction, const KeyType &key, const ValueType &value) -> bool {
+auto HASH_TABLE_TYPE::Remove(const KeyType &key, const ValueType &value) -> bool {
   return false;
 }
 
@@ -95,7 +95,7 @@ auto HASH_TABLE_TYPE::Remove(Transaction *transaction, const KeyType &key, const
  * MERGE
  *****************************************************************************/
 template <typename KeyType, typename ValueType, typename KeyComparator>
-void HASH_TABLE_TYPE::Merge(Transaction *transaction, const KeyType &key, const ValueType &value) {}
+void HASH_TABLE_TYPE::Merge(const KeyType &key, const ValueType &value) {}
 
 /*****************************************************************************
  * GETGLOBALDEPTH - DO NOT TOUCH

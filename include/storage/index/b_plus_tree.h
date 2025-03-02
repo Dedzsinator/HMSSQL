@@ -9,7 +9,6 @@
 #include <string>
 #include <vector>
 
-#include "../include/concurrency/transaction.h"
 #include "../include/storage/index/index_iterator.h"
 #include "../include/storage/page/b_plus_tree_internal_page.h"
 #include "../include/storage/page/b_plus_tree_leaf_page.h"
@@ -45,13 +44,13 @@ class BPlusTree {
   auto IsEmpty() const -> bool;
 
   // Insert a key-value pair into this B+ tree.
-  auto Insert(const KeyType &key, const ValueType &value, Transaction *transaction = nullptr) -> bool;
+  auto Insert(const KeyType &key, const ValueType &value) -> bool;
 
   // Remove a key and its value from this B+ tree.
-  void Remove(const KeyType &key, Transaction *transaction = nullptr);
+  void Remove(const KeyType &key);
 
   // return the value associated with a given key
-  auto GetValue(const KeyType &key, std::vector<ValueType> *result, Transaction *transaction = nullptr) -> bool;
+  auto GetValue(const KeyType &key, std::vector<ValueType> *result) -> bool;
 
   // return the page id of the root node
   auto GetRootPageId() -> page_id_t;
@@ -68,14 +67,13 @@ class BPlusTree {
   void Draw(BufferPoolManager *bpm, const std::string &outf);
 
   // read data from file and insert one by one
-  void InsertFromFile(const std::string &file_name, Transaction *transaction = nullptr);
+  void InsertFromFile(const std::string &file_name);
 
   // read data from file and remove one by one
-  void RemoveFromFile(const std::string &file_name, Transaction *transaction = nullptr);
+  void RemoveFromFile(const std::string &file_name);
 
-  auto FindLeaf(const KeyType &key, Operation operation, Transaction *transaction = nullptr, bool leftMost = false,
-                bool rightMost = false) -> Page *;
-  void ReleaseLatchFromQueue(Transaction *transaction);
+  auto FindLeaf(const KeyType &key, Operation operation, bool leftMost = false,
+    bool rightMost = false) -> Page *;
 
  private:
   void UpdateRootPageId(int insert_record = 0);
@@ -87,20 +85,18 @@ class BPlusTree {
 
   void StartNewTree(const KeyType &key, const ValueType &value);
 
-  auto InsertIntoLeaf(const KeyType &key, const ValueType &value, Transaction *transaction = nullptr) -> bool;
+  auto InsertIntoLeaf(const KeyType &key, const ValueType &value) -> bool;
 
-  void InsertIntoParent(BPlusTreePage *old_node, const KeyType &key, BPlusTreePage *new_node,
-                        Transaction *transaction = nullptr);
+  void InsertIntoParent(BPlusTreePage *old_node, const KeyType &key, BPlusTreePage *new_node);
 
   template <typename N>
   auto Split(N *node) -> N *;
 
   template <typename N>
-  auto CoalesceOrRedistribute(N *node, Transaction *transaction = nullptr) -> bool;
+  auto CoalesceOrRedistribute(N *node) -> bool;
 
   template <typename N>
-  auto Coalesce(N *neighbor_node, N *node, BPlusTreeInternalPage<KeyType, page_id_t, KeyComparator> *parent, int index,
-                Transaction *transaction = nullptr) -> bool;
+  auto Coalesce(N *neighbor_node, N *node, BPlusTreeInternalPage<KeyType, page_id_t, KeyComparator> *parent, int index) -> bool;
 
   template <typename N>
   void Redistribute(N *neighbor_node, N *node, BPlusTreeInternalPage<KeyType, page_id_t, KeyComparator> *parent,

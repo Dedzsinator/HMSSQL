@@ -35,26 +35,51 @@
 namespace hmssql {
 
 auto Binder::BindValuesList(duckdb_libpgquery::PGList *list) -> std::unique_ptr<BoundExpressionListRef> {
-  std::vector<std::vector<std::unique_ptr<BoundExpression>>> all_values;
-
-  for (auto value_list = list->head; value_list != nullptr; value_list = value_list->next) {
-    auto target = static_cast<duckdb_libpgquery::PGList *>(value_list->data.ptr_value);
-
-    auto values = BindExpressionList(target);
-
-    if (!all_values.empty()) {
-      if (all_values[0].size() != values.size()) {
-        throw hmssql::Exception("values must have the same length");
+  auto values = std::vector<std::vector<std::unique_ptr<BoundExpression>>>();
+  
+  // Create an empty table ref if we don't have a current scope
+  std::unique_ptr<BoundTableRef> empty_ref = nullptr;
+  const BoundTableRef* original_scope = scope_;
+  bool created_new_scope = false;
+  
+  if (scope_ == nullptr) {
+    empty_ref = std::make_unique<BoundTableRef>(TableReferenceType::EMPTY);
+    scope_ = empty_ref.get();
+    created_new_scope = true;
+  }
+  
+  try {
+    for (auto node = list->head; node != nullptr; node = node->next) {
+      auto target = reinterpret_cast<duckdb_libpgquery::PGNode *>(node->data.ptr_value);
+      switch (target->type) {
+        case duckdb_libpgquery::T_PGList: {
+          auto expr_list = BindExpressionList(reinterpret_cast<duckdb_libpgquery::PGList *>(target));
+          values.push_back(std::move(expr_list));
+          break;
+        }
+        default:
+          throw hmssql::Exception(fmt::format("Values list contains an unsupported node type: {}", 
+                                            NodeTagToString(target->type)));
       }
     }
-    all_values.push_back(std::move(values));
+  } catch (...) {
+    // Ensure scope is restored even if an exception occurs
+    if (created_new_scope) {
+      scope_ = original_scope;
+    }
+    throw;
   }
-
-  if (all_values.empty()) {
-    throw hmssql::Exception("at least one row of values should be provided");
+  
+  // Restore original scope
+  if (created_new_scope) {
+    scope_ = original_scope;
   }
-
-  return std::make_unique<BoundExpressionListRef>(std::move(all_values), "<unnamed>");
+  
+  // Create a unique identifier for this values list
+  std::string identifier = fmt::format("__values#{}", universal_id_++);
+  
+  // Use the constructor with parameters instead of default constructor
+  return std::make_unique<BoundExpressionListRef>(std::move(values), identifier);
 }
 
 auto Binder::BindSubquery(duckdb_libpgquery::PGSelectStmt *node, const std::string &alias)
@@ -667,12 +692,24 @@ auto Binder::ResolveColumnInternal(const BoundTableRef &table_ref, const std::ve
 
 auto Binder::ResolveColumn(const BoundTableRef &scope, const std::vector<std::string> &col_name)
     -> std::unique_ptr<BoundExpression> {
-  BUSTUB_ASSERT(!scope.IsInvalid(), "invalid scope");
-  auto expr = ResolveColumnInternal(scope, col_name);
-  if (!expr) {
-    throw hmssql::Exception(fmt::format("column {} not found", fmt::join(col_name, ".")));
+  // Remove the null check for the reference - references cannot be null
+  // Instead, check if the scope type is INVALID
+  if (scope.IsInvalid()) {
+    throw Exception(fmt::format("Column reference {} in expression without FROM clause", fmt::join(col_name, ".")));
   }
-  return expr;
+  
+  // Handle empty references
+  if (scope.type_ == TableReferenceType::EMPTY) {
+    // For VALUES lists, columns references can't be resolved
+    throw Exception(fmt::format("Cannot use column reference {} with VALUES clause", fmt::join(col_name, ".")));
+  }
+
+  auto expr = ResolveColumnInternal(scope, col_name);
+  if (expr != nullptr) {
+    return expr;
+  }
+
+  throw Exception(fmt::format("Column {} not found", fmt::join(col_name, ".")));
 }
 
 auto Binder::BindWhere(duckdb_libpgquery::PGNode *root) -> std::unique_ptr<BoundExpression> {

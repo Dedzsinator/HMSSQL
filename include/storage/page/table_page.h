@@ -14,7 +14,6 @@
 #include <cstring>
 
 #include "../include/common/rid.h"
-#include "../include/concurrency/lock_manager.h"
 #include "../include/recovery/log_manager.h"
 #include "../include/storage/page/page.h"
 #include "../include/storage/table/tuple.h"
@@ -48,9 +47,8 @@ class TablePage : public Page {
    * @param page_size the size of this table page
    * @param prev_page_id the previous table page ID
    * @param log_manager the log manager in use
-   * @param txn the transaction that this page is created in
    */
-  void Init(page_id_t page_id, uint32_t page_size, page_id_t prev_page_id, LogManager *log_manager, Transaction *txn);
+  void Init(page_id_t page_id, uint32_t page_size, page_id_t prev_page_id, LogManager *log_manager);
 
   /** @return the page ID of this table page */
   auto GetTablePageId() -> page_id_t { return *reinterpret_cast<page_id_t *>(GetData()); }
@@ -75,54 +73,37 @@ class TablePage : public Page {
    * Insert a tuple into the table.
    * @param tuple tuple to insert
    * @param[out] rid rid of the inserted tuple
-   * @param txn transaction performing the insert
-   * @param lock_manager the lock manager
-   * @param log_manager the log manager
+   * @param log_manager log manager for logging
    * @return true if the insert is successful (i.e. there is enough space)
    */
-  auto InsertTuple(const Tuple &tuple, RID *rid, Transaction *txn, LockManager *lock_manager, LogManager *log_manager)
-      -> bool;
+  auto InsertTuple(const Tuple &tuple, RID *rid, LogManager *log_manager) -> bool;
 
   /**
    * Mark a tuple as deleted. This does not actually delete the tuple.
    * @param rid rid of the tuple to mark as deleted
-   * @param txn transaction performing the delete
-   * @param lock_manager the lock manager
-   * @param log_manager the log manager
    * @return true if marking the tuple as deleted is successful (i.e the tuple exists)
    */
-  auto MarkDelete(const RID &rid, Transaction *txn, LockManager *lock_manager, LogManager *log_manager) -> bool;
+  auto MarkDelete(const RID &rid) -> bool;
 
   /**
    * Update a tuple.
    * @param new_tuple new value of the tuple
    * @param[out] old_tuple old value of the tuple
    * @param rid rid of the tuple
-   * @param txn transaction performing the update
-   * @param lock_manager the lock manager
-   * @param log_manager the log manager
    * @return true if updating the tuple succeeded
    */
-  auto UpdateTuple(const Tuple &new_tuple, Tuple *old_tuple, const RID &rid, Transaction *txn,
-                   LockManager *lock_manager, LogManager *log_manager) -> bool;
+  auto UpdateTuple(const Tuple &new_tuple, Tuple *old_tuple, const RID &rid) -> bool;
 
   /** To be called on commit or abort. Actually perform the delete or rollback an insert. */
-  void ApplyDelete(const RID &rid, Transaction *txn, LogManager *log_manager);
-
-  /** To be called on abort. Rollback a delete, i.e. this reverses a MarkDelete. */
-  void RollbackDelete(const RID &rid, Transaction *txn, LogManager *log_manager);
+  void ApplyDelete(const RID &rid);
 
   /**
    * Read a tuple from a table.
    * @param rid rid of the tuple to read
    * @param[out] tuple the tuple that was read
-   * @param txn transaction performing the read
-   * @param lock_manager the lock manager
    * @return true if the read is successful (i.e. the tuple exists)
    */
-  auto GetTuple(const RID &rid, Tuple *tuple, Transaction *txn, LockManager *lock_manager) -> bool;
-
-  /** @return the rid of the first tuple in this page */
+  auto GetTuple(const RID &rid, Tuple *tuple) -> bool;
 
   /**
    * @param[out] first_rid the RID of the first tuple in this page

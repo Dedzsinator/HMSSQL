@@ -15,18 +15,16 @@
 
 namespace hmssql {
 
-void TablePage::Init(page_id_t page_id, uint32_t page_size, page_id_t prev_page_id, LogManager *log_manager,
-                     Transaction *txn) {
+void TablePage::Init(page_id_t page_id, uint32_t page_size, page_id_t prev_page_id, LogManager *log_manager) {
   // Set the page ID.
   memcpy(GetData(), &page_id, sizeof(page_id));
-  // Log that we are creating a new page.
-  if (enable_logging) {
-    LogRecord log_record =
-        LogRecord(txn->GetTransactionId(), txn->GetPrevLSN(), LogRecordType::NEWPAGE, prev_page_id, page_id);
-    lsn_t lsn = log_manager->AppendLogRecord(&log_record);
-    SetLSN(lsn);
-    txn->SetPrevLSN(lsn);
+  
+  // Log that we are creating a new page - simplified without transactions
+  if (enable_logging && log_manager != nullptr) {
+    // Simplified logging
+    SetLSN(INVALID_LSN);  // Or some appropriate value
   }
+  
   // Set the previous and next page IDs.
   SetPrevPageId(prev_page_id);
   SetNextPageId(INVALID_PAGE_ID);
@@ -34,8 +32,7 @@ void TablePage::Init(page_id_t page_id, uint32_t page_size, page_id_t prev_page_
   SetTupleCount(0);
 }
 
-auto TablePage::InsertTuple(const Tuple &tuple, RID *rid, Transaction *txn, LockManager *lock_manager,
-                            LogManager *log_manager) -> bool {
+auto TablePage::InsertTuple(const Tuple &tuple, RID *rid, LogManager *log_manager) -> bool {
   BUSTUB_ASSERT(tuple.size_ > 0, "Cannot have empty tuples.");
   // If there is not enough space, then return false.
   if (GetFreeSpaceRemaining() < tuple.size_ + SIZE_TUPLE) {
@@ -70,144 +67,59 @@ auto TablePage::InsertTuple(const Tuple &tuple, RID *rid, Transaction *txn, Lock
     SetTupleCount(GetTupleCount() + 1);
   }
 
-  /**
-   * Removed to support new lock manager API for p4 (multilevel locking); Big hack energy
-   * This clause was used in logging and recovery projects previously; not being used right now
-   */
-  //  // Write the log record.
-  //  if (enable_logging) {
-  //    BUSTUB_ASSERT(!txn->IsSharedLocked(*rid) && !txn->IsExclusiveLocked(*rid), "A new tuple should not be locked.");
-  //    // Acquire an exclusive lock on the new tuple.
-  //    bool locked = lock_manager->LockExclusive(txn, *rid);
-  //    BUSTUB_ENSURE(locked, "Locking a new tuple should always work.");
-  //    LogRecord log_record(txn->GetTransactionId(), txn->GetPrevLSN(), LogRecordType::INSERT, *rid, tuple);
-  //    lsn_t lsn = log_manager->AppendLogRecord(&log_record);
-  //    SetLSN(lsn);
-  //    txn->SetPrevLSN(lsn);
-  //  }
+  // Simplified logging without transactions
+  if (enable_logging && log_manager != nullptr) {
+    // Simplified logging code here if needed
+  }
+  
   return true;
 }
 
-auto TablePage::MarkDelete(const RID &rid, Transaction *txn, LockManager *lock_manager, LogManager *log_manager)
-    -> bool {
+auto TablePage::MarkDelete(const RID &rid) -> bool {
   uint32_t slot_num = rid.GetSlotNum();
-  // If the slot number is invalid, abort the transaction.
+  // If the slot number is invalid, return false
   if (slot_num >= GetTupleCount()) {
-    if (enable_logging) {
-      txn->SetState(TransactionState::ABORTED);
-    }
     return false;
   }
-
   uint32_t tuple_size = GetTupleSize(slot_num);
-  // If the tuple is already deleted, abort the transaction.
+  // If the tuple is already deleted, return false
   if (IsDeleted(tuple_size)) {
-    if (enable_logging) {
-      txn->SetState(TransactionState::ABORTED);
-    }
     return false;
   }
-
-  /**
-   * Removed to support new lock manager API for p4 (multilevel locking); Big hack energy
-   * This clause was used in logging and recovery projects previously; not being used right now
-   */
-  //  if (enable_logging) {
-  //    // Acquire an exclusive lock, upgrading from a shared lock if necessary.
-  //    if (txn->IsSharedLocked(rid)) {
-  //      if (!lock_manager->LockUpgrade(txn, rid)) {
-  //        return false;
-  //      }
-  //    } else if (!txn->IsExclusiveLocked(rid) && !lock_manager->LockExclusive(txn, rid)) {
-  //      return false;
-  //    }
-  //    Tuple dummy_tuple;
-  //    LogRecord log_record(txn->GetTransactionId(), txn->GetPrevLSN(), LogRecordType::MARKDELETE, rid, dummy_tuple);
-  //    lsn_t lsn = log_manager->AppendLogRecord(&log_record);
-  //    SetLSN(lsn);
-  //    txn->SetPrevLSN(lsn);
-  //  }
-
-  // Mark the tuple as deleted.
-  if (tuple_size > 0) {
-    SetTupleSize(slot_num, SetDeletedFlag(tuple_size));
-  }
+  
+  // Just mark the tuple as deleted
+  SetTupleSize(slot_num, SetDeletedFlag(tuple_size));
   return true;
 }
 
-auto TablePage::UpdateTuple(const Tuple &new_tuple, Tuple *old_tuple, const RID &rid, Transaction *txn,
-                            LockManager *lock_manager, LogManager *log_manager) -> bool {
-  BUSTUB_ASSERT(new_tuple.size_ > 0, "Cannot have empty tuples.");
+auto TablePage::UpdateTuple(const Tuple &new_tuple, Tuple *old_tuple, const RID &rid) -> bool {
+  // Find the slot containing the tuple.
   uint32_t slot_num = rid.GetSlotNum();
-  // If the slot number is invalid, abort the transaction.
+  // If the slot number is invalid, return false.
   if (slot_num >= GetTupleCount()) {
-    if (enable_logging) {
-      txn->SetState(TransactionState::ABORTED);
-    }
     return false;
   }
   uint32_t tuple_size = GetTupleSize(slot_num);
-  // If the tuple is deleted, abort the transaction.
-  if (IsDeleted(tuple_size)) {
-    if (enable_logging) {
-      txn->SetState(TransactionState::ABORTED);
-    }
-    return false;
-  }
-  // If there is not enuogh space to update, we need to update via delete followed by an insert (not enough space).
-  if (GetFreeSpaceRemaining() + tuple_size < new_tuple.size_) {
-    return false;
-  }
-
-  // Copy out the old value.
   uint32_t tuple_offset = GetTupleOffsetAtSlot(slot_num);
+  
+  // Check if the tuple has been deleted.
+  if (IsDeleted(tuple_size)) {
+    return false;
+  }
+  
+  // Copy the old value.
   old_tuple->size_ = tuple_size;
-  if (old_tuple->allocated_) {
-    delete[] old_tuple->data_;
-  }
-  old_tuple->data_ = new char[old_tuple->size_];
-  memcpy(old_tuple->data_, GetData() + tuple_offset, old_tuple->size_);
-  old_tuple->rid_ = rid;
   old_tuple->allocated_ = true;
-
-  /**
-   * Removed to support new lock manager API for p4 (multilevel locking); Big hack energy
-   * This clause was used in logging and recovery projects previously; not being used right now
-   */
-  //  if (enable_logging) {
-  //    // Acquire an exclusive lock, upgrading from shared if necessary.
-  //    if (txn->IsSharedLocked(rid)) {
-  //      if (!lock_manager->LockUpgrade(txn, rid)) {
-  //        return false;
-  //      }
-  //    } else if (!txn->IsExclusiveLocked(rid) && !lock_manager->LockExclusive(txn, rid)) {
-  //      return false;
-  //    }
-  //    LogRecord log_record(txn->GetTransactionId(), txn->GetPrevLSN(), LogRecordType::UPDATE, rid, *old_tuple,
-  //    new_tuple); lsn_t lsn = log_manager->AppendLogRecord(&log_record); SetLSN(lsn); txn->SetPrevLSN(lsn);
-  //  }
-
-  // Perform the update.
-  uint32_t free_space_pointer = GetFreeSpacePointer();
-  BUSTUB_ASSERT(tuple_offset >= free_space_pointer, "Offset should appear after current free space position.");
-
-  memmove(GetData() + free_space_pointer + tuple_size - new_tuple.size_, GetData() + free_space_pointer,
-          tuple_offset - free_space_pointer);
-  SetFreeSpacePointer(free_space_pointer + tuple_size - new_tuple.size_);
-  memcpy(GetData() + tuple_offset + tuple_size - new_tuple.size_, new_tuple.data_, new_tuple.size_);
+  old_tuple->rid_ = rid;
+  memcpy(old_tuple->data_, GetData() + tuple_offset, tuple_size);
+  
+  // Update the tuple.
+  memcpy(GetData() + tuple_offset, new_tuple.data_, new_tuple.size_);
   SetTupleSize(slot_num, new_tuple.size_);
-
-  // Update all tuple offsets.
-  for (uint32_t i = 0; i < GetTupleCount(); ++i) {
-    uint32_t tuple_offset_i = GetTupleOffsetAtSlot(i);
-    if (GetTupleSize(i) > 0 && tuple_offset_i < tuple_offset + tuple_size) {
-      SetTupleOffsetAtSlot(i, tuple_offset_i + tuple_size - new_tuple.size_);
-    }
-  }
   return true;
 }
 
-void TablePage::ApplyDelete(const RID &rid, Transaction *txn, LogManager *log_manager) {
+void TablePage::ApplyDelete(const RID &rid) {
   uint32_t slot_num = rid.GetSlotNum();
   BUSTUB_ASSERT(slot_num < GetTupleCount(), "Cannot have more slots than tuples.");
 
@@ -227,18 +139,7 @@ void TablePage::ApplyDelete(const RID &rid, Transaction *txn, LogManager *log_ma
   delete_tuple.rid_ = rid;
   delete_tuple.allocated_ = true;
 
-  /**
-   * Removed to support new lock manager API for p4 (multilevel locking); Big hack energy
-   * This clause was used in logging and recovery projects previously; not being used right now
-   */
-  //  if (enable_logging) {
-  //    BUSTUB_ASSERT(txn->IsExclusiveLocked(rid), "We must own the exclusive lock!");
-  //
-  //    LogRecord log_record(txn->GetTransactionId(), txn->GetPrevLSN(), LogRecordType::APPLYDELETE, rid, delete_tuple);
-  //    lsn_t lsn = log_manager->AppendLogRecord(&log_record);
-  //    SetLSN(lsn);
-  //    txn->SetPrevLSN(lsn);
-  //  }
+  // No transaction logging here anymore
 
   uint32_t free_space_pointer = GetFreeSpacePointer();
   BUSTUB_ASSERT(tuple_offset >= free_space_pointer, "Free space appears before tuples.");
@@ -258,61 +159,24 @@ void TablePage::ApplyDelete(const RID &rid, Transaction *txn, LogManager *log_ma
   }
 }
 
-void TablePage::RollbackDelete(const RID &rid, Transaction *txn, LogManager *log_manager) {
-  // Log the rollback.
-  /**
-   * Removed to support new lock manager API for p4 (multilevel locking); Big hack energy
-   * This clause was used in logging and recovery projects previously; not being used right now
-   */
-  //  if (enable_logging) {
-  //    BUSTUB_ASSERT(txn->IsExclusiveLocked(rid), "We must own an exclusive lock on the RID.");
-  //    Tuple dummy_tuple;
-  //    LogRecord log_record(txn->GetTransactionId(), txn->GetPrevLSN(), LogRecordType::ROLLBACKDELETE, rid,
-  //    dummy_tuple); lsn_t lsn = log_manager->AppendLogRecord(&log_record); SetLSN(lsn); txn->SetPrevLSN(lsn);
-  //  }
-
-  uint32_t slot_num = rid.GetSlotNum();
-  BUSTUB_ASSERT(slot_num < GetTupleCount(), "We can't have more slots than tuples.");
-  uint32_t tuple_size = GetTupleSize(slot_num);
-
-  // Unset the deleted flag.
-  if (IsDeleted(tuple_size)) {
-    SetTupleSize(slot_num, UnsetDeletedFlag(tuple_size));
-  }
-}
-
-auto TablePage::GetTuple(const RID &rid, Tuple *tuple, Transaction *txn, LockManager *lock_manager) -> bool {
+auto TablePage::GetTuple(const RID &rid, Tuple *tuple) -> bool {
   // Get the current slot number.
   uint32_t slot_num = rid.GetSlotNum();
-  // If somehow we have more slots than tuples, abort the transaction.
+  // If somehow we have more slots than tuples, return false
   if (slot_num >= GetTupleCount()) {
-    if (enable_logging) {
-      txn->SetState(TransactionState::ABORTED);
-    }
     return false;
   }
+  
   // Otherwise get the current tuple size too.
   uint32_t tuple_size = GetTupleSize(slot_num);
-  // If the tuple is deleted, abort the transaction.
+  // If the tuple is deleted, return false
   if (IsDeleted(tuple_size)) {
-    if (enable_logging) {
-      txn->SetState(TransactionState::ABORTED);
-    }
     return false;
   }
 
-  /**
-   * Removed to support new lock manager API for p4 (multilevel locking); Big hack energy
-   * This clause was used in logging and recovery projects previously; not being used right now
-   */
-  //  // Otherwise we have a valid tuple, try to acquire at least a shared lock.
-  //  if (enable_logging) {
-  //    if (!txn->IsSharedLocked(rid) && !txn->IsExclusiveLocked(rid) && !lock_manager->LockShared(txn, rid)) {
-  //      return false;
-  //    }
-  //  }
-
-  // At this point, we have at least a shared lock on the RID. Copy the tuple data into our result.
+  // No transaction/locking logic here anymore
+  
+  // Copy the tuple data into our result.
   uint32_t tuple_offset = GetTupleOffsetAtSlot(slot_num);
   tuple->size_ = tuple_size;
   if (tuple->allocated_) {

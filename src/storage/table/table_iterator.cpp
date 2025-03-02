@@ -12,15 +12,14 @@
 #include <cassert>
 
 #include "../include/common/exception.h"
-#include "../include/concurrency/transaction.h"
 #include "../include/storage/table/table_heap.h"
 
 namespace hmssql {
 
-TableIterator::TableIterator(TableHeap *table_heap, RID rid, Transaction *txn)
-    : table_heap_(table_heap), tuple_(new Tuple(rid)), txn_(txn) {
+TableIterator::TableIterator(TableHeap *table_heap, RID rid)
+    : table_heap_(table_heap), tuple_(new Tuple(rid)) {
   if (rid.GetPageId() != INVALID_PAGE_ID) {
-    if (!table_heap_->GetTuple(tuple_->rid_, tuple_, txn_)) {
+    if (!table_heap_->GetTuple(tuple_->rid_, tuple_)) {
       throw hmssql::Exception("read non-existing tuple");
     }
   }
@@ -61,7 +60,7 @@ auto TableIterator::operator++() -> TableIterator & {
   if (*this != table_heap_->End()) {
     // DO NOT ACQUIRE READ LOCK twice in a single thread otherwise it may deadlock.
     // See https://users.rust-lang.org/t/how-bad-is-the-potential-deadlock-mentioned-in-rwlocks-document/67234
-    if (!table_heap_->GetTuple(tuple_->rid_, tuple_, txn_, false)) {
+    if (!table_heap_->GetTuple(tuple_->rid_, tuple_, false)) {
       cur_page->RUnlatch();
       buffer_pool_manager->UnpinPage(cur_page->GetTablePageId(), false);
       throw hmssql::Exception("read non-existing tuple");

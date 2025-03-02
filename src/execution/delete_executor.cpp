@@ -23,15 +23,7 @@ DeleteExecutor::DeleteExecutor(ExecutorContext *exec_ctx, const DeletePlanNode *
 
 void DeleteExecutor::Init() {
   child_executor_->Init();
-  try {
-    bool is_locked = exec_ctx_->GetLockManager()->LockTable(
-        exec_ctx_->GetTransaction(), LockManager::LockMode::INTENTION_EXCLUSIVE, table_info_->oid_);
-    if (!is_locked) {
-      throw ExecutionException("Delete Executor Get Table Lock Failed");
-    }
-  } catch (const TransactionAbortException &e) {  // Catch by reference
-    throw ExecutionException("Delete Executor Get Table Lock Failed");
-  }
+  // No transaction locking here anymore
   table_indexes_ = exec_ctx_->GetCatalog()->GetTableIndexes(table_info_->name_);
 }
 
@@ -44,24 +36,17 @@ auto DeleteExecutor::Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool {
   int32_t delete_count = 0;
 
   while (child_executor_->Next(&to_delete_tuple, &emit_rid)) {
-    try {
-      bool is_locked = exec_ctx_->GetLockManager()->LockRow(
-          exec_ctx_->GetTransaction(), LockManager::LockMode::EXCLUSIVE, table_info_->oid_, emit_rid);
-      if (!is_locked) {
-        throw ExecutionException("Delete Executor Get Row Lock Failed");
-      }
-    } catch (const TransactionAbortException &e) {  // Catch by reference
-      throw ExecutionException("Delete Executor Get Row Lock Failed");
-    }
-
-    bool deleted = table_info_->table_->MarkDelete(emit_rid, exec_ctx_->GetTransaction());
+    // No transaction locking here anymore
+    
+    // Simply delete the tuple directly
+    bool deleted = table_info_->table_->MarkDelete(emit_rid);
 
     if (deleted) {
+      // Update indexes without transaction
       std::for_each(table_indexes_.begin(), table_indexes_.end(),
-                    [&to_delete_tuple, &rid, &table_info = table_info_, &exec_ctx = exec_ctx_](IndexInfo *index) {
+                    [&to_delete_tuple, &emit_rid, &table_info = table_info_](IndexInfo *index) {
                       index->index_->DeleteEntry(to_delete_tuple.KeyFromTuple(table_info->schema_, index->key_schema_,
-                                                                              index->index_->GetKeyAttrs()),
-                                                 *rid, exec_ctx->GetTransaction());
+                                                                              index->index_->GetKeyAttrs()), emit_rid);
                     });
       delete_count++;
     }

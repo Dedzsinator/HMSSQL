@@ -77,7 +77,7 @@ void TableGenerator::FillTable(TableInfo *info, TableInsertMeta *table_meta) {
         entry.emplace_back(col[i]);
       }
       RID rid;
-      bool inserted = info->table_->InsertTuple(Tuple(entry, &info->schema_), &rid, exec_ctx_->GetTransaction());
+      bool inserted = info->table_->InsertTuple(Tuple(entry, &info->schema_), &rid);
       BUSTUB_ENSURE(inserted, "Sequential insertion cannot fail");
       num_inserted++;
     }
@@ -181,7 +181,7 @@ void TableGenerator::GenerateTestTables() {
       }
     }
     Schema schema(cols);
-    auto info = exec_ctx_->GetCatalog()->CreateTable(exec_ctx_->GetTransaction(), table_meta.name_, schema);
+    auto info = exec_ctx_->GetCatalog()->CreateTable(table_meta.name_, schema);
     FillTable(info, &table_meta);
   }
 }
