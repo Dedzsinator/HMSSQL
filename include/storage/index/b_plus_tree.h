@@ -8,12 +8,17 @@
 #include <queue>
 #include <string>
 #include <vector>
+#include <chrono>
+#include <iomanip>
+#include <fstream>
+#include <filesystem>
 
 #include "../include/storage/index/index_iterator.h"
 #include "../include/storage/page/b_plus_tree_internal_page.h"
 #include "../include/storage/page/b_plus_tree_leaf_page.h"
 
 #include "../include/common/rwlatch.h"
+#include "../../../third_party/json/json.hpp"
 
 namespace hmssql {
 
@@ -40,6 +45,7 @@ class BPlusTree {
   explicit BPlusTree(std::string name, BufferPoolManager *buffer_pool_manager, const KeyComparator &comparator,
                      int leaf_max_size = LEAF_PAGE_SIZE, int internal_max_size = INTERNAL_PAGE_SIZE);
 
+  void ExportTreeAfterOperation(const std::string& operation) const;
   // Returns true if this B+ tree has no keys and values.
   auto IsEmpty() const -> bool;
 
@@ -60,12 +66,6 @@ class BPlusTree {
   auto Begin(const KeyType &key) -> INDEXITERATOR_TYPE;
   auto End() -> INDEXITERATOR_TYPE;
 
-  // print the B+ tree
-  void Print(BufferPoolManager *bpm);
-
-  // draw the B+ tree
-  void Draw(BufferPoolManager *bpm, const std::string &outf);
-
   // read data from file and insert one by one
   void InsertFromFile(const std::string &file_name);
 
@@ -75,13 +75,12 @@ class BPlusTree {
   auto FindLeaf(const KeyType &key, Operation operation, bool leftMost = false,
     bool rightMost = false) -> Page *;
 
+  std::string ExportToJSON(const std::string &json_file = "", bool pretty = true) const;
+
  private:
   void UpdateRootPageId(int insert_record = 0);
 
-  /* Debug Routines for FREE!! */
-  void ToGraph(BPlusTreePage *page, BufferPoolManager *bpm, std::ofstream &out) const;
-
-  void ToString(BPlusTreePage *page, BufferPoolManager *bpm) const;
+  nlohmann::json ExportNodeToJSON(BPlusTreePage *page, BufferPoolManager *bpm) const;
 
   void StartNewTree(const KeyType &key, const ValueType &value);
 

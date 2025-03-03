@@ -2,6 +2,7 @@ add_library(
   hmssql_common
   OBJECT
   hmssql_instance.cpp
+  logger.cpp
   config.cpp
   util/string_util.cpp)
 

@@ -248,3 +248,6 @@ docs/dev
 # ignore html and latex files in docs
 docs/html
 docs/latex
+
+# ignore third_party folder (for simplicity sake)
+third_party
