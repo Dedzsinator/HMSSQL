@@ -186,12 +186,12 @@ SELECT * FROM felhasznalok;
 
 ## 🤝 Kontribúció otletek fontossagi sorrendben
 
-[ ] Tesztek irása !!!
-[ ] Windwos támogatás
-[ ] Desktop frontend
-[ ] Docker támogatás
-[ ] Web felület fejlesztése
-[ ] Dokumentáció frissítése
-[ ] SQL Engine optimalizálása
-[ ] Saját SQL Parser
-[ ] XML (or json) metadata (instead of config.h)
+- [ ] Tesztek irása !!!
+- [ ] Windwos támogatás
+- [ ] Desktop frontend
+- [ ] Docker támogatás
+- [ ] Web felület fejlesztése
+- [ ] Dokumentáció frissítése
+- [ ] SQL Engine optimalizálása
+- [ ] Saját SQL Parser
+- [ ] XML (or json) metadata (instead of config.h)

@@ -125,9 +125,6 @@ install_ubuntu() {
   # Install packages.
   apt-get -y install \
       build-essential \
-      clang-14 \
-      clang-format-14 \
-      clang-tidy-14 \
       cmake \
       doxygen \
       git \
@@ -143,8 +140,6 @@ install_fedora() {
   # Install packages.
   dnf -y install \
       @development-tools \
-      clang \
-      clang-tools-extra \
       cmake \
       doxygen \
       git \
@@ -160,8 +155,6 @@ install_arch() {
   # Install packages.
   pacman -S --noconfirm \
       base-devel \
-      clang \
-      clang-tools-extra \
       cmake \
       doxygen \
       git \
