@@ -51,7 +51,7 @@ megjegyzés, hogy a '-j4' a szálak számát jelenti, amelyeket a fordítás sor
 #### Debug mód
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DISDEBUG=ON ..
 ```
 
 - AddressSanitizer engedélyezve
@@ -61,7 +61,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug ..
 #### Production mód
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Release -DHMSSQL_BUILD_PROD=ON ..
+cmake -DISDEBUG=OFF ..
 ```
 
 - Optimalizált teljesítmény

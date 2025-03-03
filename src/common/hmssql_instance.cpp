@@ -502,6 +502,8 @@ auto HMSSQL::MakeExecutorContext() -> std::unique_ptr<ExecutorContext> {
   return std::make_unique<ExecutorContext>(catalog_, buffer_pool_manager_);
 }
 
+#ifndef ISDEBUG
+
 /**
  * FOR TEST ONLY. Generate test tables in this HMSSQL instance.
  * It's used in the shell to predefine some tables, as we don't support
@@ -524,27 +526,60 @@ void HMSSQL::GenerateMockTable() {
   l.unlock();
 }
 
-HMSSQL::~HMSSQL() {
-  SaveState();
+#endif
 
-  if (enable_logging && log_manager_) {
-    log_manager_->StopFlushThread();
+HMSSQL::~HMSSQL() {
+  // Try to save state, but avoid exceptions during destruction
+  try {
+    if (checkpoint_manager_ != nullptr) {
+      SaveState();
+    }
+  } catch (...) {
+    // Suppress any exceptions during destruction
+    spdlog::error("Error occurred during SaveState in destructor");
   }
 
-  // First clear databases since they contain catalogs
+  // Stop logging thread if active
+  if (enable_logging && log_manager_ != nullptr) {
+    try {
+      log_manager_->StopFlushThread();
+    } catch (...) {
+      // Suppress any exceptions
+    }
+  }
+  
+  // First set catalog_ to null since it's a pointer to something
+  // that will be destroyed when we clear databases_
+  catalog_ = nullptr;
+  
+  // Clear databases (this will delete all Catalog objects)
   databases_.clear();
   
-  // Then delete the execution engine since it might reference the catalog
-  delete execution_engine_;
-  
-  // Delete catalog_ only if it wasn't in the databases_ map
-  if (catalog_ && databases_.empty()) {
-    delete catalog_;
+  // Delete components in proper order
+  if (execution_engine_ != nullptr) {
+    delete execution_engine_;
+    execution_engine_ = nullptr;
   }
   
-  delete log_manager_;
-  delete buffer_pool_manager_;
-  delete disk_manager_;
+  if (checkpoint_manager_ != nullptr) {
+    delete checkpoint_manager_;
+    checkpoint_manager_ = nullptr;
+  }
+  
+  if (log_manager_ != nullptr) {
+    delete log_manager_;
+    log_manager_ = nullptr;
+  }
+  
+  if (buffer_pool_manager_ != nullptr) {
+    delete buffer_pool_manager_;
+    buffer_pool_manager_ = nullptr;
+  }
+  
+  if (disk_manager_ != nullptr) {
+    delete disk_manager_;
+    disk_manager_ = nullptr;
+  }
 }
 
 auto HMSSQL::SaveState() -> bool {

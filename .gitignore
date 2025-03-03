@@ -246,8 +246,10 @@ docs/dev
 *.zip
 
 # ignore html and latex files in docs
-docs/html
-docs/latex
+docs/
+docs/*
+docs/**
 
-# ignore third_party folder (for simplicity sake)
-third_party
+# Ignore third-party libraries (for simplicities sake)
+third_party/
+third_party/**

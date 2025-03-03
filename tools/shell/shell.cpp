@@ -82,9 +82,13 @@ auto main(int argc, char **argv) -> int {
 
   hmssql->GenerateMockTable();
 
+  #ifndef ISDEBUG
+
   if (hmssql->buffer_pool_manager_ != nullptr) {
     hmssql->GenerateTestTable();
   }
+
+  #endif
 
   std::cout << "Welcome to the HMSSQL shell! Type \\help to learn more." << std::endl << std::endl;
 

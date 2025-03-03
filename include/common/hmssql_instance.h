@@ -54,130 +54,6 @@ class ResultWriter {
   bool simplified_output_{false};
 };
 
-class NoopWriter : public ResultWriter {
- public:
-  NoopWriter() = default;
-  void WriteCell(const std::string &cell) override {}
-  void WriteHeaderCell(const std::string &cell) override {}
-  void BeginHeader() override {}
-  void EndHeader() override {}
-  void BeginRow() override {}
-  void EndRow() override {}
-  void BeginTable(bool simplified_output) override {}
-  void EndTable() override {}
-};
-
-class SimpleStreamWriter : public ResultWriter {
- public:
-  explicit SimpleStreamWriter(std::ostream &stream, bool disable_header = false, const char *separator = "\t")
-      : disable_header_(disable_header), stream_(stream), separator_(separator) {}
-  static auto BoldOn(std::ostream &os) -> std::ostream & { return os << "\e[1m"; }
-  static auto BoldOff(std::ostream &os) -> std::ostream & { return os << "\e[0m"; }
-  void WriteCell(const std::string &cell) override { stream_ << cell << separator_; }
-  void WriteHeaderCell(const std::string &cell) override {
-    if (!disable_header_) {
-      stream_ << BoldOn << cell << BoldOff << separator_;
-    }
-  }
-  void BeginHeader() override {}
-  void EndHeader() override {
-    if (!disable_header_) {
-      stream_ << std::endl;
-    }
-  }
-  void BeginRow() override {}
-  void EndRow() override { stream_ << std::endl; }
-  void BeginTable(bool simplified_output) override {}
-  void EndTable() override {}
-
-  bool disable_header_;
-  std::ostream &stream_;
-  std::string separator_;
-};
-
-class HtmlWriter : public ResultWriter {
-  auto Escape(const std::string &data) -> std::string {
-    std::string buffer;
-    buffer.reserve(data.size());
-    for (const char &ch : data) {
-      switch (ch) {
-        case '&':
-          buffer.append("&amp;");
-          break;
-        case '\"':
-          buffer.append("&quot;");
-          break;
-        case '\'':
-          buffer.append("&apos;");
-          break;
-        case '<':
-          buffer.append("&lt;");
-          break;
-        case '>':
-          buffer.append("&gt;");
-          break;
-        default:
-          buffer.push_back(ch);
-          break;
-      }
-    }
-    return buffer;
-  }
-
- public:
-  void WriteCell(const std::string &cell) override {
-    std::cout << cell;
-    if (!simplified_output_) {
-      ss_ << "<td>" << Escape(cell) << "</td>";
-    } else {
-      ss_ << Escape(cell);
-    }
-  }
-  void WriteHeaderCell(const std::string &cell) override {
-    if (!simplified_output_) {
-      ss_ << "<td>" << Escape(cell) << "</td>";
-    } else {
-      ss_ << Escape(cell);
-    }
-  }
-  void BeginHeader() override {
-    if (!simplified_output_) {
-      ss_ << "<thead><tr>";
-    }
-  }
-  void EndHeader() override {
-    if (!simplified_output_) {
-      ss_ << "</tr></thead>";
-    }
-  }
-  void BeginRow() override {
-    if (!simplified_output_) {
-      ss_ << "<tr>";
-    }
-  }
-  void EndRow() override {
-    if (!simplified_output_) {
-      ss_ << "</tr>";
-    }
-  }
-  void BeginTable(bool simplified_output) override {
-    simplified_output_ = simplified_output;
-    if (!simplified_output_) {
-      ss_ << "<table>";
-    } else {
-      ss_ << "<div>";
-    }
-  }
-  void EndTable() override {
-    if (!simplified_output_) {
-      ss_ << "</table>";
-    } else {
-      ss_ << "</div>";
-    }
-  }
-  std::stringstream ss_;
-};
-
 class FortTableWriter : public ResultWriter {
  public:
   void WriteCell(const std::string &cell) override { table_ << cell; }
@@ -240,6 +116,8 @@ class HMSSQL {
    */
   auto ExecuteSqlTxn(const std::string &sql, ResultWriter &writer) -> bool;
 
+  #ifndef ISDEBUG
+
   /**
    * FOR TEST ONLY. Generate test tables in this HMSSQL instance.
    * It's used in the shell to predefine some tables, as we don't support
@@ -253,6 +131,8 @@ class HMSSQL {
    * create / drop table and insert for now. Should remove it in the future.
    */
   void GenerateMockTable();
+
+  #endif
 
   // TODO(chi): change to unique_ptr. Currently they're directly referenced by recovery test, so
   // we cannot do anything on them until someone decides to refactor the recovery test.

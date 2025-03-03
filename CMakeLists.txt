@@ -6,6 +6,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(HMSSQL VERSION 2022.8 DESCRIPTION "The HMSSQL Relational Database Management System (Educational) @ https://github.com/Dedzsinator/HMSSQL" LANGUAGES C CXX)
 
+option(ISDEBUG "Run the code in debug mode" OFF)
+
+if(ISDEBUG)
+    add_compile_definitions(ISDEBUG=1)
+endif()
+
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     message(STATUS "Setting build type to `Debug` as none was specified.")
     set(CMAKE_BUILD_TYPE "Debug")
